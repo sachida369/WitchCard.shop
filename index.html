@@ -7,7 +7,8 @@
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
       font-family: Arial, sans-serif;
       background: url('galaxy-bg.jpg') no-repeat center center fixed;
@@ -16,12 +17,19 @@
       text-align: center;
     }
     h1, h2 { text-shadow: 0px 0px 8px black; }
+    form input, form select {
+      padding: 10px;
+      margin: 8px 0;
+      width: 70%;
+      border-radius: 8px;
+      border: none;
+    }
     #privacyModal {
       display: none;
       position: fixed;
       top: 0; right: 0;
       width: 350px; height: 100%;
-      background: #0d0d2b;
+      background: rgba(13,13,43,0.95);
       color: white;
       padding: 20px;
       overflow-y: auto;
@@ -79,17 +87,17 @@
     <h1>🔮 Destiny Scratch Cards</h1>
     <img src="witch-globe.png" alt="Astrologer Globe" style="max-width:300px; display:block; margin:auto;">
 
-    <form id="userForm">
-      <input type="text" id="name" placeholder="Full Name" required><br><br>
-      <input type="date" id="dob" required><br><br>
-      <input type="text" id="place" placeholder="Birth Place" required><br><br>
-      <input type="time" id="time" required><br><br>
+    <form id="userForm" onsubmit="return validateForm()">
+      <input type="text" id="name" placeholder="Full Name" required><br>
+      <input type="date" id="dob" required><br>
+      <input type="text" id="place" placeholder="Birth Place" required><br>
+      <input type="time" id="time" required><br>
       
       <select id="gender" required>
         <option value="">Select Gender</option>
         <option value="male">Boy</option>
         <option value="female">Girl</option>
-      </select><br><br>
+      </select><br>
 
       <label>
         <input type="checkbox" id="privacyCheck"> 
@@ -132,11 +140,9 @@
   </div>
 
   <script>
-    // Name arrays (short version — replace with 500 each later)
     const boyNames = ["Aarav","Vihaan","Aditya","Arjun","Kabir","Rohan","Yash","Dev"];
     const girlNames = ["Ananya","Priya","Simran","Kavya","Riya","Aarohi","Shruti","Ishita"];
 
-    // Privacy Policy Modal
     function openPrivacyPolicy() {
       document.getElementById('privacyModal').style.display = 'block';
     }
@@ -144,22 +150,26 @@
       document.getElementById('privacyModal').style.display = 'none';
     }
 
-    // Enable Pay Button
     document.getElementById("privacyCheck").addEventListener("change", function() {
       document.getElementById("payButton").disabled = !this.checked;
     });
 
-    // Razorpay Payment
-    function payNow() {
+    function validateForm() {
       const dob = document.getElementById("dob").value;
       const year = new Date(dob).getFullYear();
-      if (year < 1920 || year > 2010) {
-        alert("DOB must be between 1920 and 2010");
-        return;
+      if (!dob || year < 1920 || year > 2010) {
+        alert("Please enter a valid DOB between 1920 and 2010.");
+        return false;
       }
+      return true;
+    }
+
+    function payNow() {
+      if (!validateForm()) return;
+
       var options = {
         "key": "rzp_live_Hd6RirzluzFacK",
-        "amount": 1000, // ₹10
+        "amount": 1000,
         "currency": "INR",
         "name": "Destiny Scratch",
         "description": "Scratch Card Access",
@@ -173,7 +183,6 @@
       rzp1.open();
     }
 
-    // Generate Prediction
     function generatePrediction() {
       const gender = document.getElementById("gender").value;
       let prediction;
@@ -186,7 +195,6 @@
       initScratch();
     }
 
-    // Scratch Functionality
     function initScratch() {
       const canvas = document.getElementById("scratchCard");
       const ctx = canvas.getContext("2d");
@@ -213,7 +221,6 @@
       canvas.addEventListener("touchmove", scratch);
     }
 
-    // Download Badge
     function downloadCard() {
       html2canvas(document.getElementById("result-card")).then(canvas => {
         const link = document.createElement("a");
@@ -223,7 +230,6 @@
       });
     }
 
-    // Share on WhatsApp
     function shareOnWhatsApp() {
       const name = document.getElementById("prediction-text").textContent;
       const url = window.location.href;
