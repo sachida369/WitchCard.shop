@@ -1,11 +1,7 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: url('https://images.unsplash.com/photo-1604079628044-9433f1db1560?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background: url('galaxy-bg.jpg') no-repeat center center fixed;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -13,103 +9,4 @@ body {
   min-height: 100vh;
   padding: 20px;
   color: #fff;
-}
-
-.card {
-  backdrop-filter: blur(14px);
-  background: rgba(0, 0, 0, 0.55);
-  border-radius: 24px;
-  padding: 30px 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-}
-
-.card h1 {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
-}
-
-.main-img {
-  width: 100%;
-  border-radius: 16px;
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-input, select {
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  font-size: 1rem;
-  outline: none;
-}
-
-.checkbox-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  gap: 8px;
-  margin-top: 5px;
-}
-
-.checkbox-row a {
-  color: #f48fb1;
-  text-decoration: none;
-}
-.checkbox-row a:hover {
-  text-decoration: underline;
-}
-
-button {
-  background: #ff4081;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:disabled {
-  background: #aaa;
-  cursor: not-allowed;
-}
-
-/* ✅ Modal for Privacy Policy */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: #1e1e2f;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: left;
-  color: #fff;
-  max-width: 400px;
-  width: 80%;
-}
-.modal-content h3 {
-  margin-top: 0;
-}
-.modal-content button {
-  margin-top: 20px;
-  background-color: #ff4081;
 }
