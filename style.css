@@ -67,6 +67,20 @@ input:focus {
   transform: scale(1.05);
   box-shadow: 0 0 15px gold;
 }
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.witch-card img {
+  width: 300px;
+  max-width: 90vw;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
 
 .card-container {
   text-align: center;
