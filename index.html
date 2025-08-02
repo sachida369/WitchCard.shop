@@ -1,23 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <img src="witch-glob.png" id="cardImage" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Destiny Scratch Cards</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="html2canvas.min.js"></script>
+</head>
 <body>
   <div class="background"></div>
-
+  
   <h1 class="heading">🔮 Unlock Your Destiny ✨</h1>
 
-  <div class="main-container">
-    <img src="witch-globe.png" alt="Witch holding globe" class="witch-img" />
+  <form id="destinyForm" class="glass-card">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="date" id="dob" required />
+    <input type="text" id="place" placeholder="Place of Birth" required />
+    <input type="time" id="time" required />
+    
+    <label class="checkbox">
+      <input type="checkbox" id="agree" />
+      I agree to the <a href="#">Privacy Policy</a>
+    </label>
 
-    <form id="destinyForm" class="glass-card">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="date" id="dob" required />
-      <input type="text" id="place" placeholder="Place of Birth" required />
-      <input type="time" id="time" required />
-      
-      <label>
-        <input type="checkbox" id="agree" />
-        I agree to the <a href="#">Privacy Policy</a>
-      </label>
+    <button type="button" id="payBtn" disabled>Pay ₹10 to Reveal</button>
+  </form>
 
-      <button type="submit">Pay ₹10 to Reveal</button>
-    </form>
+  <div id="cardSection" class="card-container hidden">
+    <div class="card-frame" id="resultCard">
+      <img src="witch-globe.png" id="cardImage" />
+      <canvas id="scratchCanvas" width="200" height="200"></canvas>
+      <div id="predictionText"></div>
+    </div>
+
+    <div class="card-actions">
+      <button id="downloadBtn">📥 Download Card</button>
+      <a id="shareBtn" target="_blank">📤 Share on WhatsApp</a>
+    </div>
   </div>
+
+  <script src="scratchCard.js"></script>
+  <script src="script.js"></script>
 </body>
+</html>
