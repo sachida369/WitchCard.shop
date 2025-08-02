@@ -2,38 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🔮 Destiny Scratch Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destiny Scratch</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>🔮 Discover Your Destiny</h1>
-
-    <!-- Input Form -->
+  <div id="form-section">
+    <h1>🔮 Destiny Scratch Cards</h1>
+    <img src="witch-globe.png" alt="Astrologer Globe" id="witchImage">
+    
     <form id="userForm">
-      <input type="text" id="name" placeholder="Full Name" required>
-      <input type="date" id="dob" required>
-      <input type="text" id="place" placeholder="Birth Place" required>
-      <input type="time" id="time" required>
-      <label>
-        <input type="checkbox" id="privacy"> I agree to the Privacy Policy
-      </label>
-      <button type="button" id="payButton" disabled>Pay ₹10 & Unlock</button>
+      <input type="text" id="name" placeholder="Full Name" required><br>
+      <input type="date" id="dob" required><br>
+      <input type="text" id="place" placeholder="Birth Place" required><br>
+      <input type="time" id="time" required><br>
+      
+      <label class="policy-label">
+        <input type="checkbox" id="privacyCheck"> I agree to the <a href="#">Privacy Policy</a>
+      </label><br>
+      
+      <button id="payButton" type="button" onclick="payNow()" disabled>
+        Pay ₹10 to Scratch
+      </button>
     </form>
+  </div>
 
-    <!-- Scratch Card Area (hidden until payment) -->
-    <div id="scratch-card-container" style="display:none;">
-      <div class="scratch-wrapper">
-        <img src="images/witch-globe.png" class="globe-img" alt="Witch Globe">
-        <div id="scratchText" class="scratch-text"></div>
-        <canvas id="scratchCard" width="200" height="200"></canvas>
-      </div>
-      <div class="actions">
-        <button id="downloadBtn">📥 Download Card</button>
-        <button id="whatsappBtn">📤 Share on WhatsApp</button>
-      </div>
+  <!-- Scratch Card Section -->
+  <div id="scratch-card-section" style="display:none;">
+    <h2>Your Destiny is Revealed 🔮</h2>
+    <div class="scratch-wrapper">
+      <img src="witch-globe.png" alt="Astrologer Globe" class="background-globe">
+      <canvas id="scratchCard" width="300" height="300"></canvas>
     </div>
+    <p id="resultText"></p>
+    <button onclick="downloadCard()">Download Badge</button>
+    <button onclick="shareWhatsApp()">Share on WhatsApp</button>
   </div>
 
   <script src="names.js"></script>
