@@ -1,35 +1,44 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: url('images/galaxy-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: radial-gradient(circle at top, #0d1b2a, #1b263b, #000);
   color: white;
   text-align: center;
+  min-height: 100vh;
 }
 
-.container {
-  padding: 20px;
+h1 {
+  font-size: 2rem;
+  margin-top: 20px;
 }
 
-form {
-  background: rgba(0,0,0,0.7);
-  padding: 20px;
-  border-radius: 15px;
-  display: inline-block;
+#witchImage {
+  width: 320px;
+  margin: 20px auto;
+  display: block;
 }
 
 form input, form button {
-  display: block;
-  margin: 10px auto;
+  margin: 8px;
   padding: 10px;
   border-radius: 8px;
   border: none;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 #payButton {
-  background: gold;
+  background: #ff9800;
+  color: white;
   cursor: pointer;
+}
+
+#payButton:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.policy-label {
+  font-size: 0.9rem;
 }
 
 .scratch-wrapper {
@@ -37,40 +46,25 @@ form input, form button {
   display: inline-block;
 }
 
-.globe-img {
-  width: 350px;
-  border-radius: 15px;
-}
-
-.scratch-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: gold;
-  font-size: 22px;
-  font-weight: bold;
-  text-shadow: 2px 2px 5px black;
-  z-index: 1;
-  pointer-events: none;
+.background-globe {
+  width: 300px;
+  display: block;
 }
 
 #scratchCard {
   position: absolute;
-  top: 80px;
-  left: 75px;
-  border-radius: 50%;
-  z-index: 2;
+  top: 0;
+  left: 0;
+  cursor: pointer;
 }
 
-.actions {
-  margin-top: 15px;
-}
-.actions button {
-  background: teal;
-  color: white;
-  padding: 10px 20px;
+button {
+  margin: 10px;
+  padding: 12px 20px;
+  border: none;
   border-radius: 10px;
-  margin: 5px;
+  font-size: 1rem;
   cursor: pointer;
+  background: #ff9800;
+  color: white;
 }
