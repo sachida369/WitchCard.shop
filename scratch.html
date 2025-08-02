@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scratch Your Destiny</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Scratch Your Destiny ✨</h1>
+    <p id="userGreeting"></p>
+    
+    <!-- Scratch Card -->
+    <div class="foil-container">
+      <canvas id="scratchCanvas" width="300" height="300"></canvas>
+      <div id="resultText">🌙 Your destiny awaits...</div>
+    </div>
+  </div>
+
+  <script>
+    // Get stored user data
+    const user = JSON.parse(localStorage.getItem('destinyUser')) || {};
+    document.getElementById('userGreeting').innerText = 
+      "Welcome " + (user.name || "Seeker") + "! Scratch to reveal your destiny.";
+
+    // Generate random prediction
+    const options = ["Priya", "Simran", "Ananya", "Shruti", "Riya", "Ishita", "Sakshi", "Kavya", "Aarohi", "Neha"];
+    const destiny = options[Math.floor(Math.random()*options.length)];
+    document.getElementById('resultText').innerText = "✨ You will meet " + destiny + " ✨";
+
+    // Scratch Effect
+    const canvas = document.getElementById('scratchCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'silver';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.globalCompositeOperation = 'destination-out';
+    let isDrawing = false;
+
+    function scratch(e) {
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX || e.touches[0].clientX) - rect.left;
+      const y = (e.clientY || e.touches[0].clientY) - rect.top;
+      ctx.beginPath();
+      ctx.arc(x,y,20,0,Math.PI*2,false);
+      ctx.fill();
+    }
+
+    canvas.onmousedown = () => isDrawing = true;
+    canvas.onmouseup = () => isDrawing = false;
+    canvas.onmousemove = e => { if(isDrawing) scratch(e); };
+
+    canvas.ontouchstart = () => isDrawing = true;
+    canvas.ontouchend = () => isDrawing = false;
+    canvas.ontouchmove = e => { if(isDrawing) scratch(e); e.preventDefault(); };
+  </script>
+</body>
+</html>
