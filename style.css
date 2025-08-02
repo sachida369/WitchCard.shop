@@ -1,63 +1,9 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #2b1055, #7597de);
-  color: white;
+  font-family: Poppins, sans-serif;
+  background: linear-gradient(135deg, #2b1055, #7597de);
   text-align: center;
-  min-height: 100vh;
+  color: white;
 }
-
-.container {
-  padding: 20px;
-}
-
 h1 {
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-
-form {
-  margin: 20px auto;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-input, button {
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-button {
-  background: gold;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button:hover {
-  background: orange;
-}
-
-.foil-container {
-  position: relative;
-  display: inline-block;
   margin-top: 20px;
-}
-
-#scratchCanvas {
-  border-radius: 15px;
-  cursor: crosshair;
-}
-
-#resultText {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 18px;
-  font-weight: bold;
-  color: gold;
 }
