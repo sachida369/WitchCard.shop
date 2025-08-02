@@ -6,45 +6,86 @@
   <title>Destiny Scratch</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      background: url('galaxy-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+    #privacyModal {
+      display: none;
+      position: fixed;
+      top: 0; right: 0;
+      width: 350px;
+      height: 100%;
+      background: #0d0d2b;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.7);
+      z-index: 1000;
+    }
+    #privacyModal h2 { color: gold; }
+    #privacyModal button {
+      background: crimson;
+      border: none;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .scratch-wrapper {
+      position: relative;
+      width: 350px;
+      height: 500px;
+      margin: auto;
+    }
+    .scratch-wrapper img {
+      width: 100%; height: 100%; border-radius: 15px;
+    }
+    #prediction-text {
+      position: absolute;
+      top: 45%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #FFD700;
+      font-size: 24px;
+      font-family: 'Cinzel Decorative', cursive;
+      text-shadow: 0px 0px 12px #fff, 0px 0px 20px #FFD700;
+      width: 80%;
+    }
+    #scratchCard {
+      position: absolute;
+      top: 0; left: 0;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Form Section -->
   <div id="form-section">
     <h1>🔮 Destiny Scratch Cards</h1>
-    <img src="witch-globe.png" alt="Astrologer Globe" id="witchImage">
-    
+    <img src="witch-globe.png" alt="Astrologer Globe" style="max-width:300px; display:block; margin:auto;">
+
     <form id="userForm">
       <input type="text" id="name" placeholder="Full Name" required><br>
       <input type="date" id="dob" required><br>
       <input type="text" id="place" placeholder="Birth Place" required><br>
       <input type="time" id="time" required><br>
       
-      <label class="policy-label">
-        <details style="background:#0d0d2b;color:white;padding:20px;border-radius:12px;max-width:800px;margin:20px auto;">
-  <summary style="cursor:pointer;font-size:16px;color:gold;">🔒 View Privacy Policy & Disclaimer</summary>
-  <div style="margin-top:15px;">
-    <h3 style="color:#87CEEB;">1. Data We Collect</h3>
-    <p>We collect only Name, Date of Birth, Place of Birth, and Time of Birth. 
-    No sensitive financial details are stored on our server.</p>
+      <select id="gender" required>
+        <option value="">Select Gender</option>
+        <option value="male">Boy</option>
+        <option value="female">Girl</option>
+      </select><br><br>
 
-    <h3 style="color:#87CEEB;">2. Purpose</h3>
-    <p>Your details are used only to generate entertainment-based predictions.</p>
+      <label>
+        <input type="checkbox" id="privacyCheck"> 
+        I agree to the <a href="#" onclick="openPrivacyPolicy()">Privacy Policy</a>
+      </label><br><br>
 
-    <h3 style="color:#87CEEB;">3. Payment Security</h3>
-    <p>All payments are processed via Razorpay using UPI / NetBanking / Wallet. 
-    We do not store your card or bank details.</p>
-
-    <h3 style="color:#87CEEB;">4. Disclaimer</h3>
-    <p>Predictions are for entertainment purposes only. 
-    By using this service, you agree we are not responsible for personal decisions made based on the results.</p>
-
-    <h3 style="color:#87CEEB;">5. Affiliate Program</h3>
-    <p>You can earn rewards by sharing your referral link. 
-    Rewards are paid to verified UPI IDs once the minimum threshold is reached.</p>
-  </div>
-</details>
-        <input type="checkbox" id="privacyCheck"> I agree to the <a href="#">Privacy Policy</a>
-      </label><br>
-      
       <button id="payButton" type="button" onclick="payNow()" disabled>
         Pay ₹10 to Scratch
       </button>
@@ -54,20 +95,48 @@
   <!-- Scratch Card Section -->
   <div id="scratch-card-section" style="display:none;">
     <h2>Your Destiny is Revealed 🔮</h2>
-    <div class="scratch-wrapper">
-      <img src="witch-globe.png" alt="Astrologer Globe" class="background-globe">
-      <canvas id="scratchCard" width="300" height="300"></canvas>
+    <div id="result-card" class="scratch-wrapper">
+      <img src="witch-globe.png" alt="Astrologer Globe">
+      <div id="prediction-text"></div>
+      <canvas id="scratchCard" width="350" height="500"></canvas>
     </div>
-    <p id="resultText"></p>
+    <br>
     <button onclick="downloadCard()">Download Badge</button>
-    <button onclick="shareWhatsApp()">Share on WhatsApp</button>
+    <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+  </div>
+
+  <!-- Privacy Modal -->
+  <div id="privacyModal">
+    <h2>🔒 Privacy Policy & Disclaimer</h2>
+    <p><b>1. Data We Collect</b><br>
+    Only Name, Date of Birth, Place & Time of Birth. No financial details stored.</p>
+    <p><b>2. Purpose</b><br>
+    Details are used only for entertainment predictions.</p>
+    <p><b>3. Payment Security</b><br>
+    Payments are processed securely via Razorpay. No card/bank data is stored.</p>
+    <p><b>4. Disclaimer</b><br>
+    Predictions are for entertainment purposes only. Use at your own discretion.</p>
+    <p><b>5. Affiliate Program</b><br>
+    Earn ₹1 per referral. Payouts via UPI after verification.</p>
+    <button onclick="closePrivacyPolicy()">Close</button>
   </div>
 
   <script src="names.js"></script>
   <script src="script.js"></script>
-  <script src="names.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="script.js"></script>
 
+  <script>
+    // Privacy Policy Modal
+    function openPrivacyPolicy() {
+      document.getElementById('privacyModal').style.display = 'block';
+    }
+    function closePrivacyPolicy() {
+      document.getElementById('privacyModal').style.display = 'none';
+    }
+
+    // Enable Pay Button if privacy checked
+    document.getElementById("privacyCheck").addEventListener("change", function() {
+      document.getElementById("payButton").disabled = !this.checked;
+    });
+  </script>
 </body>
 </html>
