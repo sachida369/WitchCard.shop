@@ -9,15 +9,25 @@
 <body>
   <h1>🔮 Destiny Scratch Card</h1>
 
-  <div id="scratch-card-container" style="position:relative; width:350px; margin:auto;">
+  <!-- Form -->
+  <div id="userForm">
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="date" id="dob">
+    <input type="text" id="place" placeholder="Birth Place">
+    <input type="time" id="time">
+    <button onclick="payNow()">Pay ₹10 to Unlock</button>
+  </div>
 
-    <!-- Background astrologer image -->
+  <!-- Scratch Card -->
+  <div id="scratch-card-container" style="display:none; position:relative; width:350px; margin:auto; margin-top:20px;">
+
+    <!-- Background astrologer + globe image -->
     <img src="images/astrologer-globe.png" 
          alt="Astrologer Globe" 
          id="backgroundImage"
          style="width:100%; border-radius:20px;">
 
-    <!-- Prediction Text (centered on globe) -->
+    <!-- Prediction Text -->
     <div id="scratchText" 
          style="position:absolute; top:50%; left:50%;
                 transform:translate(-50%, -50%);
@@ -26,14 +36,22 @@
                 z-index:1; pointer-events:none;">
     </div>
 
-    <!-- Scratch Foil ONLY on Globe Area -->
+    <!-- Scratchable Foil on Globe -->
     <canvas id="scratchCard" width="200" height="200"
             style="position:absolute; top:80px; left:75px;
                    border-radius:50%; z-index:2;">
     </canvas>
-
   </div>
 
+  <!-- Post Reveal Actions -->
+  <div id="postActions" style="display:none; margin-top:20px;">
+    <button onclick="downloadBadge()">📥 Download Badge</button>
+    <button onclick="shareWhatsApp()">📤 Share on WhatsApp</button>
+    <button onclick="shareReferral()">💰 Share & Earn ₹1</button>
+  </div>
+
+  <!-- Razorpay Checkout -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
