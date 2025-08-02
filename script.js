@@ -1,70 +1,56 @@
-let destinyOptions = [
-  "Priya", "Neha", "Simran", "Shruti", "Riya", "Aarohi", "Kavya", "Ishita", "Sakshi",
-  "You will be a CEO!", "You will travel to Paris!", "Your lucky number is 7!"
-];
-let destinyResult = "";
-
-document.getElementById("payBtn").onclick = function(){
+document.getElementById('pay-button').onclick = function (e) {
   var options = {
-    "key": "YOUR_RAZORPAY_KEY", // replace with your Razorpay Key
-    "amount": 1000, // 10 INR (in paise)
+    "key": "rzp_live_Hd6RirzluzFacK", // 🔑 Your Razorpay Key ID
+    "amount": 1000, // Amount is in paise = ₹10
     "currency": "INR",
     "name": "Destiny Scratch Cards",
-    "description": "Scratch to reveal your destiny",
-    "handler": function (response){
-      // Payment success
-      alert("✅ Payment Successful! Now scratch your card.");
-      showScratchCard();
+    "description": "Unlock your destiny",
+    "image": "https://cdn-icons-png.flaticon.com/512/2910/2910768.png",
+    "handler": function (response) {
+      alert("Payment Successful! ID: " + response.razorpay_payment_id);
+      
+      // ✅ Show Scratch Card After Payment
+      document.getElementById('scratch-card-container').style.display = "block";
+      initScratchCard();
+    },
+    "theme": {
+      "color": "#3399cc"
     }
   };
+  
   var rzp1 = new Razorpay(options);
   rzp1.open();
+  e.preventDefault();
 };
 
-function showScratchCard() {
-  destinyResult = destinyOptions[Math.floor(Math.random()*destinyOptions.length)];
-  document.getElementById('scratchCard').style.display = 'block';
-  document.getElementById('scratchText').innerHTML = "✨ " + destinyResult + " ✨";
-  setupScratch();
-}
-
-function setupScratch() {
-  const canvas = document.getElementById('scratchCanvas');
+// 🎯 Scratch Card Functionality
+function initScratchCard() {
+  const canvas = document.getElementById('scratchCard');
   const ctx = canvas.getContext('2d');
-  ctx.globalCompositeOperation = 'source-over';
-  ctx.fillStyle = 'silver';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.globalCompositeOperation = 'destination-out';
+  const width = canvas.width;
+  const height = canvas.height;
+
+  // Hidden message
+  ctx.fillStyle = "gold";
+  ctx.font = "20px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("✨ You will be a CEO! ✨", width / 2, height / 2);
+
+  // Overlay
+  ctx.fillStyle = "gray";
+  ctx.fillRect(0, 0, width, height);
+
   let isDrawing = false;
 
-  canvas.onmousedown = e => { isDrawing = true; scratch(e); };
-  canvas.onmouseup = () => { isDrawing = false; };
-  canvas.onmouseleave = () => { isDrawing = false; };
-  canvas.onmousemove = e => { if (isDrawing) scratch(e); };
+  canvas.addEventListener("mousedown", () => { isDrawing = true; });
+  canvas.addEventListener("mouseup", () => { isDrawing = false; });
+  canvas.addEventListener("mousemove", draw);
 
-  canvas.ontouchstart = e => { isDrawing = true; scratch(e.touches[0]); e.preventDefault(); };
-  canvas.ontouchend = () => { isDrawing = false; };
-  canvas.ontouchcancel = () => { isDrawing = false; };
-  canvas.ontouchmove = e => { if (isDrawing) scratch(e.touches[0]); e.preventDefault(); };
-
-  function scratch(e) {
+  function draw(e) {
+    if (!isDrawing) return;
     const rect = canvas.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    let y = e.clientY - rect.top;
-    ctx.beginPath();
-    ctx.arc(x, y, 20, 0, Math.PI * 2, false);
-    ctx.fill();
-    revealIfScratchedEnough();
-  }
-
-  function revealIfScratchedEnough() {
-    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    let pixels = imageData.data;
-    let transparent = 0;
-    for(let i=3; i<pixels.length; i+=4) if(pixels[i] < 128) transparent++;
-    let percent = transparent / (canvas.width * canvas.height) * 100;
-    if(percent > 50) {
-      canvas.style.display = 'none';
-    }
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    ctx.clearRect(x - 15, y - 15, 30, 30);
   }
 }
