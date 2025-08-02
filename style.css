@@ -1,70 +1,112 @@
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at top, #0d1b2a, #1b263b, #000);
-  color: white;
-  text-align: center;
-  min-height: 100vh;
-}
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('galaxy-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+  }
 
-h1 {
-  font-size: 2rem;
-  margin-top: 20px;
-}
+  .container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    text-align: center;
+  }
 
-#witchImage {
-  width: 320px;
-  margin: 20px auto;
-  display: block;
-}
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px black;
+  }
 
-form input, form button {
-  margin: 8px;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
-}
+  .image-card {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
 
-#payButton {
-  background: #ff9800;
-  color: white;
-  cursor: pointer;
-}
+  form input,
+  form select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
 
-#payButton:disabled {
-  background: gray;
-  cursor: not-allowed;
-}
+  label {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+    color: #eee;
+  }
 
-.policy-label {
-  font-size: 0.9rem;
-}
+  label a {
+    color: #ff80ab;
+    text-decoration: none;
+  }
 
-.scratch-wrapper {
-  position: relative;
-  display: inline-block;
-}
+  label a:hover {
+    text-decoration: underline;
+  }
 
-.background-globe {
-  width: 300px;
-  display: block;
-}
+  button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4081;
+    color: white;
+    font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
 
-#scratchCard {
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: pointer;
-}
+  button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
 
-button {
-  margin: 10px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  background: #ff9800;
-  color: white;
-}
+  @media screen and (max-width: 480px) {
+    .container {
+      margin: 20px;
+    }
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h1>🔮 Destiny Scratch Cards</h1>
+    <img src="witch-globe.png" alt="Astrologer" class="image-card">
+
+    <form id="userForm" onsubmit="return validateForm()">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="date" id="dob" required />
+      <input type="text" id="place" placeholder="Birth Place" required />
+      <input type="time" id="time" required />
+      <select id="gender" required>
+        <option value="">Select Gender</option>
+        <option value="male">Boy</option>
+        <option value="female">Girl</option>
+      </select>
+
+      <label>
+        <input type="checkbox" id="privacyCheck" />
+        I agree to the <a href="#" onclick="openPrivacyPolicy()">Privacy Policy</a>
+      </label>
+
+      <button id="payButton" type="button" onclick="payNow()" disabled>
+        Pay ₹10 to Scratch
+      </button>
+    </form>
+  </div>
+</body>
