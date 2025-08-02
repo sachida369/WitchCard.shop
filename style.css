@@ -1,16 +1,66 @@
 body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #1a0f2e;
+  color: #fff;
+  text-align: center;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(180deg, #4b2c82, #2c1e50);
+  flex-direction: column;
+}
+
+.main-container {
+  max-width: 500px;
+  width: 95%;
+}
+
+.witch-img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.form-container {
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+}
+
+input {
+  width: 90%;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 14px 25px;
+  background: linear-gradient(45deg, #ffba08, #faa307);
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+  transition: transform 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 #scratch-card-container {
   display: none;
-  margin-top: 30px;
-  text-align: center;
+  margin-top: 20px;
+}
+
+canvas {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
