@@ -1,108 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Destiny Scratch</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🔮 Destiny Scratch Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
-    html, body {
-      height: 100%;
+    * { box-sizing: border-box; }
+    body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('galaxy-bg.jpg') no-repeat center center fixed;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1604079628044-9433f1db1560?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
       background-size: cover;
-      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      color: #fff;
+    }
+    .card {
+      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 30px 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      max-width: 400px;
+      width: 100%;
       text-align: center;
     }
-    h1, h2 { text-shadow: 0px 0px 8px black; }
-    form input, form select {
-      padding: 10px;
-      margin: 8px 0;
-      width: 70%;
-      border-radius: 8px;
-      border: none;
-    }
-    #privacyModal {
-      display: none;
-      position: fixed;
-      top: 0; right: 0;
-      width: 350px; height: 100%;
-      background: rgba(13,13,43,0.95);
-      color: white;
-      padding: 20px;
-      overflow-y: auto;
-      box-shadow: -5px 0 15px rgba(0,0,0,0.7);
-      z-index: 1000;
-    }
-    #privacyModal button {
-      background: crimson;
-      border: none;
-      color: white;
-      padding: 10px;
+    .card img {
       width: 100%;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    input, select {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      gap: 8px;
+    }
+    .checkbox-row a { color: #f48fb1; text-decoration: none; }
+    .checkbox-row a:hover { text-decoration: underline; }
+    button {
+      background: #ff4081;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 1rem;
       cursor: pointer;
+      transition: 0.3s;
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    #scratch-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
     }
     .scratch-wrapper {
       position: relative;
-      width: 350px;
-      height: 500px;
-      margin: auto;
+      width: 300px;
+      height: 300px;
+      margin-bottom: 20px;
     }
-    .scratch-wrapper img {
-      width: 100%;
-      height: 100%;
-      border-radius: 15px;
-    }
-    #prediction-text {
+    #scratchCanvas {
       position: absolute;
-      top: 45%; left: 50%;
+      top: 0;
+      left: 0;
+      border-radius: 16px;
+    }
+    #resultText {
+      position: absolute;
+      top: 40%;
+      left: 50%;
       transform: translate(-50%, -50%);
+      font-size: 1.2rem;
       color: #FFD700;
-      font-size: 24px;
-      font-family: 'Cinzel Decorative', cursive;
-      text-shadow: 0px 0px 12px #fff, 0px 0px 20px #FFD700;
-      width: 80%;
+      font-weight: bold;
+      text-shadow: 0 0 8px #000;
+      z-index: 2;
     }
-    #scratchCard {
-      position: absolute;
-      top: 0; left: 0;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background: #ff4081;
-      color: white;
-      cursor: pointer;
+    .share-buttons {
+      display: flex;
+      gap: 10px;
     }
   </style>
 </head>
 <body>
-
-  <!-- Form Section -->
-  <div id="form-section">
+  <div class="card" id="form-section">
     <h1>🔮 Destiny Scratch Cards</h1>
-    <img src="witch-globe.png" alt="Astrologer Globe" style="max-width:300px; display:block; margin:auto;">
+    <img src="https://i.imgur.com/RrU3QeZ.png" alt="Fortune Teller" />
 
-    <form id="userForm" onsubmit="return validateForm()">
-      <input type="text" id="name" placeholder="Full Name" required><br>
-      <input type="date" id="dob" required><br>
-      <input type="text" id="place" placeholder="Birth Place" required><br>
-      <input type="time" id="time" required><br>
-      
+    <form id="scratchForm">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="date" id="dob" required />
+      <input type="text" id="place" placeholder="Birth Place" required />
+      <input type="time" id="time" required />
       <select id="gender" required>
         <option value="">Select Gender</option>
         <option value="male">Boy</option>
         <option value="female">Girl</option>
-      </select><br>
+      </select>
 
-      <label>
-        <input type="checkbox" id="privacyCheck"> 
-        I agree to the <a href="#" onclick="openPrivacyPolicy()">Privacy Policy</a>
-      </label><br><br>
+      <div class="checkbox-row">
+        <input type="checkbox" id="privacyCheck" />
+        <label for="privacyCheck">I agree to the <a href="#">Privacy Policy</a></label>
+      </div>
 
       <button id="payButton" type="button" onclick="payNow()" disabled>
         Pay ₹10 to Scratch
@@ -110,47 +133,23 @@
     </form>
   </div>
 
-  <!-- Scratch Card Section -->
-  <div id="scratch-card-section" style="display:none;">
-    <h2>Your Destiny is Revealed 🔮</h2>
-    <div id="result-card" class="scratch-wrapper">
-      <img src="witch-globe.png" alt="Astrologer Globe">
-      <div id="prediction-text"></div>
-      <canvas id="scratchCard" width="350" height="500"></canvas>
+  <div class="card" id="scratch-section">
+    <h2>✨ Reveal Your Destiny ✨</h2>
+    <div class="scratch-wrapper" id="result-card">
+      <canvas id="scratchCanvas" width="300" height="300"></canvas>
+      <div id="resultText">🌙 Your destiny awaits...</div>
     </div>
-    <br>
-    <button onclick="downloadCard()">Download Badge</button>
-    <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
-  </div>
-
-  <!-- Privacy Modal -->
-  <div id="privacyModal">
-    <h2>🔒 Privacy Policy & Disclaimer</h2>
-    <p><b>1. Data We Collect</b><br>
-    Only Name, Date of Birth, Place & Time of Birth. No financial details stored.</p>
-    <p><b>2. Purpose</b><br>
-    Details are used only for entertainment predictions.</p>
-    <p><b>3. Payment Security</b><br>
-    Payments are processed securely via Razorpay. No card/bank data is stored.</p>
-    <p><b>4. Disclaimer</b><br>
-    Predictions are for entertainment purposes only. Use at your own discretion.</p>
-    <p><b>5. Affiliate Program</b><br>
-    Earn ₹1 per referral. Payouts via UPI after verification.</p>
-    <button onclick="closePrivacyPolicy()">Close</button>
+    <div class="share-buttons">
+      <button onclick="downloadCard()">Download</button>
+      <button onclick="shareWhatsApp()">Share</button>
+    </div>
   </div>
 
   <script>
     const boyNames = ["Aarav","Vihaan","Aditya","Arjun","Kabir","Rohan","Yash","Dev"];
     const girlNames = ["Ananya","Priya","Simran","Kavya","Riya","Aarohi","Shruti","Ishita"];
 
-    function openPrivacyPolicy() {
-      document.getElementById('privacyModal').style.display = 'block';
-    }
-    function closePrivacyPolicy() {
-      document.getElementById('privacyModal').style.display = 'none';
-    }
-
-    document.getElementById("privacyCheck").addEventListener("change", function() {
+    document.getElementById("privacyCheck").addEventListener("change", function () {
       document.getElementById("payButton").disabled = !this.checked;
     });
 
@@ -167,50 +166,45 @@
     function payNow() {
       if (!validateForm()) return;
 
-      var options = {
-        "key": "rzp_live_Hd6RirzluzFacK",
-        "amount": 1000,
-        "currency": "INR",
-        "name": "Destiny Scratch",
-        "description": "Scratch Card Access",
-        "handler": function (response){
+      const options = {
+        key: "rzp_live_Hd6RirzluzFacK",
+        amount: 1000,
+        currency: "INR",
+        name: "Destiny Scratch",
+        description: "Unlock your destiny",
+        handler: function (response) {
           document.getElementById("form-section").style.display = "none";
-          document.getElementById("scratch-card-section").style.display = "block";
-          generatePrediction();
-        }
+          document.getElementById("scratch-section").style.display = "flex";
+          setupScratch();
+        },
+        theme: { color: "#ff4081" }
       };
-      var rzp1 = new Razorpay(options);
-      rzp1.open();
+      const rzp = new Razorpay(options);
+      rzp.open();
     }
 
-    function generatePrediction() {
+    function setupScratch() {
       const gender = document.getElementById("gender").value;
-      let prediction;
-      if (gender === "male") {
-        prediction = girlNames[Math.floor(Math.random() * girlNames.length)];
-      } else {
-        prediction = boyNames[Math.floor(Math.random() * boyNames.length)];
-      }
-      document.getElementById("prediction-text").textContent = prediction;
-      initScratch();
-    }
+      const nameArray = gender === "female" ? boyNames : girlNames;
+      const destiny = nameArray[Math.floor(Math.random() * nameArray.length)];
+      document.getElementById("resultText").innerText = `✨ You will meet ${destiny} ✨`;
 
-    function initScratch() {
-      const canvas = document.getElementById("scratchCard");
+      const canvas = document.getElementById("scratchCanvas");
       const ctx = canvas.getContext("2d");
-      ctx.fillStyle = "silver";
+      ctx.fillStyle = "#C0C0C0";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "destination-out";
 
       let isDrawing = false;
       function scratch(e) {
         if (!isDrawing) return;
         const rect = canvas.getBoundingClientRect();
-        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-        ctx.globalCompositeOperation = 'destination-out';
+        const x = (e.clientX || e.touches[0].clientX) - rect.left;
+        const y = (e.clientY || e.touches[0].clientY) - rect.top;
         ctx.beginPath();
-        ctx.arc(x, y, 25, 0, Math.PI * 2);
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
         ctx.fill();
+        e.preventDefault();
       }
 
       canvas.addEventListener("mousedown", () => isDrawing = true);
@@ -230,11 +224,10 @@
       });
     }
 
-    function shareOnWhatsApp() {
-      const name = document.getElementById("prediction-text").textContent;
-      const url = window.location.href;
-      const text = `I discovered my destiny name: ${name}! 🔮 Try it here: ${url}`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+    function shareWhatsApp() {
+      const name = document.getElementById("name").value || "someone";
+      const msg = `I just revealed my Destiny Match! 🔮 Try yours now: https://yourdomain.com/?ref=${encodeURIComponent(name)}`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
     }
   </script>
 </body>
