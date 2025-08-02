@@ -5,25 +5,29 @@
     background: url('galaxy-bg.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
   }
 
-  .container {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.6);
+  .card {
+    background-color: rgba(0, 0, 0, 0.65);
+    padding: 30px 20px;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
     text-align: center;
   }
 
-  h1 {
+  .card h1 {
     font-size: 1.8rem;
     margin-bottom: 20px;
     text-shadow: 0 0 8px black;
   }
 
-  .image-card {
+  .card img {
     width: 100%;
     border-radius: 12px;
     margin-bottom: 20px;
@@ -37,6 +41,7 @@
     border: none;
     border-radius: 8px;
     font-size: 1rem;
+    box-sizing: border-box;
   }
 
   label {
@@ -44,8 +49,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    margin-top: 12px;
+    gap: 8px;
+    margin-top: 10px;
     color: #eee;
   }
 
@@ -60,7 +65,7 @@
 
   button {
     margin-top: 20px;
-    padding: 12px 20px;
+    padding: 12px;
     border: none;
     border-radius: 8px;
     background: #ff4081;
@@ -75,18 +80,12 @@
     background-color: #999;
     cursor: not-allowed;
   }
-
-  @media screen and (max-width: 480px) {
-    .container {
-      margin: 20px;
-    }
-  }
 </style>
 
 <body>
-  <div class="container">
+  <div class="card">
     <h1>🔮 Destiny Scratch Cards</h1>
-    <img src="witch-globe.png" alt="Astrologer" class="image-card">
+    <img src="witch-globe.png" alt="Astrologer">
 
     <form id="userForm" onsubmit="return validateForm()">
       <input type="text" id="name" placeholder="Full Name" required />
