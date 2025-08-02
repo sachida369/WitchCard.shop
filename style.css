@@ -3,7 +3,28 @@ body {
   background: linear-gradient(135deg, #2b1055, #7597de);
   text-align: center;
   color: white;
+  padding: 20px;
 }
 h1 {
-  margin-top: 20px;
+  margin-bottom: 20px;
+}
+input {
+  margin: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 80%;
+  max-width: 250px;
+}
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  background: gold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+button:hover {
+  background: orange;
 }
