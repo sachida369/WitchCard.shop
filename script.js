@@ -1,59 +1,55 @@
-// ✅ Enable Pay Button only if Privacy Policy is checked
-document.getElementById('privacyCheck')?.addEventListener('change', function () {
-  const payBtn = document.getElementById('payButton');
-  if (payBtn) {
-    payBtn.disabled = !this.checked;
-  }
+let selectedGender = 'girl'; // infer from name input later
+
+document.getElementById('agree').addEventListener('change', function () {
+  document.getElementById('payBtn').disabled = !this.checked;
 });
 
-// ✅ Razorpay payment
-function payNow() {
-  const name = document.getElementById("name").value.trim();
-  const dob = document.getElementById("dob").value;
-  const place = document.getElementById("place").value.trim();
-  const time = document.getElementById("time").value;
-  const gender = document.getElementById("gender").value;
+document.getElementById('payBtn').addEventListener('click', function () {
+  const name = document.getElementById('name').value.trim();
+  const dob = document.getElementById('dob').value;
 
-  // 🔹 DOB Validation: 1920–2010
-  const year = new Date(dob).getFullYear();
-  if (year < 1920 || year > 2010) {
-    alert("Please enter Date of Birth between 1920 and 2010.");
+  if (!name || !dob) {
+    alert("Fill all fields");
     return;
   }
-
-  if (!name || !dob || !place || !time || !gender) {
-    alert("⚠️ Please fill all fields.");
-    return;
-  }
-
-  // ✅ Save user data for scratch page
-  localStorage.setItem("destinyUser", JSON.stringify({ name, dob, place, time, gender }));
 
   const options = {
-    key: "rzp_live_Hd6RirzluzFacK",  // ⚠️ Replace with your live/test Razorpay Key
-    amount: 1000, // ₹10 (amount is in paise)
+    key: "rzp_live_Hd6RirzluzFacK",
+    amount: 1000,
     currency: "INR",
-    name: "Destiny Scratch",
-    description: "Unlock your destiny",
-    handler: function (response) {
-      // ✅ Redirect after payment success
-      window.location.href = "scratch.html";
-    },
-    prefill: {
-      name: name,
-      email: "user@example.com",
-      contact: "9999999999"
-    },
-    theme: { color: "#ff4081" }
+    name: "Destiny Cards",
+    description: "Reveal your destiny",
+    handler: function () {
+      document.getElementById('cardSection').classList.remove('hidden');
+      loadPrediction(name, dob);
+      initScratch();
+    }
   };
   const rzp = new Razorpay(options);
   rzp.open();
+});
+
+function loadPrediction(name, dob) {
+  const gender = name.endsWith('a') ? 'girl' : 'boy';
+  const jsonFile = gender === 'girl' ? 'girls.json' : 'boys.json';
+  fetch(jsonFile)
+    .then(res => res.json())
+    .then(data => {
+      const randomName = data[Math.floor(Math.random() * data.length)];
+      document.getElementById('predictionText').textContent = randomName;
+    });
 }
 
-// ✅ Modal Logic for Privacy Policy
-function openPrivacyPolicy() {
-  document.getElementById('privacyModal').style.display = 'flex';
-}
-function closePrivacyPolicy() {
-  document.getElementById('privacyModal').style.display = 'none';
-}
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  html2canvas(document.querySelector("#resultCard")).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'destiny_card.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+});
+
+document.getElementById('shareBtn').addEventListener('click', () => {
+  const link = `https://wa.me/?text=Check%20your%20Destiny%20Card%20%F0%9F%94%AE%20https://yourdomain.com`;
+  document.getElementById('shareBtn').href = link;
+});
