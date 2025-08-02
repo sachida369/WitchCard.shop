@@ -26,7 +26,7 @@ body {
   text-align: center;
 }
 
-.card h1, .card h2 {
+.card h1 {
   font-size: 1.6rem;
   margin-bottom: 20px;
 }
@@ -84,35 +84,32 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.scratch-wrapper {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: auto;
-  margin-bottom: 20px;
-}
-
-#scratchCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 16px;
-}
-
-#resultText {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.2rem;
-  color: #FFD700;
-  font-weight: bold;
-  text-shadow: 0 0 8px #000;
-  z-index: 2;
-}
-
-.share-buttons {
-  display: flex;
+/* ✅ Modal for Privacy Policy */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+}
+
+.modal-content {
+  background: #1e1e2f;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: left;
+  color: #fff;
+  max-width: 400px;
+  width: 80%;
+}
+.modal-content h3 {
+  margin-top: 0;
+}
+.modal-content button {
+  margin-top: 20px;
+  background-color: #ff4081;
 }
