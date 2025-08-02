@@ -4,23 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Destiny Scratch</title>
-  <link rel="stylesheet" href="style.css">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
       background: url('galaxy-bg.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: Arial, sans-serif;
       color: white;
       text-align: center;
     }
+    h1, h2 { text-shadow: 0px 0px 8px black; }
     #privacyModal {
       display: none;
       position: fixed;
       top: 0; right: 0;
-      width: 350px;
-      height: 100%;
+      width: 350px; height: 100%;
       background: #0d0d2b;
       color: white;
       padding: 20px;
@@ -28,7 +28,6 @@
       box-shadow: -5px 0 15px rgba(0,0,0,0.7);
       z-index: 1000;
     }
-    #privacyModal h2 { color: gold; }
     #privacyModal button {
       background: crimson;
       border: none;
@@ -44,7 +43,9 @@
       margin: auto;
     }
     .scratch-wrapper img {
-      width: 100%; height: 100%; border-radius: 15px;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
     }
     #prediction-text {
       position: absolute;
@@ -60,6 +61,15 @@
       position: absolute;
       top: 0; left: 0;
     }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #ff4081;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -70,10 +80,10 @@
     <img src="witch-globe.png" alt="Astrologer Globe" style="max-width:300px; display:block; margin:auto;">
 
     <form id="userForm">
-      <input type="text" id="name" placeholder="Full Name" required><br>
-      <input type="date" id="dob" required><br>
-      <input type="text" id="place" placeholder="Birth Place" required><br>
-      <input type="time" id="time" required><br>
+      <input type="text" id="name" placeholder="Full Name" required><br><br>
+      <input type="date" id="dob" required><br><br>
+      <input type="text" id="place" placeholder="Birth Place" required><br><br>
+      <input type="time" id="time" required><br><br>
       
       <select id="gender" required>
         <option value="">Select Gender</option>
@@ -121,10 +131,11 @@
     <button onclick="closePrivacyPolicy()">Close</button>
   </div>
 
-  <script src="names.js"></script>
-  <script src="script.js"></script>
-
   <script>
+    // Name arrays (short version — replace with 500 each later)
+    const boyNames = ["Aarav","Vihaan","Aditya","Arjun","Kabir","Rohan","Yash","Dev"];
+    const girlNames = ["Ananya","Priya","Simran","Kavya","Riya","Aarohi","Shruti","Ishita"];
+
     // Privacy Policy Modal
     function openPrivacyPolicy() {
       document.getElementById('privacyModal').style.display = 'block';
@@ -133,10 +144,92 @@
       document.getElementById('privacyModal').style.display = 'none';
     }
 
-    // Enable Pay Button if privacy checked
+    // Enable Pay Button
     document.getElementById("privacyCheck").addEventListener("change", function() {
       document.getElementById("payButton").disabled = !this.checked;
     });
+
+    // Razorpay Payment
+    function payNow() {
+      const dob = document.getElementById("dob").value;
+      const year = new Date(dob).getFullYear();
+      if (year < 1920 || year > 2010) {
+        alert("DOB must be between 1920 and 2010");
+        return;
+      }
+      var options = {
+        "key": "rzp_live_Hd6RirzluzFacK",
+        "amount": 1000, // ₹10
+        "currency": "INR",
+        "name": "Destiny Scratch",
+        "description": "Scratch Card Access",
+        "handler": function (response){
+          document.getElementById("form-section").style.display = "none";
+          document.getElementById("scratch-card-section").style.display = "block";
+          generatePrediction();
+        }
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    }
+
+    // Generate Prediction
+    function generatePrediction() {
+      const gender = document.getElementById("gender").value;
+      let prediction;
+      if (gender === "male") {
+        prediction = girlNames[Math.floor(Math.random() * girlNames.length)];
+      } else {
+        prediction = boyNames[Math.floor(Math.random() * boyNames.length)];
+      }
+      document.getElementById("prediction-text").textContent = prediction;
+      initScratch();
+    }
+
+    // Scratch Functionality
+    function initScratch() {
+      const canvas = document.getElementById("scratchCard");
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "silver";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      let isDrawing = false;
+      function scratch(e) {
+        if (!isDrawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 25, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      canvas.addEventListener("mousedown", () => isDrawing = true);
+      canvas.addEventListener("mouseup", () => isDrawing = false);
+      canvas.addEventListener("mousemove", scratch);
+      canvas.addEventListener("touchstart", () => isDrawing = true);
+      canvas.addEventListener("touchend", () => isDrawing = false);
+      canvas.addEventListener("touchmove", scratch);
+    }
+
+    // Download Badge
+    function downloadCard() {
+      html2canvas(document.getElementById("result-card")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "destiny-card.png";
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+
+    // Share on WhatsApp
+    function shareOnWhatsApp() {
+      const name = document.getElementById("prediction-text").textContent;
+      const url = window.location.href;
+      const text = `I discovered my destiny name: ${name}! 🔮 Try it here: ${url}`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+    }
   </script>
 </body>
 </html>
