@@ -2,56 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Destiny Scratch Card</title>
+  <title>🔮 Destiny Scratch Cards</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-  <h1>🔮 Destiny Scratch Card</h1>
+  <div class="container">
+    <h1>🔮 Discover Your Destiny</h1>
 
-  <!-- Form -->
-  <div id="userForm">
-    <input type="text" id="name" placeholder="Full Name">
-    <input type="date" id="dob">
-    <input type="text" id="place" placeholder="Birth Place">
-    <input type="time" id="time">
-    <button onclick="payNow()">Pay ₹10 to Unlock</button>
-  </div>
+    <!-- Input Form -->
+    <form id="userForm">
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="date" id="dob" required>
+      <input type="text" id="place" placeholder="Birth Place" required>
+      <input type="time" id="time" required>
+      <label>
+        <input type="checkbox" id="privacy"> I agree to the Privacy Policy
+      </label>
+      <button type="button" id="payButton" disabled>Pay ₹10 & Unlock</button>
+    </form>
 
-  <!-- Scratch Card -->
-  <div id="scratch-card-container" style="display:none; position:relative; width:350px; margin:auto; margin-top:20px;">
-
-    <!-- Background astrologer + globe image -->
-    <img src="images/astrologer-globe.png" 
-         alt="Astrologer Globe" 
-         id="backgroundImage"
-         style="width:100%; border-radius:20px;">
-
-    <!-- Prediction Text -->
-    <div id="scratchText" 
-         style="position:absolute; top:50%; left:50%;
-                transform:translate(-50%, -50%);
-                color:gold; font-size:20px; font-weight:bold;
-                text-shadow:1px 1px 3px black;
-                z-index:1; pointer-events:none;">
+    <!-- Scratch Card Area (hidden until payment) -->
+    <div id="scratch-card-container" style="display:none;">
+      <div class="scratch-wrapper">
+        <img src="images/witch-globe.png" class="globe-img" alt="Witch Globe">
+        <div id="scratchText" class="scratch-text"></div>
+        <canvas id="scratchCard" width="200" height="200"></canvas>
+      </div>
+      <div class="actions">
+        <button id="downloadBtn">📥 Download Card</button>
+        <button id="whatsappBtn">📤 Share on WhatsApp</button>
+      </div>
     </div>
-
-    <!-- Scratchable Foil on Globe -->
-    <canvas id="scratchCard" width="200" height="200"
-            style="position:absolute; top:80px; left:75px;
-                   border-radius:50%; z-index:2;">
-    </canvas>
   </div>
 
-  <!-- Post Reveal Actions -->
-  <div id="postActions" style="display:none; margin-top:20px;">
-    <button onclick="downloadBadge()">📥 Download Badge</button>
-    <button onclick="shareWhatsApp()">📤 Share on WhatsApp</button>
-    <button onclick="shareReferral()">💰 Share & Earn ₹1</button>
-  </div>
-
-  <!-- Razorpay Checkout -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="names.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
