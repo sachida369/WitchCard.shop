@@ -1,130 +1,118 @@
-<style>
-  * {
-    box-sizing: border-box;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: url('https://images.unsplash.com/photo-1604079628044-9433f1db1560?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-  }
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: url('https://images.unsplash.com/photo-1604079628044-9433f1db1560?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  color: #fff;
+}
 
-  .card {
-    backdrop-filter: blur(14px);
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 24px;
-    max-width: 400px;
-    width: 100%;
-    padding: 30px 20px;
-    color: #fff;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    text-align: center;
-  }
+.card {
+  backdrop-filter: blur(14px);
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 24px;
+  padding: 30px 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
 
-  .card h1 {
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
-    margin-bottom: 20px;
-  }
+.card h1, .card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
 
-  .card img {
-    width: 100%;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-  }
+.main-img {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-  input, select {
-    padding: 12px;
-    border-radius: 12px;
-    border: none;
-    font-size: 1rem;
-    outline: none;
-  }
+input, select {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
 
-  input[type="checkbox"] {
-    width: auto;
-  }
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  gap: 8px;
+  margin-top: 5px;
+}
 
-  .checkbox-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    gap: 8px;
-    color: #ddd;
-    margin-top: 6px;
-  }
+.checkbox-row a {
+  color: #f48fb1;
+  text-decoration: none;
+}
+.checkbox-row a:hover {
+  text-decoration: underline;
+}
 
-  .checkbox-row a {
-    color: #f48fb1;
-    text-decoration: none;
-  }
+button {
+  background: #ff4081;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-  .checkbox-row a:hover {
-    text-decoration: underline;
-  }
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
 
-  button {
-    background: #ff4081;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 12px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: 0.3s;
-  }
+.scratch-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  margin-bottom: 20px;
+}
 
-  button:disabled {
-    background: #aaa;
-    cursor: not-allowed;
-  }
+#scratchCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 16px;
+}
 
-  @media (max-width: 480px) {
-    .card {
-      padding: 20px 14px;
-    }
-  }
-</style>
+#resultText {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: #FFD700;
+  font-weight: bold;
+  text-shadow: 0 0 8px #000;
+  z-index: 2;
+}
 
-<body>
-  <div class="card">
-    <h1>🔮 Destiny Scratch Cards</h1>
-    <img src="https://i.imgur.com/RrU3QeZ.png" alt="Fortune Teller Image" />
-
-    <form id="scratchForm">
-      <input type="text" placeholder="Full Name" required />
-      <input type="date" required />
-      <input type="text" placeholder="Birth Place" required />
-      <input type="time" required />
-      <select required>
-        <option value="">Select Gender</option>
-        <option value="male">Boy</option>
-        <option value="female">Girl</option>
-      </select>
-
-      <div class="checkbox-row">
-        <input type="checkbox" id="privacyCheck" />
-        <label for="privacyCheck">I agree to the <a href="#">Privacy Policy</a></label>
-      </div>
-
-      <button id="scratchBtn" type="button" onclick="payNow()" disabled>
-        Pay ₹10 to Scratch
-      </button>
-    </form>
-  </div>
-</body>
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
