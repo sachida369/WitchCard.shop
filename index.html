@@ -3,51 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Destiny Scratch Cards</title>
+  <title>Destiny Scratch Card</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>🔮 Destiny Scratch Cards</h1>
-    <p class="subtitle">Enter your details & unlock your destiny</p>
+  <h1>🔮 Destiny Scratch Card</h1>
 
-    <form id="destinyForm">
-      <input type="text" id="name" placeholder="Full Name" required>
-      <input type="date" id="dob" required>
-      <input type="text" id="birthPlace" placeholder="Birth Place" required>
-      <input type="time" id="birthTime" required>
-      <button type="button" id="payBtn">Pay ₹10 to Scratch</button>
-    </form>
+  <div id="scratch-card-container" style="position:relative; width:350px; margin:auto;">
+
+    <!-- Background astrologer image -->
+    <img src="images/astrologer-globe.png" 
+         alt="Astrologer Globe" 
+         id="backgroundImage"
+         style="width:100%; border-radius:20px;">
+
+    <!-- Prediction Text (centered on globe) -->
+    <div id="scratchText" 
+         style="position:absolute; top:50%; left:50%;
+                transform:translate(-50%, -50%);
+                color:gold; font-size:20px; font-weight:bold;
+                text-shadow:1px 1px 3px black;
+                z-index:1; pointer-events:none;">
+    </div>
+
+    <!-- Scratch Foil ONLY on Globe Area -->
+    <canvas id="scratchCard" width="200" height="200"
+            style="position:absolute; top:80px; left:75px;
+                   border-radius:50%; z-index:2;">
+    </canvas>
+
   </div>
 
-  <script>
-    document.getElementById('payBtn').onclick = function(e){
-      let userData = {
-        name: document.getElementById('name').value,
-        dob: document.getElementById('dob').value,
-        place: document.getElementById('birthPlace').value,
-        time: document.getElementById('birthTime').value
-      };
-      
-      var options = {
-          "key": "rzp_live_Hd6RirzluzFacK",
-          "amount": 1000,
-          "currency": "INR",
-          "name": "Destiny Scratch Cards",
-          "description": "Unlock your destiny",
-          "handler": function (response){
-              // Store user data in localStorage
-              localStorage.setItem('destinyUser', JSON.stringify(userData));
-              // Redirect to scratch page
-              window.location.href = "scratch.html";
-          },
-          "theme": { "color": "#6A0DAD" }
-      };
-      var rzp1 = new Razorpay(options);
-      rzp1.open();
-      e.preventDefault();
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
