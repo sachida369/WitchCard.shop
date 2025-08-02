@@ -10,7 +10,10 @@
 <body>
   <div class="card">
     <h1>🔮 Destiny Scratch Cards</h1>
-    <img src="https://i.imgur.com/mP9hIRl.png" alt="Fortune Teller Image" class="main-img" />
+    
+    <!-- ✅ Working Image -->
+    <img src="https://i.imgur.com/EGh1FME.png" alt="Fortune Teller Image" class="main-img" />
+
     <form id="scratchForm">
       <input type="text" id="name" placeholder="Full Name" required />
       <input type="date" id="dob" required />
@@ -21,14 +24,28 @@
         <option value="male">Boy</option>
         <option value="female">Girl</option>
       </select>
+
       <div class="checkbox-row">
         <input type="checkbox" id="privacyCheck" />
-        <label for="privacyCheck">I agree to the <a href="#" onclick="alert('Privacy terms here')">Privacy Policy</a></label>
+        <label for="privacyCheck">
+          I agree to the <a href="#" onclick="openPrivacyPolicy()">Privacy Policy</a>
+        </label>
       </div>
+
       <button id="payButton" type="button" onclick="payNow()" disabled>
         Pay ₹10 to Scratch
       </button>
     </form>
+  </div>
+
+  <!-- ✅ Privacy Modal -->
+  <div id="privacyModal" class="modal">
+    <div class="modal-content">
+      <h3>🔒 Privacy Policy</h3>
+      <p>We collect only Name, DOB, Place & Time of birth for astrology prediction. No financial data is stored.</p>
+      <p>For entertainment purposes only. Scratch wisely ✨</p>
+      <button onclick="closePrivacyPolicy()">Close</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
