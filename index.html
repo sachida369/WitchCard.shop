@@ -1,38 +1,23 @@
 <body>
   <div class="background"></div>
-  
+
   <h1 class="heading">🔮 Unlock Your Destiny ✨</h1>
 
   <div class="main-container">
-    <div class="witch-card">
-      <img src="witch-glob.png" alt="Witch Globe" id="cardImage"/>
-    </div>
+    <img src="witch-globe.png" alt="Witch holding globe" class="witch-img" />
 
     <form id="destinyForm" class="glass-card">
       <input type="text" id="name" placeholder="Your Name" required />
       <input type="date" id="dob" required />
       <input type="text" id="place" placeholder="Place of Birth" required />
       <input type="time" id="time" required />
-
-      <label class="checkbox">
+      
+      <label>
         <input type="checkbox" id="agree" />
         I agree to the <a href="#">Privacy Policy</a>
       </label>
 
-      <button type="button" id="payBtn" disabled>Pay ₹10 to Reveal</button>
+      <button type="submit">Pay ₹10 to Reveal</button>
     </form>
-
-    <div id="cardSection" class="card-container hidden">
-      <canvas id="scratchCanvas" width="200" height="200"></canvas>
-      <div id="predictionText"></div>
-
-      <div class="card-actions">
-        <button id="downloadBtn">📥 Download Card</button>
-        <a id="shareBtn" target="_blank">📤 Share on WhatsApp</a>
-      </div>
-    </div>
   </div>
-
-  <script src="scratchCard.js"></script>
-  <script src="script.js"></script>
 </body>
