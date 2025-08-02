@@ -5,27 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Destiny Scratch Cards</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-  <div class="main-container">
-    <img src="witch-globe.png" alt="Witch Fortune Teller" class="witch-img">
+  <div class="container">
+    <h1>🔮 Destiny Scratch Cards</h1>
+    <p class="subtitle">Enter your details & unlock your destiny</p>
 
-    <div class="form-container">
+    <form id="destinyForm">
       <input type="text" id="name" placeholder="Full Name" required>
       <input type="date" id="dob" required>
       <input type="text" id="birthPlace" placeholder="Birth Place" required>
       <input type="time" id="birthTime" required>
-      <button id="payBtn">Pay ₹10 to Scratch</button>
-    </div>
-
-    <div id="scratch-card-container">
-      <h2>✨ Scratch Here ✨</h2>
-      <canvas id="scratchCard" width="300" height="150"></canvas>
-    </div>
+      <button type="button" id="payBtn">Pay ₹10 to Scratch</button>
+    </form>
   </div>
 
-  <!-- Razorpay Script -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('payBtn').onclick = function(e){
+      let userData = {
+        name: document.getElementById('name').value,
+        dob: document.getElementById('dob').value,
+        place: document.getElementById('birthPlace').value,
+        time: document.getElementById('birthTime').value
+      };
+      
+      var options = {
+          "key": "rzp_live_Hd6RirzluzFacK",
+          "amount": 1000,
+          "currency": "INR",
+          "name": "Destiny Scratch Cards",
+          "description": "Unlock your destiny",
+          "handler": function (response){
+              // Store user data in localStorage
+              localStorage.setItem('destinyUser', JSON.stringify(userData));
+              // Redirect to scratch page
+              window.location.href = "scratch.html";
+          },
+          "theme": { "color": "#6A0DAD" }
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+      e.preventDefault();
+    }
+  </script>
 </body>
 </html>
