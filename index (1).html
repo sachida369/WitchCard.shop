@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🔮 Destiny Scratch Cards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🔮 Destiny Scratch Cards</h1>
+  <div class="globe"></div>
+  <p>Enter your details & unlock your destiny</p>
+  
+  <input type="text" id="name" placeholder="Full Name"><br>
+  <input type="date" id="dob"><br>
+  <input type="text" id="place" placeholder="Birth Place"><br>
+  <input type="time" id="time"><br>
+  
+  <button id="payBtn">Pay ₹10 to Scratch</button>
+  
+  <div class="card" id="scratchCard" style="display:none;">
+    <div class="foil">
+      <canvas id="scratchCanvas" width="260" height="180"></canvas>
+      <div id="scratchText"></div>
+    </div>
+  </div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

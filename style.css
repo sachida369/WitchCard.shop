@@ -1,0 +1,95 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #0a0225, #1a0730);
+  text-align: center;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: gold;
+  margin: 20px 0;
+  text-shadow: 0px 0px 15px #FFD700, 0px 0px 30px #FF8C00;
+}
+
+.globe {
+  width: 230px;
+  height: 230px;
+  margin: 20px auto;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, #87CEEB, #4B0082, #000);
+  animation: glow 4s infinite;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 20px #fff; }
+  50% { box-shadow: 0 0 50px #FFD700; }
+  100% { box-shadow: 0 0 20px #fff; }
+}
+
+.card {
+  width: 280px;
+  background: linear-gradient(145deg, #111, #333);
+  border: 3px solid gold;
+  border-radius: 20px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0px 0px 40px rgba(255, 215, 0, 0.6);
+}
+
+.foil {
+  background: silver;
+  width: 100%;
+  height: 190px;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+#scratchCanvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 15px;
+}
+
+#scratchText {
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  text-align: center;
+  color: gold;
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 0px 0px 15px #FFD700, 0px 0px 25px #FF4500;
+}
+
+button {
+  margin: 15px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #FFD700, #FF8C00);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+  box-shadow: 0px 0px 18px rgba(255, 215, 0, 0.8);
+  transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.08);
+}
+
+input {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 10px;
+  border: none;
+  width: 220px;
+  text-align: center;
+  font-size: 14px;
+}
