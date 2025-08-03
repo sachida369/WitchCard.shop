@@ -3,17 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reveal Destiny</title>
+  <title>Scratch Your Destiny</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
   <div class="scratch-container">
-  <div id="revealedName">Her Name Is: ...</div>
-  <canvas id="scratchCanvas"></canvas>
+    <div class="card-wrapper">
+      <img src="witch-globe.png" alt="Witch Globe" class="scratch-image" />
+      <canvas id="scratchCanvas" class="scratch-layer"></canvas>
+      <div id="revealedName" class="reveal-text"></div>
+    </div>
+    <div class="buttons">
+      <button id="downloadBtn">Download</button>
+      <a id="whatsappShare" target="_blank">Share on WhatsApp</a>
+    </div>
+  </div>
 
-  <button id="downloadBtn">📷 Download</button>
-  <a id="whatsappShare" target="_blank">🟢 Share on WhatsApp</a>
-</div>
-
-<script src="reveal.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="scratchCard.js"></script>
+  <script src="reveal.js"></script>
+</body>
+</html>
