@@ -1,10 +1,16 @@
-/* ====== SCRATCH CARD AREA ====== */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: url('galaxy-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+}
+
 .scratch-container {
   position: relative;
   max-width: 400px;
   margin: 2rem auto;
   text-align: center;
-  color: white;
 }
 
 .card-wrapper {
@@ -18,40 +24,31 @@
   border-radius: 20px;
 }
 
-/* Foil Canvas Positioned Over Globe */
 #scratchCanvas {
   position: absolute;
+  z-index: 2;
   border-radius: 15px;
   pointer-events: auto;
   cursor: pointer;
-  z-index: 2;
-  mix-blend-mode: normal;
-  background: repeating-linear-gradient(
-    45deg,
-    #c0c0c0,
-    #c0c0c0 10px,
-    #d0d0d0 10px,
-    #d0d0d0 20px
-  );
 }
 
-.reveal-text {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 0 0 10px #00f0ff, 0 0 20px #ff00cc;
+.revealed-name {
   position: absolute;
-  text-align: center;
-  z-index: 3;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4rem;
+  color: #fff;
+  text-shadow: 0 0 10px #00f0ff;
+  font-weight: bold;
+  z-index: 1;
 }
 
-/* Button Area */
 .buttons {
   margin-top: 1.5rem;
   display: flex;
   justify-content: center;
   gap: 15px;
-  flex-wrap: wrap;
 }
 
 .buttons button,
@@ -71,22 +68,4 @@
 .buttons a:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
-}
-
-/* Ensure canvas size is responsive and matched */
-canvas#scratchCanvas {
-  width: 60%;
-  height: 22%;
-  left: 20%;
-  top: 43.5%;
-}
-
-/* Mobile Fine-tune */
-@media screen and (max-width: 480px) {
-  canvas#scratchCanvas {
-    width: 60%;
-    height: 22%;
-    left: 20%;
-    top: 43.5%;
-  }
 }
