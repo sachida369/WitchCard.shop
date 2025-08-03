@@ -3,164 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Destiny Scratch Card</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      padding: 50px 10%;
-      min-height: 100vh;
-    }
-
-    .left {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .left h1 {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .right {
-      flex: 1;
-      max-width: 400px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
-      color: #333;
-    }
-
-    input[type="text"],
-    input[type="date"],
-    input[type="time"] {
-      width: 100%;
-      padding: 8px 12px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-    }
-
-    .checkbox-group input {
-      margin-right: 5px;
-    }
-
-    .checkbox-group a {
-      margin-left: 4px;
-      color: #007BFF;
-      text-decoration: none;
-    }
-
-    .checkbox-group a:hover {
-      text-decoration: underline;
-    }
-
-    .privacy {
-      font-size: 12px;
-      margin: 10px 0;
-      color: #555;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #999;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #666;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        padding: 20px;
-      }
-
-      .left,
-      .right {
-        flex: none;
-        width: 100%;
-        text-align: center;
-      }
-
-      .right {
-        margin-top: 30px;
-      }
-    }
-  </style>
+  <title>Destiny Scratch Cards</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="html2canvas.min.js"></script>
 </head>
 <body>
+  <div class="background"></div>
+  
+  <h1 class="heading">🔮 Unlock Your Destiny ✨</h1>
 
-  <div class="container">
-    <div class="left">
-      <h1>Scratch to Reveal Your Future Partner’s Name</h1>
+  <form id="destinyForm" class="glass-card">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="date" id="dob" required />
+    <input type="text" id="place" placeholder="Place of Birth" required />
+    <input type="time" id="time" required />
+    
+    <label class="checkbox">
+      <input type="checkbox" id="agree" />
+      I agree to the <a href="#">Privacy Policy</a>
+    </label>
+
+    <button type="button" id="payBtn" disabled>Pay ₹10 to Reveal</button>
+  </form>
+
+  <div id="cardSection" class="card-container hidden">
+    <div class="card-frame" id="resultCard">
+      <img src="witch-globe.png" id="cardImage" />
+      <canvas id="scratchCanvas" width="200" height="200"></canvas>
+      <div id="predictionText"></div>
     </div>
 
-    <div class="right">
-      <form>
-        <div class="form-group">
-          <label for="name">Your Name</label>
-          <input type="text" id="name" required />
-        </div>
-        <div class="form-group">
-          <label for="dob">DOB (dd/mm/yyyy)</label>
-          <input type="text" id="dob" placeholder="e.g. 23/06/1991" required />
-        </div>
-        <div class="form-group">
-          <label for="birthplace">Place of Birth</label>
-          <input type="text" id="birthplace" required />
-        </div>
-        <div class="form-group">
-          <label for="birthtime">Time (hh:mm)</label>
-          <input type="text" id="birthtime" placeholder="e.g. 01:10" required />
-        </div>
-
-        <div class="checkbox-group">
-          <input type="checkbox" id="agree" required />
-          <label for="agree">I agree to the <a href="#">Privacy Policy</a></label>
-        </div>
-
-        <div class="privacy">
-          Privacy Policy: Your data will only be used for mystical entertainment purposes. We do not share or store personal details.
-        </div>
-
-        <button type="submit">Pay €10</button>
-      </form>
+    <div class="card-actions">
+      <button id="downloadBtn">📥 Download Card</button>
+      <a id="shareBtn" target="_blank">📤 Share on WhatsApp</a>
     </div>
   </div>
 
+  <script src="scratchCard.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
