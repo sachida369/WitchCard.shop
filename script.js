@@ -1,11 +1,16 @@
-document.getElementById('user-form').addEventListener('submit', function (e) {
+document.getElementById('payment-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const privacy = document.getElementById('privacy');
-  if (!privacy.checked) {
+  const privacyCheckbox = document.querySelector('input[type="checkbox"]');
+  if (!privacyCheckbox.checked) {
     alert('Please agree to the Privacy Policy.');
     return;
   }
+
+  const name = document.getElementById('name').value;
+  const dob = document.getElementById('dob').value;
+  const place = document.getElementById('place').value;
+  const time = document.getElementById('time').value;
 
   const options = {
     key: 'rzp_live_Hd6RirzluzFacK',
@@ -14,15 +19,12 @@ document.getElementById('user-form').addEventListener('submit', function (e) {
     name: 'Destiny Scratch Cards',
     description: 'Reveal your destiny',
     handler: function () {
-      localStorage.setItem('formData', JSON.stringify({
-        name: document.querySelector('input[name=name]').value,
-        dob: document.querySelector('input[name=dob]').value,
-        place: document.querySelector('input[name=place]').value,
-        time: document.querySelector('input[name=time]').value
-      }));
+      localStorage.setItem('formData', JSON.stringify({ name, dob, place, time }));
       window.location.href = 'scratch.html';
     },
-    theme: { color: '#00f0ff' },
+    theme: {
+      color: '#00f0ff'
+    }
   };
 
   const rzp = new Razorpay(options);
