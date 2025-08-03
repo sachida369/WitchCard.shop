@@ -1,51 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Destiny Scratch Card</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destiny Scratch Cards</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Crimson+Pro&display=swap" rel="stylesheet">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
-<body>
-  <div class="container">
-    <img src="witch-globe.png" alt="Mystical Card" class="hero-image" />
+<body style="background-image:url('galaxy-bg.jpg');">
+  <div class="form-container glass">
+    <h1 class="title">🔮 Destiny Scratch Cards</h1>
+    <p class="subtitle">Reveal your future partner’s name</p>
 
-    <form id="payment-form">
-      <h2>🔮 Unlock Your Destiny ✨</h2>
-      <input type="text" id="name" placeholder="Name" required />
-      <input type="date" id="dob" required />
-      <input type="text" id="place" placeholder="Place of Birth" required />
-      <input type="time" id="time" required />
-
-      <div class="privacy">
-        <label><input type="checkbox" required /> I agree to the 
-          <a href="#" onclick="openPrivacy()">Privacy Policy</a>
-        </label>
-      </div>
-
-      <button type="submit">Pay ₹10</button>
+    <form id="destinyForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="date" id="dob" required>
+      <input type="text" id="place" placeholder="Place of Birth" required>
+      <input type="time" id="time" required>
+      <label class="checkbox-label">
+        <input type="checkbox" id="privacyCheck"> I accept the Privacy Policy
+      </label>
+      <button type="button" id="payButton" class="btn-glow">Pay ₹10 & Reveal</button>
     </form>
   </div>
-
-  <!-- Privacy Policy Modal -->
-  <div id="privacyModal" class="modal-overlay" style="display: none;">
-    <div class="modal">
-      <button class="close-btn" onclick="closePrivacy()">×</button>
-      <h3>Privacy Policy</h3>
-      <p>Your information (Name, DOB, Time, Place) is used only to provide your prediction. We do not store or sell any user data.</p>
-    </div>
-  </div>
-
   <script src="script.js"></script>
-  <script>
-    function openPrivacy() {
-      document.getElementById('privacyModal').style.display = 'flex';
-    }
-
-    function closePrivacy() {
-      document.getElementById('privacyModal').style.display = 'none';
-    }
-  </script>
 </body>
 </html>
