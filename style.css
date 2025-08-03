@@ -1,63 +1,73 @@
 body {
   margin: 0;
-  font-family: 'Cursive', sans-serif;
+  padding: 0;
   background: url('galaxy-bg.jpg') no-repeat center center fixed;
   background-size: cover;
-  color: white;
+  font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   min-height: 100vh;
+  flex-direction: column;
 }
 
-.container {
-  background: rgba(255, 255, 255, 0.1);
+.main-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 40px 20px;
+}
+
+.card-preview img {
+  max-width: 320px;
   border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px #9b59b6;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 30px;
+  border-radius: 20px;
   backdrop-filter: blur(10px);
+  width: 320px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-container h2 {
   text-align: center;
-  max-width: 400px;
-}
-
-.header {
-  font-size: 2rem;
-  text-shadow: 0 0 8px #00f0ff;
-  animation: glowFade 2s ease-in-out infinite alternate;
-}
-
-@keyframes glowFade {
-  from { text-shadow: 0 0 8px #00f0ff; }
-  to { text-shadow: 0 0 20px #00f0ff; }
+  color: #fff;
+  margin-bottom: 10px;
 }
 
 input, button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 8px;
   border: none;
+  width: 100%;
   font-size: 1rem;
 }
 
-button:hover {
-  background-color: #00f0ff;
+button {
+  background-color: #fff;
   color: #000;
+  font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 10px #00f0ff;
+  transition: all 0.3s ease;
 }
 
-.checkbox {
-  font-size: 0.9rem;
-  margin-top: 10px;
+button:hover {
+  background: #e67e22;
+  color: #fff;
 }
 
-.globe {
-  width: 100%;
-  max-width: 300px;
-  margin-top: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+label {
+  color: #eee;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
