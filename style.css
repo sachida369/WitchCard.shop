@@ -1,3 +1,5 @@
+/* destiny-scratch/style.css */
+
 body {
   margin: 0;
   padding: 0;
@@ -13,18 +15,18 @@ body {
 }
 
 .container {
-  margin-top: 40px;
-  max-width: 420px;
-  width: 100%;
+  margin: 20px auto;
+  max-width: 360px;
+  width: 90%;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 0 20px #9f5fff;
+  padding: 16px;
+  box-shadow: 0 0 16px #9f5fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   box-sizing: border-box;
 }
 
@@ -32,40 +34,40 @@ img.hero-image {
   width: 100%;
   height: auto;
   border-radius: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 h2 {
   margin-top: 0;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
 }
 
 input, select {
-  padding: 12px;
+  padding: 10px;
   border-radius: 8px;
   border: none;
   width: 100%;
-  font-size: 1rem;
+  font-size: 0.95rem;
   outline: none;
 }
 
 input[type="checkbox"] {
   width: auto;
-  margin-right: 10px;
+  margin-right: 6px;
 }
 
 button {
   background: linear-gradient(to right, #ff00cc, #3333ff);
   color: white;
-  padding: 12px;
+  padding: 10px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -81,8 +83,8 @@ button:hover {
 .privacy {
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
-  gap: 8px;
+  font-size: 0.85rem;
+  gap: 6px;
   flex-wrap: wrap;
   justify-content: center;
   text-align: center;
@@ -91,17 +93,74 @@ button:hover {
 .privacy label {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.modal {
+  background: #111;
+  width: 300px;
+  max-width: 80%;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+  animation: slideIn 0.4s ease forwards;
+  position: relative;
+  color: #fff;
+}
+
+.modal h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.modal p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.modal .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @media (max-width: 480px) {
   .container {
-    margin: 20px 10px;
-    padding: 16px;
+    margin: 16px 8px;
+    padding: 12px;
   }
 
   h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   button {
@@ -109,7 +168,11 @@ button:hover {
   }
 
   .privacy {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     flex-direction: column;
+  }
+
+  .modal {
+    width: 100%;
   }
 }
