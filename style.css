@@ -1,71 +1,210 @@
+/* Global reset and base styles */
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: url('galaxy-bg.jpg') no-repeat center center fixed;
   background-size: cover;
-  color: white;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+/* Container for home page */
+.container {
+  max-width: 400px;
+  margin: 20px auto;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px #00f0ff80;
+}
+
+/* Hero image on home */
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+/* Form Styling */
+form h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+form input {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background: #e63946;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s ease;
+}
+
+form button:hover {
+  background: #ff4d6d;
+}
+
+/* Privacy section */
+.privacy {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.privacy a {
+  color: #00f0ff;
+  text-decoration: underline;
+}
+
+/* Scratch Card Page */
 .scratch-container {
   position: relative;
-  max-width: 400px;
-  margin: 2rem auto;
   text-align: center;
+  padding: 20px;
+  margin-top: 40px;
 }
 
 .card-wrapper {
   position: relative;
+  display: inline-block;
+  max-width: 400px;
   width: 100%;
 }
 
 .scratch-image {
   width: 100%;
   display: block;
-  border-radius: 20px;
+  border-radius: 12px;
 }
 
-#scratchCanvas {
+/* Silver foil canvas */
+.scratch-layer {
   position: absolute;
-  z-index: 2;
-  border-radius: 15px;
-  pointer-events: auto;
+  top: 18.5%;
+  left: 21%;
+  width: 58%;
+  height: 28%;
+  border-radius: 20px;
+  z-index: 10;
+  background: repeating-linear-gradient(
+    45deg,
+    #c0c0c0,
+    #c0c0c0 10px,
+    #a9a9a9 10px,
+    #a9a9a9 20px
+  );
+  box-shadow: inset 0 0 10px #999;
+}
+
+/* Reveal name text */
+.reveal-text {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px #00f0ff, 0 0 12px #fff;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Buttons on scratch page */
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+#download-btn,
+#whatsapp-share {
+  padding: 12px 18px;
+  background: #1e90ff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 0 8px #00f0ff;
+  transition: all 0.3s ease;
+}
+
+#download-btn:hover,
+#whatsapp-share:hover {
+  background: #00bfff;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #111;
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  background: transparent;
+  color: #fff;
+  font-size: 24px;
+  border: none;
   cursor: pointer;
 }
 
-.revealed-name {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.4rem;
-  color: #fff;
-  text-shadow: 0 0 10px #00f0ff;
-  font-weight: bold;
-  z-index: 1;
-}
+/* Responsive layout */
+@media (max-width: 600px) {
+  .scratch-layer {
+    top: 18.5%;
+    left: 21%;
+    width: 58%;
+    height: 28%;
+  }
 
-.buttons {
-  margin-top: 1.5rem;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
+  .reveal-text {
+    font-size: 1.2rem;
+  }
 
-.buttons button,
-.buttons a {
-  padding: 12px 24px;
-  font-size: 1rem;
-  border-radius: 10px;
-  background: linear-gradient(90deg, #ff00cc, #3333ff);
-  color: white;
-  text-decoration: none;
-  border: none;
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.buttons button:hover,
-.buttons a:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+  .container {
+    margin: 10px;
+    padding: 15px;
+  }
 }
