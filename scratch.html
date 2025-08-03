@@ -3,23 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scratch Your Destiny</title>
+  <title>Destiny Scratch Cards</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-  <div class="scratch-container">
-    <div class="card-wrapper">
-      <img class="scratch-image" src="witch-globe.png" alt="Mystical Card" />
-      <canvas class="scratch-layer" id="scratchCanvas"></canvas>
-      <div id="revealedName" class="revealed-name"></div>
+  <div class="main-container">
+    <div class="card-section">
+      <div class="card-wrapper">
+        <img class="scratch-image" src="witch-globe.png" alt="Mystical Card" />
+        <canvas class="scratch-layer" id="scratchCanvas"></canvas>
+        <div class="reveal-text" id="reveal-text"></div>
+      </div>
+      <div class="buttons">
+        <button id="download-btn">🔮 Download</button>
+        <a id="whatsapp-share" href="#" target="_blank">💌 Share on WhatsApp</a>
+      </div>
     </div>
-    <div class="buttons">
-      <button id="downloadBtn">🔮 Download</button>
-      <a id="whatsappShare" href="#" target="_blank">💌 Share on WhatsApp</a>
+
+    <div class="form-section">
+      <form id="user-form">
+        <h2>✨ Unlock Your Destiny ✨</h2>
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="text" name="dob" placeholder="Date of Birth (dd/mm/yyyy)" required />
+        <input type="text" name="place" placeholder="Place of Birth" required />
+        <input type="text" name="time" placeholder="Time of Birth (hh:mm)" required />
+        <label class="privacy"><input type="checkbox" required /> I agree to the Privacy Policy</label>
+        <button type="submit" id="pay-btn">Pay ₹10</button>
+      </form>
     </div>
   </div>
+
   <script src="reveal.js"></script>
   <script src="scratchCard.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
