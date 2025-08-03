@@ -1,25 +1,21 @@
-function setupScratchCard(canvasId, revealedCallback) {
-  const canvas = document.getElementById(canvasId);
-  const ctx = canvas.getContext('2d');
-  const width = canvas.width;
-  const height = canvas.height;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reveal Destiny</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scratch-container">
+    <canvas id="scratchCanvas"></canvas>
+    <div id="revealedName"></div>
+    <button id="downloadBtn">Download</button>
+    <a id="whatsappShare" target="_blank">Share on WhatsApp</a>
+  </div>
 
-  ctx.fillStyle = '#C0C0C0';
-  ctx.fillRect(0, 0, width, height);
-
-  let scratched = 0;
-
-  function scratch(x, y) {
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(x, y, 20, 0, Math.PI * 2);
-    ctx.fill();
-    scratched++;
-    if (scratched > 30) revealedCallback();
-  }
-
-  canvas.addEventListener('mousemove', function (e) {
-    const rect = canvas.getBoundingClientRect();
-    scratch(e.clientX - rect.left, e.clientY - rect.top);
-  });
-}
+  <script src="scratchCard.js"></script>
+  <script src="reveal.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html>
