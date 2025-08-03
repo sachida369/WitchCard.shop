@@ -7,10 +7,15 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
     return;
   }
 
-  const name = document.getElementById('name').value;
+  const name = document.getElementById('name').value.trim();
   const dob = document.getElementById('dob').value;
-  const place = document.getElementById('place').value;
+  const place = document.getElementById('place').value.trim();
   const time = document.getElementById('time').value;
+
+  if (!name || !dob || !place || !time) {
+    alert("Please fill in all fields.");
+    return;
+  }
 
   const options = {
     key: 'rzp_live_Hd6RirzluzFacK',
@@ -24,6 +29,11 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
     },
     theme: {
       color: '#00f0ff'
+    },
+    modal: {
+      ondismiss: function () {
+        alert('Payment cancelled. Try again to reveal your destiny.');
+      }
     }
   };
 
