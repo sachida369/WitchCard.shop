@@ -1,0 +1,127 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  background: url('galaxy-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #fff;
+  margin-top: 1rem;
+  font-family: 'Cursive';
+  text-shadow: 0 0 10px #ff00ff;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  margin: 1rem auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255,255,255,0.9);
+  font-size: 1rem;
+}
+
+input:focus {
+  box-shadow: 0 0 10px #ff8c00;
+}
+
+.checkbox {
+  color: #fff;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+#payBtn {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(to right, gold, orange);
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#payBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px gold;
+}
+
+.card-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.card-frame {
+  position: relative;
+  display: inline-block;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+#cardImage {
+  width: 300px;
+  border-radius: 20px;
+}
+
+#scratchCanvas {
+  position: absolute;
+  top: 90px;
+  left: 90px;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+
+#predictionText {
+  position: absolute;
+  top: 130px;
+  left: 120px;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.card-actions {
+  margin-top: 15px;
+}
+
+.card-actions button,
+.card-actions a {
+  margin: 5px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  font-weight: bold;
+  background-color: #ff69b4;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
