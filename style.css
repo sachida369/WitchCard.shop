@@ -1,91 +1,99 @@
 body {
   margin: 0;
-  padding: 0;
-  background: url('galaxy-bg.jpg') no-repeat center center fixed;
+  font-family: 'Crimson Pro', serif;
   background-size: cover;
-  font-family: 'Segoe UI', sans-serif;
+  background-position: center;
   color: white;
-}
-
-/* Main layout container */
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 1rem;
-}
-
-/* SCRATCH SECTION */
-.card-section {
-  position: relative;
-  max-width: 400px;
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
-.card-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.scratch-image {
-  width: 100%;
-  display: block;
-  border-radius: 20px;
-}
-
-/* Scratch canvas precisely over the globe */
-#scratchCanvas {
-  position: absolute;
-  top: 36.8%;   /* fine-tuned after image scan */
-  left: 25%;
-  width: 50%;
-  height: 30%;
-  border-radius: 50%;
-  pointer-events: auto;
-  z-index: 2;
-  background: repeating-linear-gradient(45deg, #C0C0C0, #C0C0C0 10px, #D0D0D0 10px, #D0D0D0 20px);
-}
-
-/* Reveal text inside globe */
-#reveal-text {
-  position: absolute;
-  top: 47%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 0 0 8px #ff00cc;
-  z-index: 3;
-  pointer-events: none;
   text-align: center;
 }
 
-/* Buttons */
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 1rem;
+.title {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2em;
+  margin-bottom: 0.2em;
 }
 
-.buttons button,
-.buttons a {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 10px;
-  background: linear-gradient(90deg, #ff00cc, #3333ff);
+.subtitle {
+  font-size: 1.2em;
+  margin-bottom: 1.5em;
+}
+
+.form-container {
+  max-width: 350px;
+  margin: 60px auto;
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: none;
+  font-size: 1em;
+}
+
+.checkbox-label {
+  display: block;
+  margin: 10px 0;
+  font-size: 0.9em;
+}
+
+.btn-glow {
+  background: linear-gradient(45deg, #7f00ff, #e100ff);
   color: white;
   border: none;
-  text-decoration: none;
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+  padding: 12px 20px;
+  font-size: 1em;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  margin-top: 10px;
+  transition: 0.3s;
 }
 
-.buttons button:hover,
-.buttons a:hover {
+.btn-glow:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+  box-shadow: 0 0 15px #e100ff;
+}
+
+.scratch-container {
+  margin: 50px auto;
+  max-width: 400px;
+}
+
+.globe {
+  width: 100%;
+  border-radius: 20px;
+}
+
+#scratchCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#globe-container {
+  position: relative;
+  display: inline-block;
+}
+
+#reveal-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Cinzel', serif;
+  font-size: 1.5em;
+  color: gold;
+  text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff;
+  pointer-events: none;
 }
