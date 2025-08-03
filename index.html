@@ -1,18 +1,26 @@
-<div class="main-column">
-  <div class="card-preview">
-    <img src="witch-globe.png" alt="Witch Globe" />
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destiny Scratch Card</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <div class="container">
+    <img src="witch-globe.png" alt="Mystical Card" class="card" />
 
-  <div class="form-container">
-    <h2>🔮 Unlock Your Destiny ✨</h2>
-    <input type="text" placeholder="Name" />
-    <input type="date" />
-    <input type="text" placeholder="Place of Birth" />
-    <input type="time" />
-    <label>
-      <input type="checkbox" />
-      I agree to the Privacy Policy
-    </label>
-    <button>Pay ₹10</button>
+    <form id="payment-form">
+      <h2>🔮 Unlock Your Destiny ✨</h2>
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="date" id="dob" required />
+      <input type="text" id="place" placeholder="Place of Birth" required />
+      <input type="time" id="time" required />
+      <label><input type="checkbox" required /> I agree to the Privacy Policy</label>
+      <button type="submit">Pay ₹10</button>
+    </form>
   </div>
-</div>
+  <script src="script.js"></script>
+</body>
+</html>
