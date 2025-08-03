@@ -35,13 +35,14 @@
   );
 }
 
-/* Reveal Text Styling */
 .reveal-text {
-  margin-top: 1.5rem;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: #fff;
-  text-shadow: 0 0 8px #ff00cc;
+  text-shadow: 0 0 10px #00f0ff, 0 0 20px #ff00cc;
+  position: absolute;
+  text-align: center;
+  z-index: 3;
 }
 
 /* Button Area */
