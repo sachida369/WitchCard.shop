@@ -18,33 +18,23 @@
   border-radius: 20px;
 }
 
-/* Align the silver foil (canvas) over the globe perfectly */
-.scratch-layer {
+/* Align canvas directly over the globe using percentage positioning */
+#scratchCanvas {
   position: absolute;
-  left: 50%;
-  top: 43.5%; /* Adjust this for perfect vertical placement */
-  transform: translate(-50%, 0);
-  width: 65%;
-  height: 20%;
+  top: 36%;
+  left: 23%;
+  width: 55%;
+  height: 32%;
   border-radius: 15px;
+  pointer-events: auto;
   cursor: pointer;
-  background: silver;
-  opacity: 0.9;
-}
-
-/* Responsive fine-tune */
-@media screen and (max-width: 480px) {
-  .scratch-layer {
-    top: 43%;
-    width: 65%;
-    height: 20%;
-  }
+  z-index: 2;
 }
 
 /* Reveal Text Styling */
 .reveal-text {
   margin-top: 1.5rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 8px #ff00cc;
@@ -52,7 +42,7 @@
 
 /* Buttons Styling */
 .buttons {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -60,7 +50,7 @@
 
 .buttons button,
 .buttons a {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 1rem;
   border-radius: 10px;
   background: linear-gradient(90deg, #ff00cc, #3333ff);
@@ -75,4 +65,21 @@
 .buttons a:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+}
+
+/* Responsive fine-tune */
+@media screen and (max-width: 480px) {
+  #scratchCanvas {
+    top: 36%;
+    left: 23%;
+    width: 55%;
+    height: 32%;
+  }
+}
+
+/* Optional backdrop tweak */
+.scratch-container canvas {
+  background: repeating-linear-gradient(45deg, #C0C0C0, #C0C0C0 10px, #D0D0D0 10px, #D0D0D0 20px);
+  opacity: 1;
+  mix-blend-mode: normal;
 }
