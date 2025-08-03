@@ -1,99 +1,106 @@
 body {
   margin: 0;
-  font-family: 'Crimson Pro', serif;
+  font-family: 'Poppins', sans-serif;
+  background: url('galaxy-bg.jpg') no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
   color: white;
+}
+
+.main-container {
   text-align: center;
+  padding: 20px;
 }
 
-.title {
-  font-family: 'Cinzel', serif;
-  font-size: 2.2em;
-  margin-bottom: 0.2em;
+.hero-img {
+  width: 300px;
+  max-width: 90%;
+  margin-top: 20px;
 }
 
-.subtitle {
-  font-size: 1.2em;
-  margin-bottom: 1.5em;
-}
-
-.form-container {
-  max-width: 350px;
-  margin: 60px auto;
-  padding: 25px;
-  border-radius: 20px;
-}
-
-.glass {
+form {
   background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+  display: inline-block;
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 12px;
-  border: none;
-  font-size: 1em;
-}
-
-.checkbox-label {
-  display: block;
-  margin: 10px 0;
-  font-size: 0.9em;
-}
-
-.btn-glow {
-  background: linear-gradient(45deg, #7f00ff, #e100ff);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 1em;
-  border-radius: 12px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: 0.3s;
-}
-
-.btn-glow:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #e100ff;
-}
-
-.scratch-container {
-  margin: 50px auto;
+  width: 90%;
   max-width: 400px;
 }
 
-.globe {
+form input, form button {
+  display: block;
   width: 100%;
-  border-radius: 20px;
+  margin: 10px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
-#scratchCanvas {
+form button {
+  background: #ff0055;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background: white;
+  color: black;
+  padding: 20px;
+  margin: 10% auto;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.modal .close {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-#globe-container {
+.scratch-container {
+  text-align: center;
+  padding: 30px;
+}
+
+.card-wrapper {
   position: relative;
   display: inline-block;
 }
 
-#reveal-text {
+.scratch-image {
+  width: 300px;
+}
+
+#scratchCanvas {
   position: absolute;
-  top: 50%;
+  top: 23%;
+  left: 19%;
+  width: 62%;
+  height: 26%;
+  background: silver;
+  border-radius: 15px;
+}
+
+.reveal-text {
+  position: absolute;
+  top: 33%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Cinzel', serif;
-  font-size: 1.5em;
-  color: gold;
-  text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff;
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
   pointer-events: none;
 }
