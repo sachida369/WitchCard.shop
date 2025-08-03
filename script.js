@@ -1,31 +1,22 @@
-document.getElementById("destinyForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("user-form");
+  const dobInput = form.querySelector('input[name="dob"]');
+  const payBtn = document.getElementById("pay-btn");
 
-  const name = document.getElementById("name").value.trim();
-  const dob = document.getElementById("dob").value.trim();
-  const birthplace = document.getElementById("birthplace").value.trim();
-  const time = document.getElementById("time").value.trim();
-  const agree = document.getElementById("agree").checked;
+  form.addEventListener("input", () => {
+    const isValidDOB = /^\d{2}\/\d{2}\/\d{4}$/.test(dobInput.value);
+    const allFilled = [...form.elements].every(el => el.value.trim() !== "" && (!el.type === "checkbox" || el.checked));
+    payBtn.disabled = !(isValidDOB && allFilled);
+  });
 
-  const dobPattern = /^\d{2}\/\d{2}\/\d{4}$/;
-  const timePattern = /^\d{2}:\d{2}$/;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    window.location.href = "scratch.html";
+  });
 
-  if (!dobPattern.test(dob)) {
-    alert("Please enter DOB in dd/mm/yyyy format.");
-    return;
-  }
-
-  if (!timePattern.test(time)) {
-    alert("Please enter Time in hh:mm format.");
-    return;
-  }
-
-  if (!agree) {
-    alert("Please agree to the privacy policy to continue.");
-    return;
-  }
-
-  // Simulate payment success
-  alert("Payment Successful ✅");
-  window.location.href = "scratch.html";
+  const modal = document.getElementById("privacy-modal");
+  const link = document.getElementById("privacy-link");
+  const close = document.querySelector(".close");
+  link.onclick = () => { modal.style.display = "block"; };
+  close.onclick = () => { modal.style.display = "none"; };
 });
