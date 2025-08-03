@@ -1,178 +1,46 @@
-/* destiny-scratch/style.css */
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  background: url('galaxy-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
+/* Form container centering fix */
+form#payment-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  color: #fff;
+  padding: 1rem;
+  max-width: 350px;
+  margin: 0 auto;
 }
 
-.container {
-  margin: 20px auto;
-  max-width: 360px;
-  width: 90%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 0 16px #9f5fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  box-sizing: border-box;
-}
-
-img.hero-image {
+/* Input fields layout fix */
+form#payment-form input,
+form#payment-form button,
+form#payment-form select {
   width: 100%;
-  height: auto;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
-h2 {
-  margin-top: 0;
-  text-align: center;
-  font-size: 1.4rem;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-
-input, select {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  width: 100%;
-  font-size: 0.95rem;
-  outline: none;
-}
-
-input[type="checkbox"] {
-  width: auto;
-  margin-right: 6px;
-}
-
-button {
-  background: linear-gradient(to right, #ff00cc, #3333ff);
-  color: white;
-  padding: 10px;
-  border: none;
+  max-width: 300px;
+  padding: 10px 12px;
+  margin: 8px 0;
   border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  backdrop-filter: blur(8px);
+}
+
+/* Button style (optional upgrade) */
+form#payment-form button {
+  background: linear-gradient(90deg, #ff00cc, #3333ff);
+  color: white;
   font-weight: bold;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background: linear-gradient(to right, #3333ff, #ff00cc);
-}
-
-.privacy {
-  display: flex;
-  align-items: center;
-  font-size: 0.85rem;
-  gap: 6px;
-  flex-wrap: wrap;
-  justify-content: center;
-  text-align: center;
-}
-
-.privacy label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: flex-end;
-  align-items: stretch;
-  z-index: 1000;
-  transition: opacity 0.3s ease;
-}
-
-.modal {
-  background: #111;
-  width: 300px;
-  max-width: 80%;
-  padding: 20px;
-  overflow-y: auto;
-  box-shadow: -2px 0 10px rgba(0,0,0,0.5);
-  animation: slideIn 0.4s ease forwards;
-  position: relative;
-  color: #fff;
-}
-
-.modal h3 {
-  margin-top: 0;
-  font-size: 1.2rem;
-}
-
-.modal p {
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
-.modal .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  font-size: 1.4rem;
-  background: none;
   border: none;
-  color: #fff;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+form#payment-form button:hover {
+  transform: scale(1.05);
 }
 
-@media (max-width: 480px) {
-  .container {
-    margin: 16px 8px;
-    padding: 12px;
-  }
-
-  h2 {
-    font-size: 1.1rem;
-  }
-
-  button {
-    font-size: 0.9rem;
-  }
-
-  .privacy {
-    font-size: 0.75rem;
-    flex-direction: column;
-  }
-
-  .modal {
-    width: 100%;
-  }
+/* Privacy checkbox label */
+form#payment-form .privacy {
+  font-size: 0.85rem;
+  color: #ccc;
+  text-align: center;
+  max-width: 300px;
 }
