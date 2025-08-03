@@ -9,13 +9,17 @@
 </head>
 <body>
   <div class="scratch-container">
-  <div class="card-wrapper">
-    <img class="scratch-image" src="witch-globe.png" alt="Mystical Card" />
-    <canvas class="scratch-layer" id="scratch-canvas"></canvas>
+    <div class="card-wrapper">
+      <img class="scratch-image" src="witch-globe.png" alt="Mystical Card" />
+      <canvas class="scratch-layer" id="scratchCanvas"></canvas>
+    </div>
+    <div class="reveal-text" id="reveal-text"></div>
+    <div class="buttons">
+      <button id="download-btn">🔮 Download</button>
+      <a id="whatsapp-share" href="#" target="_blank">💌 Share on WhatsApp</a>
+    </div>
   </div>
-  <div class="reveal-text" id="reveal-text"></div>
-  <div class="buttons">
-    <button id="download-btn">🔮 Download</button>
-    <a id="whatsapp-share" href="#" target="_blank">💌 Share on WhatsApp</a>
-  </div>
-</div>
+  <script src="reveal.js"></script>
+  <script src="scratchCard.js"></script>
+</body>
+</html>
