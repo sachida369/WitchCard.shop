@@ -2,40 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Destiny Scratch Card</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
-  <div class="main-wrapper">
-    <!-- Top Banner -->
-    <div class="banner-section">
-      <img src="scratchCard/banner.png" alt="Scratch to reveal" class="scratch-banner" />
-    </div>
-
-    <!-- Form Section -->
-    <div class="form-container">
-      <h2>Scratch to Reveal Your Future Partner's Name</h2>
-      <form id="destinyForm">
-        <input type="text" placeholder="Your Name" required />
-        <input type="text" placeholder="DOB (dd/mm/yyyy)" required />
-        <input type="text" placeholder="Place of Birth" required />
-        <input type="text" placeholder="Time (hh:mm)" required />
-
-        <label class="terms">
-          <input type="checkbox" required />
-          I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>
-        </label>
-
-        <button type="submit">Pay ₹10</button>
-      </form>
-    </div>
+  <div class="container">
+    <h1>Scratch to Reveal Your Future Partner's Name</h1>
+    <form id="destinyForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="text" id="dob" placeholder="DOB (dd/mm/yyyy)" required />
+      <input type="text" id="birthPlace" placeholder="Place of Birth" required />
+      <input type="text" id="birthTime" placeholder="Time (hh:mm)" required />
+      <label class="policy-label">
+        <input type="checkbox" id="policyAgree" required />
+        I agree to the <a href="#">Privacy Policy</a>
+      </label>
+      <button type="submit" id="payBtn" disabled>Pay ₹10</button>
+    </form>
+    <p class="privacy-note">
+      Privacy Policy: Your data will only be used for mystical entertainment purposes.
+      We do not share or store personal details.
+    </p>
   </div>
-
-  <footer>
-    <p>Privacy Policy: Your data will only be used for mystical entertainment purposes. We do not share or store personal details.</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
