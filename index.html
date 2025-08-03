@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Destiny Scratch Card</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Destiny Scratch</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Scratch to Reveal Your Future Partner's Name</h1>
-    <form id="destinyForm">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="text" id="dob" placeholder="DOB (dd/mm/yyyy)" required />
-      <input type="text" id="birthPlace" placeholder="Place of Birth" required />
-      <input type="text" id="birthTime" placeholder="Time (hh:mm)" required />
-      <label class="policy-label">
-        <input type="checkbox" id="policyAgree" required />
+  <div class="background">
+    <img src="images/witch.png" alt="Witch" class="witch-image" />
+    <h1>Scratch to Reveal Your Future Partner’s Name</h1>
+    <div class="form-container">
+      <input type="text" placeholder="Your Name" id="name" required/>
+      <input type="text" placeholder="DOB (dd/mm/yyyy)" id="dob" required/>
+      <input type="text" placeholder="Place of Birth" id="place" required/>
+      <input type="text" placeholder="Time (hh:mm)" id="time" required/>
+      <label class="privacy-label">
+        <input type="checkbox" id="agree" />
         I agree to the <a href="#">Privacy Policy</a>
       </label>
-      <button type="submit" id="payBtn" disabled>Pay ₹10</button>
-    </form>
+      <button id="payBtn">Pay ₹10</button>
+    </div>
     <p class="privacy-note">
       Privacy Policy: Your data will only be used for mystical entertainment purposes.
       We do not share or store personal details.
     </p>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
