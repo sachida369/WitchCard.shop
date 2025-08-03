@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Scratch & Reveal</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Gift Scratch Card</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    #canvas { border: 2px solid #ccc; cursor: pointer; }
+    .reward { display: none; font-size: 24px; color: green; margin-top: 20px; }
+  </style>
 </head>
 <body>
-  <div class="scratch-container">
-    <h1>Scratch the card to reveal your partner’s name</h1>
-    <canvas id="scratchCard" width="300" height="150"></canvas>
-  </div>
-  <script>
-    const canvas = document.getElementById("scratchCard");
-    const ctx = canvas.getContext("2d");
-    const image = new Image();
-    image.src = "images/silver-foil.png";
 
-    image.onload = () => {
-      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-    };
+<h2>Scratch to reveal your gift!</h2>
+<canvas id="canvas" width="300" height="150"></canvas>
+<div class="reward" id="reward">🎁 You won ₹100 Cashback!</div>
 
-    canvas.addEventListener("mousemove", (e) => {
-      if (e.buttons === 1) {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        ctx.globalCompositeOperation = "destination-out";
-        ctx.beginPath();
-        ctx.arc(x, y, 20, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    });
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const reward = document.getElementById('reward');
 
-    // Optional: write name behind scratch
-    ctx.font = "bold 20px Arial";
-    ctx.fillStyle = "#fff";
-    ctx.fillText("❤️ Rajan ❤️", 90, 80);
-  </script>
+  let isDrawing = false;
+
+  // Fill with grey "scratch" layer
+  ctx.fillStyle = '#CCCCCC';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  canvas.addEventListener('mousedown', () => isDrawing = true);
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mousemove', scratch);
+  canvas.addEventListener('touchmove', scratch);
+
+  function scratch(e) {
+    if (!isDrawing && !e.touches) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.touches ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+    const y = e.touches ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 15, 0, 2 * Math.PI);
+    ctx.fill();
+
+    // Calculate percentage scratched
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let clearPixels = 0;
+    for (let i = 0; i < imageData.data.length; i += 4) {
+      if (imageData.data[i + 3] === 0) clearPixels++;
+    }
+    const scratchedPercent = clearPixels / (canvas.width * canvas.height) * 100;
+
+    if (scratchedPercent > 50) {
+      reward.style.display = 'block';
+    }
+  }
+</script>
+
 </body>
 </html>
