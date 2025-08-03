@@ -1,71 +1,72 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Georgia', serif;
-  background-image: url('images/bg-stars.jpg'); /* ensure correct path */
+  font-family: 'Arial', sans-serif;
+  background: url('https://cdn.pixabay.com/photo/2016/11/29/07/11/galaxy-1867311_1280.jpg') no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
   color: #fff;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+}
+
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ff00ff;
+  text-align: center;
 }
 
 h1 {
-  font-size: 2rem;
-  text-shadow: 2px 2px 8px #000;
+  font-size: 20px;
   margin-bottom: 20px;
+  color: #ffffcc;
 }
 
-.form-container {
-  background: rgba(0, 0, 0, 0.5);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="time"] {
+input[type="text"] {
+  width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 6px;
+  margin: 8px 0;
+  border-radius: 5px;
   border: none;
-  background-color: #333;
+  background-color: #222;
   color: #fff;
 }
 
+.policy-label {
+  font-size: 12px;
+  display: block;
+  margin: 10px 0;
+  text-align: left;
+  color: #ccc;
+}
+
+.policy-label a {
+  color: #fff;
+  text-decoration: underline;
+}
+
 button {
-  padding: 10px;
-  background-color: #ffd700;
-  color: #000;
+  width: 100%;
+  padding: 12px;
+  background: yellow;
+  color: black;
+  font-weight: bold;
   border: none;
   border-radius: 6px;
-  font-weight: bold;
+  margin-top: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
-button:hover {
-  background-color: #e6c200;
+button:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
 }
 
-label {
-  font-size: 0.85rem;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.privacy {
-  margin-top: 20px;
-  font-size: 0.75rem;
-  text-align: center;
-  max-width: 90%;
+.privacy-note {
+  font-size: 10px;
+  margin-top: 15px;
+  color: #eee;
 }
