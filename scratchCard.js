@@ -1,35 +1,34 @@
-const canvas = document.getElementById("scratchCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('scratchCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
 
-function resizeCanvas() {
-  canvas.width = document.querySelector(".globe").offsetWidth;
-  canvas.height = document.querySelector(".globe").offsetHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-const foil = new Image();
-foil.src = "https://i.ibb.co/ZH6xR5J/foil-texture.jpg"; // silver foil texture
-foil.onload = () => ctx.drawImage(foil, 0, 0, canvas.width, canvas.height);
+ctx.fillStyle = 'silver';
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 let isDrawing = false;
-
-function scratch(e) {
+canvas.addEventListener('touchstart', () => isDrawing = true);
+canvas.addEventListener('touchend', () => isDrawing = false);
+canvas.addEventListener('touchmove', (e) => {
   if (!isDrawing) return;
   const rect = canvas.getBoundingClientRect();
-  const x = (e.clientX || e.touches[0].clientX) - rect.left;
-  const y = (e.clientY || e.touches[0].clientY) - rect.top;
-
-  ctx.globalCompositeOperation = "destination-out";
+  const touch = e.touches[0];
+  const x = touch.clientX - rect.left;
+  const y = touch.clientY - rect.top;
+  ctx.globalCompositeOperation = 'destination-out';
   ctx.beginPath();
-  ctx.arc(x, y, 25, 0, Math.PI * 2);
+  ctx.arc(x, y, 20, 0, Math.PI * 2);
   ctx.fill();
-}
+});
 
-canvas.addEventListener("mousedown", () => isDrawing = true);
-canvas.addEventListener("mouseup", () => isDrawing = false);
-canvas.addEventListener("mousemove", scratch);
+document.getElementById("download-btn").addEventListener("click", () => {
+  html2canvas(document.querySelector(".card-wrapper")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "your_prediction.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+});
 
-canvas.addEventListener("touchstart", () => isDrawing = true);
-canvas.addEventListener("touchend", () => isDrawing = false);
-canvas.addEventListener("touchmove", scratch);
+document.getElementById("whatsapp-share").href =
+  `https://wa.me/?text=Check%20out%20my%20fortune%20card!%20https://sachida369.github.io/destiny-scratch/`;
