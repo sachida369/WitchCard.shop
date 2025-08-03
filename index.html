@@ -19,7 +19,9 @@
       <input type="time" id="time" required />
 
       <div class="privacy">
-        <label><input type="checkbox" required /> I agree to the <a href="#" onclick="openPrivacy()">Privacy Policy</a></label>
+        <label><input type="checkbox" required /> I agree to the 
+          <a href="#" onclick="openPrivacy()">Privacy Policy</a>
+        </label>
       </div>
 
       <button type="submit">Pay ₹10</button>
@@ -40,6 +42,7 @@
     function openPrivacy() {
       document.getElementById('privacyModal').style.display = 'flex';
     }
+
     function closePrivacy() {
       document.getElementById('privacyModal').style.display = 'none';
     }
