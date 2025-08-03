@@ -1,27 +1,22 @@
-document.getElementById("payButton").addEventListener("click", function() {
-  const name = document.getElementById("name").value.trim();
-  const dob = document.getElementById("dob").value;
-  const place = document.getElementById("place").value.trim();
-  const time = document.getElementById("time").value;
-  const privacy = document.getElementById("privacyCheck").checked;
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("user-form");
+  const dobInput = form.querySelector('input[name="dob"]');
+  const payBtn = document.getElementById("pay-btn");
 
-  if (!name || !dob || !place || !time || !privacy) {
-    alert("Please fill all fields and accept the Privacy Policy.");
-    return;
-  }
+  form.addEventListener("input", () => {
+    const isValidDOB = /^\d{2}\/\d{2}\/\d{4}$/.test(dobInput.value);
+    const allFilled = [...form.elements].every(el => el.value.trim() !== "" && (!el.type === "checkbox" || el.checked));
+    payBtn.disabled = !(isValidDOB && allFilled);
+  });
 
-  const options = {
-    key: "rzp_test_123456789", // replace with live key
-    amount: 1000,
-    currency: "INR",
-    name: "Destiny Scratch Cards",
-    description: "Reveal your future partner",
-    handler: function () {
-      localStorage.setItem("formData", JSON.stringify({ name, dob, place, time }));
-      window.location.href = "scratch.html";
-    }
-  };
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    window.location.href = "scratch.html";
+  });
 
-  const rzp = new Razorpay(options);
-  rzp.open();
+  const modal = document.getElementById("privacy-modal");
+  const link = document.getElementById("privacy-link");
+  const close = document.querySelector(".close");
+  link.onclick = () => { modal.style.display = "block"; };
+  close.onclick = () => { modal.style.display = "none"; };
 });
