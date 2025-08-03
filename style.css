@@ -1,159 +1,65 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Crimson Pro', serif;
-    background: url('galaxy-bg.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    min-height: 100vh;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #050b2b, #8e2de2);
+  color: white;
+  min-height: 100vh;
 }
 
-/* Container Layout */
-.container, .scratch-container, .privacy-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    text-align: center;
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Title Style */
-h1, h2 {
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    text-shadow: 0 0 10px gold;
-    margin-bottom: 1rem;
+.banner-section img.scratch-banner {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
 }
 
-/* Form Styling */
-form {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 2rem;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    max-width: 400px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.form-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="time"],
-button {
-    padding: 0.8rem;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-family: 'Crimson Pro', serif;
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="time"] {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+form input,
+form button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
 }
 
-/* Button Styling */
-button {
-    background: gold;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px gold;
+form button {
+  background: gold;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-button:hover {
-    background: #ffd700;
-    transform: scale(1.05);
+form .terms {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 }
 
-/* Checkbox and Link */
-label {
-    font-size: 0.9rem;
+form .terms input {
+  margin-right: 8px;
 }
 
-label a {
-    color: lightblue;
-    text-decoration: underline;
-}
-
-/* Scratch Page */
-.globe-image {
-    max-width: 300px;
-    margin-bottom: 1rem;
-    z-index: 1;
-    position: relative;
-}
-
-#scratchCanvas {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    border-radius: 50%;
-    pointer-events: auto;
-}
-
-.reveal-text {
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    color: gold;
-    text-shadow: 0 0 5px #fff, 0 0 10px gold;
-    margin-top: 20px;
-    z-index: 1;
-}
-
-.action-buttons {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.action-buttons button {
-    padding: 0.8rem 1.2rem;
-}
-
-/* Privacy Page */
-.privacy-container p {
-    max-width: 600px;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-
-.back-button {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.7rem 1.5rem;
-    border-radius: 12px;
-    background-color: white;
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #ccc;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    .globe-image, #scratchCanvas {
-        width: 250px;
-        height: 250px;
-    }
-
-    h1, h2 {
-        font-size: 2rem;
-    }
+footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: #ccc;
 }
