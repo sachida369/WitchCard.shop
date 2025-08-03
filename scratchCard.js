@@ -1,23 +1,25 @@
-function initScratch() {
-  const canvas = document.getElementById("scratchCanvas");
-  const ctx = canvas.getContext("2d");
-  let isDrawing = false;
+function setupScratchCard(canvasId, revealedCallback) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
 
-  ctx.fillStyle = "#C0C0C0"; // Silver foil
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#C0C0C0';
+  ctx.fillRect(0, 0, width, height);
 
-  canvas.addEventListener("mousedown", () => isDrawing = true);
-  canvas.addEventListener("mouseup", () => isDrawing = false);
-  canvas.addEventListener("mousemove", scratch);
+  let scratched = 0;
 
-  function scratch(e) {
-    if (!isDrawing) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+  function scratch(x, y) {
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 15, 0, Math.PI * 2);
+    ctx.arc(x, y, 20, 0, Math.PI * 2);
     ctx.fill();
+    scratched++;
+    if (scratched > 30) revealedCallback();
   }
+
+  canvas.addEventListener('mousemove', function (e) {
+    const rect = canvas.getBoundingClientRect();
+    scratch(e.clientX - rect.left, e.clientY - rect.top);
+  });
 }
