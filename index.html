@@ -3,30 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Destiny Scratch Cards</title>
+  <title>🔮 Destiny Scratch Cards</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Crimson+Pro&display=swap" rel="stylesheet" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-  <div class="main-container">
-    <img src="witch-globe.png" class="hero-img" alt="Mystical Witch" />
-    <h1 class="title">🔮 Scratch to Reveal Your Future Partner's Name</h1>
-    
-    <form id="user-form">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="text" name="dob" placeholder="DOB (dd/mm/yyyy)" required />
-      <input type="text" name="place" placeholder="Place of Birth" required />
-      <input type="text" name="time" placeholder="Time (hh:mm)" required />
-      <label><input type="checkbox" required /> I agree to the <a href="#" id="privacy-link">Privacy Policy</a></label>
-      <button type="submit" id="pay-btn" disabled>Pay ₹10</button>
+  <div class="container">
+    <h1>🔮 Destiny Scratch Cards</h1>
+    <form id="destinyForm">
+      <input type="text" id="name" name="name" placeholder="Full Name" required />
+      <input type="date" id="dob" name="dob" required />
+      <input type="text" id="place" name="place" placeholder="Place of Birth" required />
+      <input type="time" id="time" name="time" required />
+      
+      <label>
+        <input type="checkbox" id="privacyCheck" required />
+        I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>
+      </label>
+      
+      <button type="submit" id="payBtn">Pay ₹10 & Reveal</button>
     </form>
-
-    <div id="privacy-modal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Privacy Policy</h2>
-        <p>Your data will only be used for mystical entertainment purposes. We do not share or store personal details.</p>
-      </div>
-    </div>
   </div>
 
   <script src="script.js"></script>
