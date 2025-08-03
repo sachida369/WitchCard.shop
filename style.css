@@ -1,95 +1,4 @@
-/* ====== GLOBAL STYLES ====== */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: url('galaxy-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* ====== MAIN CONTAINER ====== */
-.container {
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 20px;
-  padding: 2rem 1.5rem;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-  text-align: center;
-  backdrop-filter: blur(10px);
-}
-
-/* ====== HERO IMAGE ====== */
-.hero-image {
-  width: 100%;
-  max-width: 350px;
-  margin-bottom: 1rem;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-/* ====== FORM STYLES ====== */
-form#payment-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 0;
-  max-width: 350px;
-  margin: 0 auto;
-}
-
-form#payment-form input,
-form#payment-form button,
-form#payment-form select {
-  width: 100%;
-  max-width: 300px;
-  padding: 10px 12px;
-  margin: 8px 0;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 1rem;
-  backdrop-filter: blur(8px);
-  transition: border 0.2s, box-shadow 0.2s;
-}
-
-form#payment-form input:focus {
-  outline: none;
-  border-color: #00f0ff;
-  box-shadow: 0 0 8px #00f0ff;
-}
-
-/* ====== SUBMIT BUTTON ====== */
-form#payment-form button {
-  background: linear-gradient(90deg, #ff00cc, #3333ff);
-  color: white;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-form#payment-form button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px #00f0ff;
-}
-
-/* ====== PRIVACY LABEL ====== */
-form#payment-form .privacy {
-  font-size: 0.85rem;
-  color: #ccc;
-  text-align: center;
-  max-width: 300px;
-  margin: 0.5rem 0 1rem;
-}
-
-/* ====== SCRATCH CARD STYLES ====== */
+/* ====== SCRATCH CARD AREA ====== */
 .scratch-container {
   position: relative;
   max-width: 400px;
@@ -100,6 +9,7 @@ form#payment-form .privacy {
 
 .card-wrapper {
   position: relative;
+  width: 100%;
 }
 
 .scratch-image {
@@ -108,20 +18,39 @@ form#payment-form .privacy {
   border-radius: 20px;
 }
 
+/* Align the silver foil (canvas) over the globe perfectly */
 .scratch-layer {
   position: absolute;
-  top: 0;
-  left: 0;
+  left: 50%;
+  top: 43.5%; /* Adjust this for perfect vertical placement */
+  transform: translate(-50%, 0);
+  width: 65%;
+  height: 20%;
+  border-radius: 15px;
   cursor: pointer;
-  border-radius: 20px;
+  background: silver;
+  opacity: 0.9;
 }
 
+/* Responsive fine-tune */
+@media screen and (max-width: 480px) {
+  .scratch-layer {
+    top: 43%;
+    width: 65%;
+    height: 20%;
+  }
+}
+
+/* Reveal Text Styling */
 .reveal-text {
   margin-top: 1.5rem;
   font-size: 1.2rem;
   font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 8px #ff00cc;
 }
 
+/* Buttons Styling */
 .buttons {
   margin-top: 1rem;
   display: flex;
@@ -129,69 +58,21 @@ form#payment-form .privacy {
   gap: 15px;
 }
 
-/* ====== MODAL OVERLAY ====== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  z-index: 999;
-}
-
-/* ====== MODAL STYLES ====== */
-.modal {
-  background: #1c1c2b;
+.buttons button,
+.buttons a {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #ff00cc, #3333ff);
   color: white;
-  padding: 1.5rem;
-  width: 300px;
-  border-radius: 10px 0 0 10px;
-  box-shadow: -5px 0 20px rgba(0, 255, 255, 0.3);
-  animation: slideIn 0.4s ease forwards;
-  position: relative;
-}
-
-/* ====== CLOSE BUTTON ====== */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  background: transparent;
+  text-decoration: none;
   border: none;
-  font-size: 1.5rem;
-  color: #fff;
-  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* ====== ANIMATION ====== */
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0%);
-    opacity: 1;
-  }
-}
-
-/* ====== MEDIA QUERIES ====== */
-@media screen and (max-width: 480px) {
-  .container {
-    padding: 1rem;
-  }
-
-  form#payment-form input,
-  form#payment-form button {
-    max-width: 100%;
-  }
-
-  .modal {
-    width: 90%;
-    border-radius: 10px;
-  }
+.buttons button:hover,
+.buttons a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
 }
