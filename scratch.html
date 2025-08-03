@@ -8,6 +8,10 @@
       font-family: sans-serif;
       text-align: center;
       margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       background-color: #1b102c;
       background-image: url('witch-glob.png');
       background-repeat: no-repeat;
@@ -30,6 +34,17 @@
       cursor: pointer;
       box-shadow: 0 0 10px #000;
     }
+    .main-container {
+      max-width: 500px;
+      width: 95%;
+      background: red;
+    }
+    .witch-img {
+      background: 
+      red;
+      width: 100%;
+      border-radius: 15px;
+    }
 
     .reward {
       display: none;
@@ -43,7 +58,12 @@
 </head>
 <body>
 
+
+  <div class="main-container">
+    <img src="witch-globe.png" alt="Witch Fortune Teller" class="witch-img">
+</div>
 <div id="scratch-container">
+
   <canvas id="canvas" width="300" height="120"></canvas>
   <div class="reward" id="reward">💘 Your future girlfriend’s name is PRIYA!</div>
 </div>
