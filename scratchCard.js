@@ -1,79 +1,98 @@
 // scratchCard.js
 const canvas = document.getElementById("scratchCanvas");
 const ctx = canvas.getContext("2d");
-const revealedName = document.getElementById("revealedName");
+const revealedText = document.getElementById("reveal-text");
 let isDrawing = false;
-let name = localStorage.getItem("destinyName") || "Priya";
 
+// Get name from localStorage or fallback
+const name = localStorage.getItem("destinyName") || "Priya";
+
+// Position canvas over the globe area
 function resizeCanvas() {
-  const bgImage = document.querySelector(".globe-bg");
-  const rect = bgImage.getBoundingClientRect();
-  canvas.width = rect.width * 0.55;
-  canvas.height = rect.height * 0.32;
-  canvas.style.top = `${rect.top + rect.height * 0.36}px`;
-  canvas.style.left = `${rect.left + rect.width * 0.23}px`;
+  const img = document.querySelector(".scratch-image");
+  const rect = img.getBoundingClientRect();
+  const width = rect.width * 0.6;
+  const height = rect.height * 0.22;
+
+  canvas.width = width;
+  canvas.height = height;
+
   canvas.style.position = "absolute";
+  canvas.style.left = `${(img.offsetWidth - width) / 2}px`;
+  canvas.style.top = `${img.offsetHeight * 0.435}px`;
+
   drawFoil();
 }
 
+// Draw silver foil pattern
 function drawFoil() {
-  ctx.fillStyle = ctx.createPattern(generateSilverPattern(), "repeat");
+  const patternCanvas = document.createElement("canvas");
+  patternCanvas.width = 40;
+  patternCanvas.height = 40;
+  const pctx = patternCanvas.getContext("2d");
+
+  pctx.fillStyle = "#C0C0C0";
+  pctx.fillRect(0, 0, 40, 40);
+  pctx.strokeStyle = "#aaa";
+  pctx.beginPath();
+  pctx.moveTo(0, 0);
+  pctx.lineTo(40, 40);
+  pctx.stroke();
+
+  const pattern = ctx.createPattern(patternCanvas, "repeat");
+  ctx.globalCompositeOperation = "source-over";
+  ctx.fillStyle = pattern;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function generateSilverPattern() {
-  const foilCanvas = document.createElement("canvas");
-  foilCanvas.width = 20;
-  foilCanvas.height = 20;
-  const foilCtx = foilCanvas.getContext("2d");
-  foilCtx.fillStyle = "#C0C0C0";
-  foilCtx.fillRect(0, 0, 20, 20);
-  foilCtx.beginPath();
-  foilCtx.moveTo(0, 0);
-  foilCtx.lineTo(20, 20);
-  foilCtx.strokeStyle = "#aaa";
-  foilCtx.stroke();
-  return foilCanvas;
-}
-
-canvas.addEventListener("mousedown", () => isDrawing = true);
-canvas.addEventListener("mouseup", () => isDrawing = false);
-canvas.addEventListener("mousemove", scratch);
-canvas.addEventListener("touchstart", e => { isDrawing = true; scratch(e); });
-canvas.addEventListener("touchend", () => isDrawing = false);
-canvas.addEventListener("touchmove", scratch);
-
+// Scratch handler
 function scratch(e) {
   if (!isDrawing) return;
-  e.preventDefault();
   const rect = canvas.getBoundingClientRect();
   const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
   const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
   ctx.globalCompositeOperation = "destination-out";
   ctx.beginPath();
-  ctx.arc(x, y, 15, 0, Math.PI * 2);
+  ctx.arc(x, y, 20, 0, Math.PI * 2);
   ctx.fill();
-  ctx.closePath();
+
   revealName();
 }
 
+// Reveal prediction if more than 50% scratched
 function revealName() {
-  const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-  let cleared = 0;
-  for (let i = 3; i < pixels.length; i += 4) {
-    if (pixels[i] === 0) cleared++;
+  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  let transparent = 0;
+
+  for (let i = 3; i < imgData.length; i += 4) {
+    if (imgData[i] === 0) transparent++;
   }
-  if (cleared / (pixels.length / 4) > 0.5) {
-    revealedName.innerText = name;
+
+  const percent = transparent / (imgData.length / 4);
+  if (percent > 0.5) {
+    revealedText.innerText = name;
   }
 }
 
+// Add event listeners
+canvas.addEventListener("mousedown", () => (isDrawing = true));
+canvas.addEventListener("mouseup", () => (isDrawing = false));
+canvas.addEventListener("mousemove", scratch);
+
+canvas.addEventListener("touchstart", e => {
+  isDrawing = true;
+  scratch(e);
+});
+canvas.addEventListener("touchend", () => (isDrawing = false));
+canvas.addEventListener("touchmove", scratch);
+
+// Resize on load and resize
 window.addEventListener("load", resizeCanvas);
 window.addEventListener("resize", resizeCanvas);
 
 // Download button
-const downloadBtn = document.getElementById("downloadBtn");
-downloadBtn.addEventListener("click", () => {
+document.getElementById("download-btn").addEventListener("click", () => {
   html2canvas(document.querySelector(".scratch-container")).then(canvas => {
     const link = document.createElement("a");
     link.download = "destiny.png";
@@ -82,6 +101,6 @@ downloadBtn.addEventListener("click", () => {
   });
 });
 
-// WhatsApp share
-const shareBtn = document.getElementById("whatsappShare");
-shareBtn.href = `https://wa.me/?text=I%20just%20revealed%20my%20Destiny%20Name%20-%20${encodeURIComponent(name)}%20%F0%9F%94%AE%20Try%20yours%20now:%20https://sachida369.github.io/destiny`;
+// WhatsApp Share
+document.getElementById("whatsapp-share").href =
+  `https://wa.me/?text=I%20just%20revealed%20my%20Destiny%20Name%20-%20${encodeURIComponent(name)}%20%F0%9F%94%AE%20Try%20yours%20now%3A%20https%3A%2F%2Fsachida369.github.io%2Fdestiny`;
