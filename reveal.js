@@ -1,21 +1,29 @@
-const formData = JSON.parse(localStorage.getItem('formData')) || {};
-const gender = formData.name?.trim().toLowerCase().endsWith('a') ? 'girls' : 'boys';
+window.onload = async function() {
+  const formData = JSON.parse(localStorage.getItem("formData"));
+  if (!formData) {
+    document.getElementById("reveal-text").innerText = "No Data Found";
+    return;
+  }
 
-fetch(`${gender}.json`)
-  .then(res => res.json())
-  .then(data => {
-    const name = data[Math.floor(Math.random() * data.length)];
-    document.getElementById('reveal-text').textContent = `Her Name Is: ${name}`;
+  const res = await fetch("girls.json");
+  const data = await res.json();
+  const randomName = data.names[Math.floor(Math.random() * data.names.length)];
+
+  document.getElementById("reveal-text").innerText = `💖 ${randomName} 💖`;
+
+  // Download Button
+  document.getElementById("downloadBtn").addEventListener("click", () => {
+    html2canvas(document.getElementById("globe-container")).then(canvas => {
+      const link = document.createElement("a");
+      link.download = "destiny-card.png";
+      link.href = canvas.toDataURL();
+      link.click();
+    });
   });
 
-document.getElementById('download-btn').addEventListener('click', () => {
-  html2canvas(document.querySelector('.card-section')).then(canvas => {
-    const link = document.createElement('a');
-    link.download = 'your-destiny.png';
-    link.href = canvas.toDataURL();
-    link.click();
+  // WhatsApp Share
+  document.getElementById("shareBtn").addEventListener("click", () => {
+    const text = `I just revealed my future partner's name: ${randomName}! 🌌 Try yours 👉 ${window.location.origin}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
   });
-});
-
-document.getElementById('whatsapp-share').href =
-  `https://wa.me/?text=I%20just%20scratched%20my%20destiny!%20Try%20it%20here:%20https://sachida369.github.io/destiny-scratch/`;
+};
