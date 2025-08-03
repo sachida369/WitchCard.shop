@@ -1,64 +1,35 @@
-const canvas = document.getElementById('scratchCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("scratchCanvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = document.querySelector(".globe").offsetWidth;
+  canvas.height = document.querySelector(".globe").offsetHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+const foil = new Image();
+foil.src = "https://i.ibb.co/ZH6xR5J/foil-texture.jpg"; // silver foil texture
+foil.onload = () => ctx.drawImage(foil, 0, 0, canvas.width, canvas.height);
+
 let isDrawing = false;
 
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
-
-ctx.fillStyle = '#C0C0C0';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-canvas.addEventListener('mousedown', (e) => {
-  isDrawing = true;
-  draw(e);
-});
-
-canvas.addEventListener('mousemove', draw);
-
-canvas.addEventListener('mouseup', () => {
-  isDrawing = false;
-  checkReveal();
-});
-
-canvas.addEventListener('touchstart', (e) => {
-  isDrawing = true;
-  draw(e.touches[0]);
-});
-
-canvas.addEventListener('touchmove', (e) => {
-  draw(e.touches[0]);
-});
-
-canvas.addEventListener('touchend', () => {
-  isDrawing = false;
-  checkReveal();
-});
-
-function draw(e) {
+function scratch(e) {
   if (!isDrawing) return;
-
   const rect = canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
+  const x = (e.clientX || e.touches[0].clientX) - rect.left;
+  const y = (e.clientY || e.touches[0].clientY) - rect.top;
 
-  ctx.globalCompositeOperation = 'destination-out';
+  ctx.globalCompositeOperation = "destination-out";
   ctx.beginPath();
-  ctx.arc(x, y, 20, 0, 2 * Math.PI);
+  ctx.arc(x, y, 25, 0, Math.PI * 2);
   ctx.fill();
 }
 
-function checkReveal() {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  let cleared = 0;
+canvas.addEventListener("mousedown", () => isDrawing = true);
+canvas.addEventListener("mouseup", () => isDrawing = false);
+canvas.addEventListener("mousemove", scratch);
 
-  for (let i = 0; i < imageData.data.length; i += 4) {
-    if (imageData.data[i + 3] < 128) {
-      cleared++;
-    }
-  }
-
-  const total = canvas.width * canvas.height;
-  if (cleared > total * 0.5) {
-    canvas.style.display = 'none';
-  }
-}
+canvas.addEventListener("touchstart", () => isDrawing = true);
+canvas.addEventListener("touchend", () => isDrawing = false);
+canvas.addEventListener("touchmove", scratch);
