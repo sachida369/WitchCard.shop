@@ -1,73 +1,91 @@
 body {
   margin: 0;
   padding: 0;
-  background: url('galaxy-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: url('galaxy-bg.jpg') no-repeat center center/cover;
   font-family: 'Poppins', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.main-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  padding: 40px 20px;
-}
-
-.card-preview img {
-  max-width: 320px;
-  border-radius: 16px;
-  box-shadow: 0 0 20px #9b59b6;
-}
-
-.form-container {
-  background: rgba(255, 255, 255, 0.06);
-  padding: 30px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  width: 320px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.form-container h2 {
+  color: white;
   text-align: center;
-  color: #fff;
-  margin-bottom: 10px;
 }
 
-input, button {
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
+.container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  margin-top: 30px;
+}
+
+.card {
   width: 100%;
-  font-size: 1rem;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+form input, form button, form label {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
 }
 
 button {
-  background-color: #fff;
+  background: #fff;
   color: #000;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-button:hover {
-  background: #e67e22;
-  color: #fff;
+.scratch-container {
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  padding-top: 50px;
+  text-align: center;
 }
 
-label {
-  color: #eee;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+canvas {
+  width: 100%;
+  height: 300px;
+  background: silver;
+  border-radius: 10px;
 }
+
+#revealedName {
+  font-size: 24px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+
+// script.js
+
+document.getElementById('payment-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const options = {
+    key: 'rzp_live_Hd6RirzluzFacK',
+    amount: 1000,
+    currency: 'INR',
+    name: 'Destiny Cards',
+    description: 'Payment for Destiny Card',
+    handler: function (response) {
+      localStorage.setItem('userData', JSON.stringify({
+        name: document.getElementById('name').value,
+        dob: document.getElementById('dob').value,
+        place: document.getElementById('place').value,
+        time: document.getElementById('time').value
+      }));
+      window.location.href = 'scratch.html';
+    },
+    theme: {
+      color: '#0000ff'
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+})
