@@ -7,15 +7,10 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
     return;
   }
 
-  const name = document.getElementById('name').value.trim();
+  const name = document.getElementById('name').value;
   const dob = document.getElementById('dob').value;
-  const place = document.getElementById('place').value.trim();
+  const place = document.getElementById('place').value;
   const time = document.getElementById('time').value;
-
-  if (!name || !dob || !place || !time) {
-    alert("Please fill in all fields.");
-    return;
-  }
 
   const options = {
     key: 'rzp_live_Hd6RirzluzFacK',
@@ -27,14 +22,7 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
       localStorage.setItem('formData', JSON.stringify({ name, dob, place, time }));
       window.location.href = 'scratch.html';
     },
-    theme: {
-      color: '#00f0ff'
-    },
-    modal: {
-      ondismiss: function () {
-        alert('Payment cancelled. Try again to reveal your destiny.');
-      }
-    }
+    theme: { color: '#00f0ff' }
   };
 
   const rzp = new Razorpay(options);
