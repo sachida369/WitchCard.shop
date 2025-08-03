@@ -2,32 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Destiny Scratch Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destiny Scratch Card</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="main-container">
-    <img src="witch-globe.png" class="hero-img" alt="Mystical Witch" />
-    <h1 class="title">🔮 Scratch to Reveal Your Future Partner's Name</h1>
-    
-    <form id="user-form">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="text" name="dob" placeholder="DOB (dd/mm/yyyy)" required />
-      <input type="text" name="place" placeholder="Place of Birth" required />
-      <input type="text" name="time" placeholder="Time (hh:mm)" required />
-      <label><input type="checkbox" required /> I agree to the <a href="#" id="privacy-link">Privacy Policy</a></label>
-      <button type="submit" id="pay-btn" disabled>Pay ₹10</button>
-    </form>
 
-    <div id="privacy-modal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Privacy Policy</h2>
-        <p>Your data will only be used for mystical entertainment purposes. We do not share or store personal details.</p>
-      </div>
+  <div class="main-wrapper">
+    <!-- Top Banner -->
+    <div class="banner-section">
+      <img src="scratchCard/banner.png" alt="Scratch to reveal" class="scratch-banner" />
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-container">
+      <h2>Scratch to Reveal Your Future Partner's Name</h2>
+      <form id="destinyForm">
+        <input type="text" placeholder="Your Name" required />
+        <input type="text" placeholder="DOB (dd/mm/yyyy)" required />
+        <input type="text" placeholder="Place of Birth" required />
+        <input type="text" placeholder="Time (hh:mm)" required />
+
+        <label class="terms">
+          <input type="checkbox" required />
+          I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>
+        </label>
+
+        <button type="submit">Pay ₹10</button>
+      </form>
     </div>
   </div>
+
+  <footer>
+    <p>Privacy Policy: Your data will only be used for mystical entertainment purposes. We do not share or store personal details.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
