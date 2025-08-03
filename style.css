@@ -1,106 +1,160 @@
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: url('galaxy-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: white;
+/* General Reset and Base Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Crimson Pro', serif;
+    background: url('galaxy-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    min-height: 100vh;
 }
 
-.main-container {
-  text-align: center;
-  padding: 20px;
+/* Container Layout */
+.container, .scratch-container, .privacy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
 }
 
-.hero-img {
-  width: 300px;
-  max-width: 90%;
-  margin-top: 20px;
+/* Title Style */
+h1, h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px gold;
+    margin-bottom: 1rem;
 }
 
+/* Form Styling */
 form {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 15px;
-  margin-top: 20px;
-  display: inline-block;
-  backdrop-filter: blur(10px);
-  width: 90%;
-  max-width: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-form input, form button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
+input[type="text"],
+input[type="date"],
+input[type="time"],
+button {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Crimson Pro', serif;
 }
 
-form button {
-  background: #ff0055;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
+/* Button Styling */
+button {
+    background: gold;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px gold;
 }
 
-.modal-content {
-  background: white;
-  color: black;
-  padding: 20px;
-  margin: 10% auto;
-  width: 80%;
-  max-width: 500px;
-  border-radius: 10px;
-  position: relative;
+button:hover {
+    background: #ffd700;
+    transform: scale(1.05);
 }
 
-.modal .close {
-  position: absolute;
-  top: 10px; right: 15px;
-  font-size: 24px;
-  cursor: pointer;
+/* Checkbox and Link */
+label {
+    font-size: 0.9rem;
 }
 
-.scratch-container {
-  text-align: center;
-  padding: 30px;
+label a {
+    color: lightblue;
+    text-decoration: underline;
 }
 
-.card-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.scratch-image {
-  width: 300px;
+/* Scratch Page */
+.globe-image {
+    max-width: 300px;
+    margin-bottom: 1rem;
+    z-index: 1;
+    position: relative;
 }
 
 #scratchCanvas {
-  position: absolute;
-  top: 23%;
-  left: 19%;
-  width: 62%;
-  height: 26%;
-  background: silver;
-  border-radius: 15px;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border-radius: 50%;
+    pointer-events: auto;
 }
 
 .reveal-text {
-  position: absolute;
-  top: 33%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 22px;
-  font-weight: bold;
-  color: black;
-  pointer-events: none;
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: gold;
+    text-shadow: 0 0 5px #fff, 0 0 10px gold;
+    margin-top: 20px;
+    z-index: 1;
+}
+
+.action-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.action-buttons button {
+    padding: 0.8rem 1.2rem;
+}
+
+/* Privacy Page */
+.privacy-container p {
+    max-width: 600px;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 12px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .globe-image, #scratchCanvas {
+        width: 250px;
+        height: 250px;
+    }
+
+    h1, h2 {
+        font-size: 2rem;
+    }
 }
