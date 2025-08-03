@@ -18,17 +18,21 @@
   border-radius: 20px;
 }
 
-/* Align canvas directly over the globe using percentage positioning */
+/* Foil Canvas Positioned Over Globe */
 #scratchCanvas {
   position: absolute;
-  top: 36%;
-  left: 23%;
-  width: 55%;
-  height: 32%;
   border-radius: 15px;
   pointer-events: auto;
   cursor: pointer;
   z-index: 2;
+  mix-blend-mode: normal;
+  background: repeating-linear-gradient(
+    45deg,
+    #c0c0c0,
+    #c0c0c0 10px,
+    #d0d0d0 10px,
+    #d0d0d0 20px
+  );
 }
 
 /* Reveal Text Styling */
@@ -40,12 +44,13 @@
   text-shadow: 0 0 8px #ff00cc;
 }
 
-/* Buttons Styling */
+/* Button Area */
 .buttons {
   margin-top: 1.5rem;
   display: flex;
   justify-content: center;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .buttons button,
@@ -67,19 +72,20 @@
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
 }
 
-/* Responsive fine-tune */
-@media screen and (max-width: 480px) {
-  #scratchCanvas {
-    top: 36%;
-    left: 23%;
-    width: 55%;
-    height: 32%;
-  }
+/* Ensure canvas size is responsive and matched */
+canvas#scratchCanvas {
+  width: 60%;
+  height: 22%;
+  left: 20%;
+  top: 43.5%;
 }
 
-/* Optional backdrop tweak */
-.scratch-container canvas {
-  background: repeating-linear-gradient(45deg, #C0C0C0, #C0C0C0 10px, #D0D0D0 10px, #D0D0D0 20px);
-  opacity: 1;
-  mix-blend-mode: normal;
+/* Mobile Fine-tune */
+@media screen and (max-width: 480px) {
+  canvas#scratchCanvas {
+    width: 60%;
+    height: 22%;
+    left: 20%;
+    top: 43.5%;
+  }
 }
