@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="witch-globe.png" alt="Mystical Card" class="card" />
+    <img src="witch-globe.png" alt="Mystical Card" class="hero-image" />
 
     <form id="payment-form">
       <h2>🔮 Unlock Your Destiny ✨</h2>
@@ -17,10 +17,33 @@
       <input type="date" id="dob" required />
       <input type="text" id="place" placeholder="Place of Birth" required />
       <input type="time" id="time" required />
-      <label><input type="checkbox" required /> I agree to the Privacy Policy</label>
+
+      <div class="privacy">
+        <label><input type="checkbox" required /> I agree to the <a href="#" onclick="openPrivacy()">Privacy Policy</a></label>
+      </div>
+
       <button type="submit">Pay ₹10</button>
     </form>
   </div>
+
+  <!-- Privacy Policy Modal -->
+  <div id="privacyModal" class="modal-overlay" style="display: none;">
+    <div class="modal">
+      <button class="close-btn" onclick="closePrivacy()">×</button>
+      <h3>Privacy Policy</h3>
+      <p>Your information (Name, DOB, Time, Place) is used only to provide your prediction. We do not store or sell any user data.</p>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script>
+    function openPrivacy() {
+      document.getElementById('privacyModal').style.display = 'flex';
+    }
+
+    function closePrivacy() {
+      document.getElementById('privacyModal').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
