@@ -1,26 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reveal Destiny</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <title>Reveal Name</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial';
+      background: url('images/bg.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+    }
+
+    .card {
+      margin-top: 100px;
+      background-color: #333;
+      padding: 40px;
+      border-radius: 20px;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .scratch {
+      margin-top: 20px;
+      background: url('images/silver-foil.png') no-repeat center;
+      background-size: cover;
+      width: 280px;
+      height: 100px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .result {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      width: 100%;
+      color: gold;
+      font-size: 20px;
+    }
+  </style>
 </head>
 <body>
-  <div class="scratch-container">
-    <div class="card-wrapper">
-      <img src="witch-globe.png" class="scratch-image" alt="Scratch Globe"/>
-      <canvas id="scratchCanvas"></canvas>
-      <div id="reveal-text" class="reveal-text"></div>
-    </div>
-    <div class="buttons">
-      <button id="download-btn">📸 Download</button>
-      <a id="whatsapp-share" href="#" target="_blank">💬 Share</a>
+  <h1>Your Destiny Is Revealed</h1>
+  <div class="card">
+    <div class="scratch" onclick="reveal()">
+      <div class="result" id="resultText">Riya Sharma</div>
     </div>
   </div>
-
-  <script src="reveal.js"></script>
-  <script src="scratchCard.js"></script>
+  <script>
+    function reveal() {
+      document.querySelector('.scratch').style.background = "transparent";
+    }
+  </script>
 </body>
 </html>
