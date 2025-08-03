@@ -3,57 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reveal Name</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial';
-      background: url('images/bg.jpg') no-repeat center center/cover;
-      color: white;
-      text-align: center;
-    }
-
-    .card {
-      margin-top: 100px;
-      background-color: #333;
-      padding: 40px;
-      border-radius: 20px;
-      width: 300px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .scratch {
-      margin-top: 20px;
-      background: url('images/silver-foil.png') no-repeat center;
-      background-size: cover;
-      width: 280px;
-      height: 100px;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .result {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      width: 100%;
-      color: gold;
-      font-size: 20px;
-    }
-  </style>
+  <title>Scratch & Reveal</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Your Destiny Is Revealed</h1>
-  <div class="card">
-    <div class="scratch" onclick="reveal()">
-      <div class="result" id="resultText">Riya Sharma</div>
-    </div>
+  <div class="scratch-container">
+    <h1>Scratch the card to reveal your partner’s name</h1>
+    <canvas id="scratchCard" width="300" height="150"></canvas>
   </div>
   <script>
-    function reveal() {
-      document.querySelector('.scratch').style.background = "transparent";
-    }
+    const canvas = document.getElementById("scratchCard");
+    const ctx = canvas.getContext("2d");
+    const image = new Image();
+    image.src = "images/silver-foil.png";
+
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    };
+
+    canvas.addEventListener("mousemove", (e) => {
+      if (e.buttons === 1) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    });
+
+    // Optional: write name behind scratch
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "#fff";
+    ctx.fillText("❤️ Rajan ❤️", 90, 80);
   </script>
 </body>
 </html>
