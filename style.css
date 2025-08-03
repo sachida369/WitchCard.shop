@@ -1,72 +1,71 @@
-body {
+body, html {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background: url('https://cdn.pixabay.com/photo/2016/11/29/07/11/galaxy-1867311_1280.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
+  color: white;
+  background-color: black;
+  overflow-x: hidden;
 }
 
-.container {
-  max-width: 400px;
-  margin: 50px auto;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #ff00ff;
+.background {
+  background: url('images/bg.jpg') no-repeat center center/cover;
+  height: 100vh;
   text-align: center;
+  padding-top: 60px;
+  position: relative;
 }
 
 h1 {
-  font-size: 20px;
-  margin-bottom: 20px;
-  color: #ffffcc;
+  color: #ffd700;
+  text-shadow: 2px 2px 4px #000;
+}
+
+.witch-image {
+  width: 120px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.form-container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 input[type="text"] {
-  width: 100%;
+  width: 90%;
   padding: 10px;
-  margin: 8px 0;
-  border-radius: 5px;
-  border: none;
-  background-color: #222;
-  color: #fff;
-}
-
-.policy-label {
-  font-size: 12px;
-  display: block;
   margin: 10px 0;
-  text-align: left;
-  color: #ccc;
-}
-
-.policy-label a {
-  color: #fff;
-  text-decoration: underline;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  background: yellow;
-  color: black;
-  font-weight: bold;
+  padding: 12px 25px;
+  background-color: gold;
   border: none;
-  border-radius: 6px;
-  margin-top: 10px;
+  border-radius: 10px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-button:disabled {
-  background: #ccc;
-  color: #666;
-  cursor: not-allowed;
+button:hover {
+  background-color: orange;
+}
+
+.privacy-label {
+  font-size: 12px;
+  margin-top: 10px;
+  display: block;
 }
 
 .privacy-note {
-  font-size: 10px;
-  margin-top: 15px;
-  color: #eee;
+  font-size: 12px;
+  margin-top: 30px;
 }
