@@ -89,6 +89,46 @@ form#payment-form .privacy {
   margin: 0.5rem 0 1rem;
 }
 
+/* ====== SCRATCH CARD STYLES ====== */
+.scratch-container {
+  position: relative;
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+  color: white;
+}
+
+.card-wrapper {
+  position: relative;
+}
+
+.scratch-image {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+}
+
+.scratch-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.reveal-text {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.buttons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
 /* ====== MODAL OVERLAY ====== */
 .modal-overlay {
   position: fixed;
