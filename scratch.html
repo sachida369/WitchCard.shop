@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Destiny</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scratch & Reveal</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
-<body>
-  <div class="main-container">
-    <div class="card-section">
-      <div class="card-wrapper">
-        <img src="witch-globe.png" alt="Mystical Card" class="scratch-image" />
-        <canvas id="scratchCanvas"></canvas>
-        <div id="reveal-text"></div>
-      </div>
-      <div class="buttons">
-        <button id="download-btn">🔮 Download</button>
-        <a id="whatsapp-share" href="#" target="_blank">💌 Share on WhatsApp</a>
-      </div>
+<body style="background-image:url('galaxy-bg.jpg');">
+  <div class="scratch-container">
+    <div id="globe-container">
+      <img src="witch-globe.png" alt="Mystic Globe" class="globe">
+      <canvas id="scratchCanvas"></canvas>
+      <div id="reveal-text">✨ Scratch to Reveal ✨</div>
+    </div>
+    <div class="actions">
+      <button id="downloadBtn" class="btn-glow">📥 Download</button>
+      <button id="shareBtn" class="btn-glow">💌 Share</button>
     </div>
   </div>
-
-  <script src="reveal.js"></script>
   <script src="scratchCard.js"></script>
+  <script src="reveal.js"></script>
 </body>
 </html>
