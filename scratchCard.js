@@ -1,34 +1,71 @@
-const canvas = document.getElementById('scratchCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("scratchCanvas");
+  const ctx = canvas.getContext("2d");
 
-ctx.fillStyle = 'silver';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const width = 300;
+  const height = 300;
+  canvas.width = width;
+  canvas.height = height;
 
-let isDrawing = false;
-canvas.addEventListener('touchstart', () => isDrawing = true);
-canvas.addEventListener('touchend', () => isDrawing = false);
-canvas.addEventListener('touchmove', (e) => {
-  if (!isDrawing) return;
-  const rect = canvas.getBoundingClientRect();
-  const touch = e.touches[0];
-  const x = touch.clientX - rect.left;
-  const y = touch.clientY - rect.top;
-  ctx.globalCompositeOperation = 'destination-out';
-  ctx.beginPath();
-  ctx.arc(x, y, 20, 0, Math.PI * 2);
-  ctx.fill();
-});
+  // Draw foil texture
+  const foil = new Image();
+  foil.src = "foil-texture.jpg";
+  foil.onload = () => {
+    ctx.drawImage(foil, 0, 0, width, height);
+  };
 
-document.getElementById("download-btn").addEventListener("click", () => {
-  html2canvas(document.querySelector(".card-wrapper")).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "your_prediction.png";
-    link.href = canvas.toDataURL();
-    link.click();
+  let isDrawing = false;
+
+  function getPosition(e) {
+    let rect = canvas.getBoundingClientRect();
+    let x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    let y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    return { x, y };
+  }
+
+  function scratch(x, y) {
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.beginPath();
+    ctx.arc(x, y, 20, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function getScratchedPercent() {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const pixels = imageData.data;
+    let transparent = 0;
+
+    for (let i = 3; i < pixels.length; i += 4) {
+      if (pixels[i] < 128) transparent++;
+    }
+
+    const totalPixels = width * height;
+    return (transparent / totalPixels) * 100;
+  }
+
+  function checkReveal() {
+    if (getScratchedPercent() >= 60) {
+      canvas.style.display = "none";
+      document.getElementById("revealName").style.display = "block";
+    }
+  }
+
+  canvas.addEventListener("mousedown", () => isDrawing = true);
+  canvas.addEventListener("mouseup", () => isDrawing = false);
+  canvas.addEventListener("mousemove", e => {
+    if (!isDrawing) return;
+    const pos = getPosition(e);
+    scratch(pos.x, pos.y);
+    checkReveal();
   });
-});
 
-document.getElementById("whatsapp-share").href =
-  `https://wa.me/?text=Check%20out%20my%20fortune%20card!%20https://sachida369.github.io/destiny-scratch/`;
+  canvas.addEventListener("touchstart", () => isDrawing = true);
+  canvas.addEventListener("touchend", () => isDrawing = false);
+  canvas.addEventListener("touchmove", e => {
+    e.preventDefault();
+    if (!isDrawing) return;
+    const pos = getPosition(e);
+    scratch(pos.x, pos.y);
+    checkReveal();
+  }, { passive: false });
+});
