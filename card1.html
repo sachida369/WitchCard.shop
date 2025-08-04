@@ -9,12 +9,16 @@
   <script src="html2canvas.min.js"></script>
 </head>
 <body>
-  <div class="background"></div>
+  
   
   <h1 class="heading">🔮 Unlock Your Destiny ✨</h1>
 
-  <form action="./scratch.html" id="destinyForm" class="glass-card">
-        <img src="witch-globe.png" alt="Witch Fortune Teller" class="witch-img">
+  <form id="destinyForm" class="glass-card">
+        <!-- <img src="witch-globe.png" alt="Witch Fortune Teller" class="witch-img"> -->
+         
+       <video  id="cardImage" loop muted >
+        <source src="witch-globe.mp4" type="video/mp4">
+       </video>
 
     <input type="text" id="name" placeholder="Your Name" required />
     <input type="date" id="dob" required />
@@ -28,7 +32,7 @@
 
     <button type="button" id="payBtn" disabled>Pay ₹10 to Reveal</button>
   </form>
-
+  
   <div id="cardSection" class="card-container hidden">
     <div class="card-frame" id="resultCard">
       <img src="witch-globe.png" id="cardImage" />
@@ -42,7 +46,62 @@
     </div>
   </div>
 
+  
+<video autoplay muted loop id="myVideo">
+  <source src="bg.mp4" type="video/mp4">
+</video>
+
+
   <script src="scratchCard.js"></script>
   <script src="script.js"></script>
+
+  <script>
+    // Enable button only if checkbox is checked
+    document.getElementById('agree').addEventListener('change', function () {
+      document.getElementById('payBtn').disabled = !this.checked;
+    });
+
+    // Form validation
+    function validateForm() {
+      const name = document.getElementById('name').value.trim();
+      const dob = document.getElementById('dob').value;
+      const place = document.getElementById('place').value.trim();
+      const time = document.getElementById('time').value;
+      return name && dob && place && time;
+    }
+const video = document.getElementById('cardImage')
+    // Razorpay payment setup
+    document.getElementById('payBtn').addEventListener('click', function () {
+      video.play();
+      setTimeout(() => {
+        if (!validateForm()) {
+          alert("Please fill all the fields before proceeding.");
+          return;
+        }
+        
+              const options = {
+                key: "rzp_live_Hd6RirzluzFacK", 
+                amount: 1000, // Amount in paisa (₹10)
+                currency: "INR",
+                name: "Destiny Scratch",
+                description: "Payment for Destiny Card",
+                handler: function (response) {
+                  // On payment success, redirect
+                  window.location.href = "scratch.html";
+                },
+                prefill: {
+                  name: document.getElementById('name').value,
+                },
+                theme: {
+                  color: "#8A2BE2"
+                }
+              };
+        
+              const rzp = new Razorpay(options);
+              rzp.open();
+      }, 5000);
+    });
+  </script>
 </body>
+
 </html>
