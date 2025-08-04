@@ -1,10 +1,15 @@
+
 body, html {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
   overflow-x: hidden;
-  background: url('galaxy-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
+}
+
+.bgvideo{
+  position: fixed;
+  height: 100vh;
+  z-index: -1;
 }
 
 .heading {
