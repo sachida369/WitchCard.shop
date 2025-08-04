@@ -1,11 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Witch Card Horror Shop</title>
   <style>
+    * {
+  box-sizing: border-box;
+}
+
     body {
       margin: 0;
       background-color: #000;
@@ -15,6 +19,7 @@
       flex-direction: row;
       min-height: 100vh;
     }
+
     .sidebar {
       width: 30%;
       background-color: #111;
@@ -23,11 +28,13 @@
       flex-direction: column;
       align-items: center;
     }
+
     .sidebar video {
       width: 100%;
       border-radius: 12px;
       border: 2px solid crimson;
     }
+
     .main {
       flex-grow: 1;
       padding: 2rem;
@@ -35,25 +42,39 @@
       flex-direction: column;
       justify-content: space-between;
     }
+
     .cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
       margin-bottom: 2rem;
     }
+
     .card {
-      background-color: #1a1a1a;
-      padding: 1rem;
-      border: 1px solid crimson;
+      background-color: #9bd2ff;
+      padding: 6px;
       border-radius: 8px;
       text-align: center;
-      box-shadow: 0 0 10px crimson;
+      box-shadow: 0 0 10px #9bd2ff;
     }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card video {
+      width: 100%;
+      border-radius: 8px;
+      max-height: 300px;
+      object-fit: cover;
+    }
+
     .footer {
       text-align: center;
       padding: 1rem;
       border-top: 1px solid crimson;
     }
+
     .footer a {
       text-decoration: none;
       margin: 0.5rem;
@@ -64,44 +85,160 @@
       border-radius: 4px;
       cursor: pointer;
     }
+
     .footer a:hover {
       background-color: darkred;
     }
+
+    .card-buttons {
+      display: flex;
+      justify-content: space-around;
+      padding: 12px;
+    }
+
+    #download,
+    #share {
+      background: #01cc3e;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 2px 2px 2px #014e18;
+    }
+
+    #share {
+      background: rgb(32, 127, 250);
+    }
+
+    /* Existing Media Query — Enhanced */
     @media (max-width: 768px) {
       body {
         flex-direction: column;
       }
+
       .sidebar {
         width: 100%;
       }
+
       .cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+      }
+
+      .card-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .sidebar h3 {
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .main {
+        padding: 1rem;
       }
     }
+
   </style>
 </head>
+
 <body>
   <div class="sidebar">
     <video src="PixVerse_V4.5_Image_Text_360P_AI_Prompt_for_Wa.mp4" autoplay muted loop></video>
+    <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nesciunt ea earum expedita beatae, ut
+      voluptatem est dolores non modi!</h3>
   </div>
   <div class="main">
     <div class="cards">
-      <div class="card" onclick="document.location='card1.html'" > <video autoplay muted loop width="200px"> <source src="witch-globe.mp4" type="video/mp4"> </video> </div>
-      <div class="card"><video autoplay muted loop width="200px"> <source src="witch-globe.mp4" type="video/mp4"> </video>  </div>
-      <div class="card"><video autoplay muted loop width="200px"> <source src="witch-globe.mp4" type="video/mp4"> </video>  </div>
-      <div class="card"><video autoplay muted loop width="200px"> <source src="witch-globe.mp4" type="video/mp4"> </video> </div>
-      <div class="card"><video autoplay muted loop width="200px"> <source src="witch-globe.mp4" type="video/mp4"> </video>  </div>
-      <div class="card"><video autoplay muted loop width="200px"> <source src="witch-globe.mp4" type="video/mp4"> </video>  </div>
-      <div class="card"><video autoplay muted loop width="200px"> <source src="witch-globe.mp4" type="video/mp4"> </video>  </div>
-      <div class="card"><video autoplay muted loop width="200px"> <source src="witch-globe.mp4" type="video/mp4"> </video>  </div>
+      <div class="card"> <video muted loop width="280px" onclick="document.location='card1.html'">
+          <source src="witch-globe.mp4" type="video/mp4">
+        </video>
+        <div class="card-buttons">
+          <button id="download">Download</button>
+          <button id="share">Share</button>
+        </div>
+      </div>
+      <div class="card"> <video muted loop width="280px" >
+          <source src="witch-globe.mp4" type="video/mp4">
+        </video>
+        <div class="card-buttons">
+          <button id="download">Download</button>
+          <button id="share">Share</button>
+        </div>
+      </div>
+      <div class="card"> <video muted loop width="280px" >
+          <source src="witch-globe.mp4" type="video/mp4">
+        </video>
+        <div class="card-buttons">
+          <button id="download">Download</button>
+          <button id="share">Share</button>
+        </div>
+      </div>
+      <div class="card"> <video muted loop width="280px" >
+          <source src="witch-globe.mp4" type="video/mp4">
+        </video>
+        <div class="card-buttons">
+          <button id="download">Download</button>
+          <button id="share">Share</button>
+        </div>
+      </div>
+      <div class="card"> <video muted loop width="280px" >
+          <source src="witch-globe.mp4" type="video/mp4">
+        </video>
+        <div class="card-buttons">
+          <button id="download">Download</button>
+          <button id="share">Share</button>
+        </div>
+      </div>
+      <div class="card"> <video muted loop width="280px" >
+          <source src="witch-globe.mp4" type="video/mp4">
+        </video>
+        <div class="card-buttons">
+          <button id="download">Download</button>
+          <button id="share">Share</button>
+        </div>
+      </div>
+      <div class="card"> <video muted loop width="280px" >
+          <source src="witch-globe.mp4" type="video/mp4">
+        </video>
+        <div class="card-buttons">
+          <button id="download">Download</button>
+          <button id="share">Share</button>
+        </div>
+      </div>
+      <div class="card"> <video muted loop width="280px" >
+          <source src="witch-globe.mp4" type="video/mp4">
+        </video>
+        <div class="card-buttons">
+          <button id="download">Download</button>
+          <button id="share">Share</button>
+        </div>
+      </div>
     </div>
     <div class="footer">
-       <a href="#">Blogs</a>
+      <a href="#">Blogs</a>
       <a href="privacy.html" target="_blank">Privacy Policy</a>
       <a href="refund.html" target="_blank">Refund Policy</a>
       <a href="contact.html" target="_blank">Contact</a>
       <a href="https://witchcard.goaffpro.com/create-account" target="_blank">Affiliate Policy</a>
     </div>
   </div>
+  <script>
+    document.querySelectorAll('.card').forEach(card => {
+      const video = card.querySelector('video');
+
+      card.addEventListener('mouseenter', () => {
+        video.play();
+      });
+
+      card.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+  </script>
 </body>
-</html>
+
+</html
