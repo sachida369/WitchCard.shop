@@ -20,7 +20,7 @@ body, html {
   background: rgba(255, 255, 255, 0.15);
   padding: 20px;
   width: 90%;
-  max-width: 400px;
+  max-width: 300px;
   margin: 1rem auto;
   border-radius: 20px;
   box-shadow: 0 4px 30px rgba(0,0,0,0.2);
