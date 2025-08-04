@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Scratch to Reveal Your Girlfriend’s Name</title>
+  <title>Scratch to Reveal Your Partner’s Name</title>
   <style>
     body {
       font-family: sans-serif;
@@ -29,7 +29,7 @@
       cursor: pointer;
       box-shadow: 0 0 10px #000;
       opacity: 1;
-      transition: opacity 1s ease; /* Smooth fade-out */
+      transition: opacity 1s ease;
     }
 
     .main-container {
@@ -42,32 +42,33 @@
     }
 
     .reward {
-      width: 220px;
-      height: 100px;
+      width: 250px;
+      height: 120px;
       display: none;
-      font-size: 24px;
+      font-size: 22px;
       color: #00ffcc;
       font-weight: bold;
       text-shadow: 1px 1px 2px black;
       opacity: 0;
-      transition: opacity 1s ease; /* Smooth fade-in */
+      transition: opacity 1s ease;
     }
 
     .show-reward {
       display: block !important;
       opacity: 1 !important;
     }
-@media only screen and (max-width: 1660px) {
-  #scratch-container {
-    left: 40%;
-  }
-}
+
+    @media only screen and (max-width: 1660px) {
+      #scratch-container {
+        left: 40%;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="main-container">
     <div id="scratch-container">
-      <div class="reward" id="reward">💘 Your future girlfriend’s name is PRIYA!</div>
+      <div class="reward" id="reward">💘 Your fortune is loading...</div>
       <canvas id="canvas" width="210" height="100"></canvas>
     </div>
     <img src="witch-globe.png" alt="Witch Fortune Teller" class="witch-img">
@@ -79,7 +80,38 @@
     const reward = document.getElementById('reward');
     let isDrawing = false;
 
-    // Grey scratch layer
+    let boyNames = [];
+    let girlNames = [];
+
+    async function loadNames() {
+      try {
+        const [boysRes, girlsRes] = await Promise.all([
+          fetch('boys.json'),
+          fetch('girls.json')
+        ]);
+        boyNames = await boysRes.json();
+        girlNames = await girlsRes.json();
+
+        // pick a random gender + name
+        setRandomReward();
+      } catch (error) {
+        console.error("Error loading JSON files:", error);
+        reward.textContent = "⚠️ Error loading names!";
+      }
+    }
+
+    function setRandomReward() {
+      const chooseGender = Math.random() < 0.5 ? "girl" : "boy";
+      const chosenName = chooseGender === "girl"
+        ? girlNames[Math.floor(Math.random() * girlNames.length)]
+        : boyNames[Math.floor(Math.random() * boyNames.length)];
+
+      reward.textContent = chooseGender === "girl"
+        ? `💘 Your future girlfriend’s name is ${chosenName}!`
+        : `💘 Your future boyfriend’s name is ${chosenName}!`;
+    }
+
+    // Scratch effect
     ctx.fillStyle = '#C0C0C0';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -102,7 +134,7 @@
       ctx.arc(x, y, 20, 0, 2 * Math.PI);
       ctx.fill();
 
-      // Scratch percentage
+      // Calculate scratched %
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       let clearPixels = 0;
       for (let i = 0; i < imageData.data.length; i += 4) {
@@ -111,13 +143,16 @@
       const scratchedPercent = clearPixels / (canvas.width * canvas.height) * 100;
 
       if (scratchedPercent > 45) {
-        canvas.style.opacity = '0'; // fade out canvas
+        canvas.style.opacity = '0';
         setTimeout(() => {
-          canvas.style.display = 'none'; // remove canvas after fade
-          reward.classList.add('show-reward'); // fade in reward
-        }, 1000); // matches transition duration
+          canvas.style.display = 'none';
+          reward.classList.add('show-reward');
+        }, 1000);
       }
     }
+
+    // Start
+    loadNames();
   </script>
 </body>
 </html>
