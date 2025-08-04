@@ -5,10 +5,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Witch Card Horror Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=menu" />
   <style>
+    .nosifer-regular {
+      font-family: "Nosifer", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+
     * {
-  box-sizing: border-box;
-}
+      box-sizing: border-box;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
 
     body {
       margin: 0;
@@ -32,7 +45,9 @@
     .sidebar video {
       width: 100%;
       border-radius: 12px;
-      border: 2px solid crimson;
+      border: 2px solid rgb(34, 136, 253);
+      box-shadow: 0 0 10px #77c2ff;
+
     }
 
     .main {
@@ -51,11 +66,11 @@
     }
 
     .card {
-      background-color: #9bd2ff;
-      padding: 6px;
+      background-color: #746aff;
+      padding: 3px;
       border-radius: 8px;
       text-align: center;
-      box-shadow: 0 0 10px #9bd2ff;
+      box-shadow: 0 0 10px #77c2ff;
     }
 
     .card:hover {
@@ -65,17 +80,18 @@
     .card video {
       width: 100%;
       border-radius: 8px;
-      max-height: 300px;
+      max-height: 500px;
+      cursor: pointer;
       object-fit: cover;
     }
 
-    .footer {
-      text-align: center;
+    .footer,.navLinks {
+      /* text-align: center; */
       padding: 1rem;
       border-top: 1px solid crimson;
     }
 
-    .footer a {
+    .footer a, .navLinks a {
       text-decoration: none;
       margin: 0.5rem;
       background-color: crimson;
@@ -96,20 +112,15 @@
       padding: 12px;
     }
 
-    #download,
-    #share {
-      background: #01cc3e;
-      color: #fff;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      box-shadow: 2px 2px 2px #014e18;
+    #nav {
+      width: 100%;
+      background: #181818;
+      display: none;
     }
 
-    #share {
-      background: rgb(32, 127, 250);
+    .material-symbols-outlined {
+      display: none;
+      padding: 8px;
     }
 
     /* Existing Media Query — Enhanced */
@@ -126,25 +137,42 @@
         grid-template-columns: 1fr;
       }
 
-      .card-buttons {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
       .sidebar h3 {
-        font-size: 14px;
+        font-size: 25px;
         text-align: center;
       }
 
       .main {
         padding: 1rem;
       }
+.footer a{
+  display: block;
+}
+.footer-links{
+  display: none;
+}
+      .material-symbols-outlined {
+        display: block;
+      }
     }
-
   </style>
 </head>
 
 <body>
+
+  <span onclick="navbar()" class="material-symbols-outlined">
+    menu
+  </span>
+  <div id="nav">
+    <div class="footer">
+      <a href="#">Blogs</a>
+      <a href="/privacy" target="_blank">Privacy Policy</a>
+      <a href="refund.html" target="_blank">Refund Policy</a>
+      <a href="contact.html" target="_blank">Contact</a>
+      <a href="https://witchcard.goaffpro.com/create-account" target="_blank">Affiliate Policy</a>
+    </div>
+  </div>
+
   <div class="sidebar">
     <video src="PixVerse_V4.5_Image_Text_360P_AI_Prompt_for_Wa.mp4" autoplay muted loop></video>
     <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nesciunt ea earum expedita beatae, ut
@@ -155,74 +183,44 @@
       <div class="card"> <video muted loop width="280px" onclick="document.location='card1.html'">
           <source src="witch-globe.mp4" type="video/mp4">
         </video>
-        <div class="card-buttons">
-          <button id="download">Download</button>
-          <button id="share">Share</button>
-        </div>
       </div>
-      <div class="card"> <video muted loop width="280px" >
+      <div class="card"> <video muted loop width="280px">
           <source src="witch-globe.mp4" type="video/mp4">
         </video>
-        <div class="card-buttons">
-          <button id="download">Download</button>
-          <button id="share">Share</button>
-        </div>
       </div>
-      <div class="card"> <video muted loop width="280px" >
+      <div class="card"> <video muted loop width="280px">
           <source src="witch-globe.mp4" type="video/mp4">
         </video>
-        <div class="card-buttons">
-          <button id="download">Download</button>
-          <button id="share">Share</button>
-        </div>
       </div>
-      <div class="card"> <video muted loop width="280px" >
+      <div class="card"> <video muted loop width="280px">
           <source src="witch-globe.mp4" type="video/mp4">
         </video>
-        <div class="card-buttons">
-          <button id="download">Download</button>
-          <button id="share">Share</button>
-        </div>
       </div>
-      <div class="card"> <video muted loop width="280px" >
+      <div class="card"> <video muted loop width="280px">
           <source src="witch-globe.mp4" type="video/mp4">
         </video>
-        <div class="card-buttons">
-          <button id="download">Download</button>
-          <button id="share">Share</button>
-        </div>
       </div>
-      <div class="card"> <video muted loop width="280px" >
+      <div class="card"> <video muted loop width="280px">
           <source src="witch-globe.mp4" type="video/mp4">
         </video>
-        <div class="card-buttons">
-          <button id="download">Download</button>
-          <button id="share">Share</button>
-        </div>
       </div>
-      <div class="card"> <video muted loop width="280px" >
+      <div class="card"> <video muted loop width="280px">
           <source src="witch-globe.mp4" type="video/mp4">
         </video>
-        <div class="card-buttons">
-          <button id="download">Download</button>
-          <button id="share">Share</button>
-        </div>
       </div>
-      <div class="card"> <video muted loop width="280px" >
+      <div class="card"> <video muted loop width="280px">
           <source src="witch-globe.mp4" type="video/mp4">
         </video>
-        <div class="card-buttons">
-          <button id="download">Download</button>
-          <button id="share">Share</button>
-        </div>
       </div>
     </div>
-    <div class="footer">
-      <a href="#">Blogs</a>
-      <a href="privacy.html" target="_blank">Privacy Policy</a>
-      <a href="refund.html" target="_blank">Refund Policy</a>
-      <a href="contact.html" target="_blank">Contact</a>
-      <a href="https://witchcard.goaffpro.com/create-account" target="_blank">Affiliate Policy</a>
+    <div class="footer-links">
+      <div class="footer">
+        <a href="#">Blogs</a>
+        <a href="/privacy" target="_blank">Privacy Policy</a>
+        <a href="refund.html" target="_blank">Refund Policy</a>
+        <a href="contact.html" target="_blank">Contact</a>
+        <a href="https://witchcard.goaffpro.com/create-account" target="_blank">Affiliate Policy</a>
+      </div>
     </div>
   </div>
   <script>
@@ -238,7 +236,17 @@
         video.currentTime = 0;
       });
     });
+    const nav = document.getElementById('nav')
+    function navbar() {
+      if(nav.style.display == 'none'){
+        nav.style.display = 'block'
+      }
+      else{
+        nav.style.display = 'none'
+      }
+      
+    }
   </script>
 </body>
 
-</html
+</html>
