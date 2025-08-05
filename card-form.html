@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="card-form.css">
 </head>
 <body>
     <!-- Sticky Header -->
@@ -19,7 +20,7 @@
             <nav class="nav">
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="cards.html">Cards</a></li>
+                    <li><a href="index.html#cards-section">Cards</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
                 <div class="hamburger">
@@ -36,12 +37,14 @@
         <div class="container">
             <div class="form-container">
                 <div class="selected-card-info">
-                    <div class="card-icon-display" id="selectedCardIcon">🌌</div>
+                    <div class="card-display-image" id="selectedCardImage">
+                        <img src="attached_assets/generated_images/Past_Life_Mystical_Card_9d9ab67d.png" alt="Selected mystical card" id="cardDisplayImg" />
+                    </div>
                     <h2 class="selected-card-title" id="selectedCardTitle">Past Life Regression</h2>
                     <p class="selected-card-description" id="selectedCardDescription">
                         Discover who you were in your previous life
                     </p>
-                    <div class="selected-card-price" id="selectedCardPrice">₹15</div>
+                    <div class="selected-card-price" id="selectedCardPrice">₹10</div>
                 </div>
 
                 <form id="dynamicCardForm" class="card-form">
@@ -55,8 +58,8 @@
                             <input type="checkbox" id="consentCheckbox" required>
                             <label for="consentCheckbox" class="consent-label">
                                 <span class="checkmark"></span>
-                                I agree to the <a href="privacy.html" target="_blank" class="consent-link">Privacy Policy</a> 
-                                and <a href="refund.html" target="_blank" class="consent-link">Terms & Conditions</a>
+                                Agree to <a href="privacy.html" target="_blank" class="consent-link">Privacy Policy</a> 
+                                and <a href="refund.html" target="_blank" class="consent-link">Terms</a>
                             </label>
                         </div>
                     </div>
@@ -66,14 +69,13 @@
                         <div class="payment-info">
                             <h3>Complete Your Reading</h3>
                             <div class="price-display">
-                                <span class="price" id="finalPrice">₹15</span>
+                                <span class="price" id="finalPrice">₹10</span>
                                 <span class="price-note">One-time payment</span>
                             </div>
                         </div>
                         
                         <button type="button" id="payButton" class="pay-button" disabled>
-                            <span class="button-text">Pay & Reveal Your Card</span>
-                            <span class="button-glow"></span>
+                            <span class="button-text">Pay Now & Reveal Your Card</span>
                         </button>
                     </div>
                 </form>
@@ -108,6 +110,7 @@
     </footer>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="card-form.js"></script>
     <script src="script.js"></script>
     <script src="card-engine.js"></script>
 </body>

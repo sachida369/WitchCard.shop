@@ -3,7 +3,7 @@ class CardEngine {
     constructor() {
         this.consentGiven = false;
         this.paymentConfig = {
-            key: 'rzp_test_1DP5mmOlF5G5ag',
+            key: 'rzp_live_Hd6RirzluzFacK',
             currency: 'INR',
             name: 'WitchCard',
             description: 'Mystical Fortune Reading',
@@ -11,10 +11,10 @@ class CardEngine {
         };
         this.cardData = {
             pastlife: {
-                icon: '🌌',
+                icon: '<div class="card-icon pastlife scratch-surface"></div>',
                 title: 'Past Life Regression',
                 description: 'Discover who you were in your previous life, what karma you carry, and what lesson you\'re here to complete.',
-                price: 15,
+                price: 10,
                 fields: [
                     { name: 'fullName', label: 'Full Name', type: 'text', required: true },
                     { name: 'dateOfBirth', label: 'Date of Birth', type: 'date', required: true },
@@ -23,10 +23,10 @@ class CardEngine {
                 ]
             },
             mangalik: {
-                icon: '🔥',
+                icon: '<div class="card-icon mangalik scratch-surface"></div>',
                 title: 'Are You Mangalik?',
                 description: 'Check if you\'re Mangalik and what it means for your marriage & remedies.',
-                price: 12,
+                price: 10,
                 fields: [
                     { name: 'dateOfBirth', label: 'Date of Birth', type: 'date', required: true },
                     { name: 'timeOfBirth', label: 'Time of Birth', type: 'time', required: true },
@@ -34,10 +34,10 @@ class CardEngine {
                 ]
             },
             marriage: {
-                icon: '💍',
+                icon: '<div class="card-icon marriage scratch-surface"></div>',
                 title: 'When Will You Get Married?',
                 description: 'Know your likely age, year & month of marriage with a mysterious twist!',
-                price: 18,
+                price: 10,
                 fields: [
                     { name: 'fullName', label: 'Full Name', type: 'text', required: true },
                     { name: 'dateOfBirth', label: 'Date of Birth', type: 'date', required: true },
@@ -46,7 +46,7 @@ class CardEngine {
                 ]
             },
             luckyname: {
-                icon: '✨',
+                icon: '<div class="card-icon luckyname scratch-surface"></div>',
                 title: 'Your Lucky Name',
                 description: 'Discover the most auspicious name variant based on numerology and astrology.',
                 price: 10,
@@ -58,10 +58,10 @@ class CardEngine {
                 ]
             },
             planet: {
-                icon: '🚫',
+                icon: '<div class="card-icon planet scratch-surface"></div>',
                 title: 'Which Planet Blocks You?',
                 description: 'Reveal which Graha is most malefic in your life and get quick remedies.',
-                price: 20,
+                price: 10,
                 fields: [
                     { name: 'dateOfBirth', label: 'Date of Birth', type: 'date', required: true },
                     { name: 'timeOfBirth', label: 'Time of Birth', type: 'time', required: true },
@@ -72,10 +72,10 @@ class CardEngine {
                 ]
             },
             child: {
-                icon: '🧒',
+                icon: '<div class="card-icon child scratch-surface"></div>',
                 title: 'Future Child Prediction',
                 description: 'Will your first child be a boy or girl? What traits will they have?',
-                price: 16,
+                price: 10,
                 fields: [
                     { name: 'fullName', label: 'Your Name', type: 'text', required: true },
                     { name: 'dateOfBirth', label: 'Date of Birth', type: 'date', required: true },
@@ -84,10 +84,10 @@ class CardEngine {
                 ]
             },
             twinflame: {
-                icon: '🔥',
+                icon: '<div class="card-icon twinflame scratch-surface"></div>',
                 title: 'Your Twin Flame',
                 description: 'Who was your twin flame in a past life? Discover your karmic soulmate connection.',
-                price: 22,
+                price: 10,
                 fields: [
                     { name: 'fullName', label: 'Your Full Name', type: 'text', required: true },
                     { name: 'dateOfBirth', label: 'Date of Birth', type: 'date', required: true },
@@ -96,10 +96,10 @@ class CardEngine {
                 ]
             },
             relationship: {
-                icon: '❤️',
+                icon: '<div class="card-icon relationship scratch-surface"></div>',
                 title: 'Karmic or Forever Love?',
                 description: 'Is this relationship karmic or forever? Get cosmic compatibility analysis.',
-                price: 25,
+                price: 10,
                 fields: [
                     { name: 'yourName', label: 'Your Full Name', type: 'text', required: true },
                     { name: 'yourDOB', label: 'Your Date of Birth', type: 'date', required: true },
@@ -238,7 +238,7 @@ class CardEngine {
 
         // Razorpay payment options
         const options = {
-            key: 'rzp_test_your_key_here', // Replace with your Razorpay key
+            key: 'rzp_live_Hd6RirzluzFacK', // Live Razorpay key
             amount: amount * 100, // Amount in paise
             currency: 'INR',
             name: 'WitchCard',
