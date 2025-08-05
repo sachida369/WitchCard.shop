@@ -1,0 +1,82 @@
+You are an expert full-stack frontend developer, UX designer, and SEO specialist. I need a brand new, production-ready page added to my website:
+
+**Page name & file**
+- Create a new page file named `kundali.html` (or `kundali/index.html`) and any needed CSS/JS files (`kundali.css`, `kundali.js`). Keep all code dependency-light and client-first; any external libs must be standard npm/browser libs and noted in comments.
+
+**High-level goal**
+- Build a “Know Your Kundali” feature page with a futuristic neon theme (transparent/glass elements, subtle neon glow, silver-foil accents).
+- The page must be SEO-friendly: include `<title>`, `<meta name="description">`, proper H1–H3 headings, and semantic markup.
+- Create a safe workflow to accept user inputs, compute/generate a kundali (birth chart) using an algorithmic stub or client-side library, and show results on a silver-foil answer card with options to pay ₹100 (UPI intent) or download the kundali PDF/image.
+- Do **not** display any personal names or city names publicly anywhere on the page or in any sample content shown. You may accept them as input for computation but mask or never render them as plain text in the UI or social previews.
+
+**Design / UX**
+- Futuristic neon aesthetic: dark gradient background, glass/translucent card, neon highlights, subtle animated particles or sparkle CSS-only accents.
+- Show a transparent, stylized placeholder image area at the top where the uploaded image will be scanned/inserted. When user uploads an image, the app should perform client-side processing to detect/insert it into the result card (use canvas to crop/scale/overlay). The uploaded image must be used only locally (no external uploads) and not stored or displayed with identifying text.
+- Back side / result area: show a silver-foil textured card overlay that covers the kundali result area (like a scratch card look — CSS texture + subtle shine). Provide a “Reveal Result” button that reveals the kundali (no scratch simulation required unless easy to add).
+- Below the result area, show two clear CTA options: **Pay Now — ₹100 (UPI)** and **Download Kundali**. Also include a WhatsApp share button.
+
+**Form & Inputs**
+- Build a compact, accessible input form that collects:
+  - Full name (input but DO NOT display the name anywhere in outputs or public previews)
+  - Date of birth (date input)
+  - Time of birth (time input) — optional with a “Not sure” checkbox
+  - Place of birth (text input) *but do not render the place name publicly.* Instead, geocode it to lat/lon client-side (use a free geocoding library or fallback to an input that asks user to drop a pin on the map). If a geocoding API is required, add clear comments where to plug API keys; but default to a client-side map pin option (Leaflet + OpenStreetMap tiles is acceptable).
+  - Timezone selection (auto-detect with JS but allow manual override).
+- Validation: client-side validation with helpful microcopy. Keep inputs accessible.
+
+**Algorithm / Kundali computation**
+- Add a clearly commented algorithmic stub that computes kundali positions from DOB, time, and lat/lon. Provide both:
+  - A **placeholder client-side algorithm** that demonstrates how to compute planetary longitudes and rising sign (use a JS astronomy library reference like `astronomia` or `swisseph` comment), OR
+  - A modular function `generateKundali({dob, time, lat, lon, tz})` that returns a JSON kundali structure (houses, planets, ascendant, moon, sun).
+- Mark clearly in code comments where to replace the stub with a server-side Swiss Ephemeris/astronomy library for production accuracy.
+
+**Result display**
+- Render a visually appealing kundali result card:
+  - A small circular zodiac wheel graphic (SVG) with planet markers (mocked positions from the algorithm).
+  - A textual summary (3–4 short lines) describing ascendant, sun sign, and moon sign. **Do not include user name or city name**—only show generic phrasing like “Ascendant: Aries” etc.
+  - A downloadable report option: generate a printable PDF or high-res PNG of the kundali (use html2canvas + jsPDF or create an SVG and export). The download should include the kundali chart, summary, and masked meta (no names/city).
+
+**Payment**
+- Implement a simple **UPI pay flow** button labeled **Pay Now — ₹100**:
+  - Create a `upi:` intent link (e.g., `upi://pay?...`) or a fallback merchant UPI QR modal.
+  - If UPI details are placeholders, document where to put real UPI ID (merchant@bank). When successful (simulate or use callback if live), automatically unlock the download and show a success toast.
+  - Add client-side state to require payment before download, unless the user selects the “free preview” which shows a redacted result.
+
+**Map & Location**
+- Add an embedded map (Leaflet + OpenStreetMap) showing the selected birth location as a pin. **Do not display the city name on the UI or in text** — only show a small pin and coordinates (lat/lon). If the user clicks the pin, show a tooltip that reads: “Birth location – coordinates only.”
+- Provide a “Drop a pin” option instead of typing a city.
+
+**Privacy & Security**
+- Add a clear short privacy microcopy near the form: “We do not store your personal details — all computations are performed locally in your browser unless you explicitly submit them.”
+- Do not send uploaded images or raw input to external servers. If any external API is used, clearly comment where the API key should be added and that user consent is required.
+
+**SEO & Metadata**
+- Add SEO-friendly `<title>` and `<meta name="description">` for the new page. Provide 2–3 suggested SEO titles & meta descriptions as JS comments to choose from. Use low-competition astrology keywords naturally in the title and H1.
+- Page structure should include one `<h1>` and relevant `<h2>/<h3>` headings for accessibility and SEO.
+
+**Social & Sharing**
+- Add a WhatsApp share button that shares a non-personal summary link/text stating: “I generated a kundali summary (no names/city) — check your destiny.” The share should include a short masked summary (ascendant, sun, moon only) and a link to the site (do not include user data in the shared text).
+- Add copy-to-clipboard share link and generic Twitter/X share button.
+
+**Integration**
+- Add a “Know your kundali” tab/link to the home page navigation or product menu:
+  - Edit `index.html` (or the main nav file) to add a new nav item linking to `/kundali.html` with visible label: **Know your kundali**.
+  - Ensure the new nav link is responsive and highlights as active when on the kundali page.
+
+**Accessibility & Responsiveness**
+- Page must be fully responsive (mobile-first). Buttons at least 44px tall on mobile.
+- All interactive elements must have keyboard focus states and aria labels.
+
+**Deliverables**
+- Provide full code: `kundali.html`, `kundali.css`, `kundali.js` (or single file `kundali.html` with embedded CSS/JS).
+- Include comments:
+  - Where to plug in production-level astronomy libraries or server endpoints.
+  - Where to put real UPI ID and geocoding API keys if desired.
+- Include 2–3 sample dummy kundali results to test UI (no real names or cities).
+- Include short README comment at top describing usage and privacy behavior.
+
+**Tone & Copy**
+- Use friendly microcopy (ex: “Reveal your kundali — ₹100” , “Download your kundali report”, “Drop a pin to set birth location”).
+- Keep the public display free of personal identifiers.
+
+Now build this new page and integrate a link into the home page nav called “Know your kundali”. Return clean, runnable code and clear comments as requested.

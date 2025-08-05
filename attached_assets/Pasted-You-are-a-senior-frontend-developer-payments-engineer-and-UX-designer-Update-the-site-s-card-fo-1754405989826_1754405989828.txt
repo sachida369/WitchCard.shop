@@ -1,0 +1,30 @@
+You are a senior frontend developer, payments engineer, and UX designer. Update the site’s **card-form** page and the **result** page so the payment flow and UX are polished, accessible, and visually branded with neon-edge effects. Make all changes safe, commented, and easy to integrate.
+
+GOAL
+- Make the card-form require specific inputs, show a consent checkbox, and provide a smooth Razorpay payment flow.
+- Style the Pay Now button (and result page action buttons) with a neon border/edge glow effect.
+- Inject Razorpay integration hooks into each Pay Now button (use the Razorpay key variable) and provide a clean success/failure flow that unlocks download/share features.
+
+FILES TO PRODUCE / EDIT
+- `card-form.html` (or update existing page) — includes form, consent checkbox, Pay Now button(s)
+- `card-form.css` — styles for neon border, form layout, focus states, responsive rules
+- `card-form.js` — form validation, Razorpay integration, payment state handling, download/share unlock logic
+- `result.html` (or update existing result view) — displays result card, Download and Share buttons with neon edge effect
+- Provide clear comments showing where to add/replace Razorpay key and server endpoints.
+
+SPECIFICATIONS (Functional)
+1. Required Inputs
+   - Full name (text) — required for processing but NEVER displayed publicly.
+   - Date of birth (date) — required.
+   - Time of birth (time) — optional with “Not sure” checkbox.
+   - Place of birth (text) — allow geocode/pin option; do not display city/place publicly.
+   - Email (optional) — used only if user opts to receive a copy; otherwise not stored.
+   - Each required input must have client-side validation; show inline error messages.
+
+2. Consent
+   - Add a required consent checkbox with label:  
+     “I consent to local computation and temporary use of my details for generating this result. I understand my data will not be stored without my explicit permission.”
+   - The Pay Now button must remain disabled until the form is valid **and** consent is checked.
+
+3. Pay Now button behavior
+   - Buttons mu

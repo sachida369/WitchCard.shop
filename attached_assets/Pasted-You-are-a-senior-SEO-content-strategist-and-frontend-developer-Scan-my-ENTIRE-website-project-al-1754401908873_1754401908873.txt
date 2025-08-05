@@ -1,0 +1,40 @@
+You are a senior SEO content strategist and frontend developer.  
+Scan my ENTIRE website project (all HTML files) and optimize it for SEO without breaking the design or functionality.
+
+1. Headings (H1–H4):
+   - Ensure there is only ONE <h1> tag per page with a clear, keyword-rich page title.
+   - Update H2, H3, and H4 tags to include relevant low-competition keywords naturally.
+   - Keep heading hierarchy logical (H1 → H2 → H3 → H4) for SEO and accessibility.
+   - Make headings human-readable and engaging while containing search-intent phrases.
+   - Example: Change <h2>Our Products</h2> → <h2>Mystical Destiny Scratch Cards – Reveal Your Future</h2>.
+
+2. Image SEO:
+   - For every <img> tag, add or improve the alt attribute with keyword-rich, descriptive text (max 125 characters).
+   - Alt text must match the image content and include product or topic keywords naturally.
+   - No duplicate alt text across different images.
+
+3. Content Optimization:
+   - Add relevant keywords into paragraphs naturally without keyword stuffing.
+   - Improve clarity, grammar, and readability.
+   - Ensure each page has at least 300 words of unique, valuable content where possible.
+   - Include variations of target keywords for semantic SEO (LSI keywords).
+
+4. Meta Tags & Titles:
+   - Update or add <title> tags for each page (60–65 characters max, keyword-rich).
+   - Update or add <meta name="description"> tags for each page (150–160 characters, compelling for clicks).
+   - Ensure meta keywords match the content focus but keep them natural.
+
+5. Internal Linking:
+   - Link related pages within the content using descriptive anchor text.
+   - Example: “Check out our crystal ball fortune cards” links to the product page.
+
+6. Schema Markup (Optional but Recommended):
+   - Add basic JSON-LD schema for products, articles, or organization where relevant.
+   - Ensure schema is valid and doesn’t break page layout.
+
+7. Output:
+   - Return the fully updated HTML files with SEO-friendly headings, alt texts, meta tags, and improved content.
+   - Keep all design, scripts, and styles intact.
+   - Comment each major SEO change so I can see what was modified.
+
+Your goal: Make the website fully SEO-friendly for search engines while keeping it natural, readable, and attractive for humans.
