@@ -1,0 +1,23 @@
+{
+    "goAffProConfig": {
+        "payloadKey": "_npBJud7vfLLFaP-AcC4Kgmg",
+        "baseUrl": "https://witchcard.goaffpro.com",
+        "trackingEnabled": true,
+        "conversionValue": 10,
+        "currency": "INR",
+        "eventTypes": {
+            "purchase": "payment_success",
+            "lead": "form_submit",
+            "pageView": "card_view"
+        },
+        "testMode": true
+    },
+    "affiliateProgram": {
+        "commissionRate": 20,
+        "cookieDuration": 30,
+        "minimumPayout": 500,
+        "paymentMethods": ["PayPal", "Bank Transfer", "UPI"],
+        "registrationUrl": "https://witchcard.goaffpro.com/create-account",
+        "loginUrl": "https://witchcard.goaffpro.com/login"
+    }
+}

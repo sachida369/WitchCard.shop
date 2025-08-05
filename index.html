@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WitchCard - Futuristic Astrology Cards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sticky Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1 class="site-title">WitchCard</h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Get Reading</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Left side: Video -->
+                <div class="hero-video">
+                    <video autoplay muted loop playsinline>
+                        <source src="attached_assets/PixVerse_1754366227558.mp4" type="video/mp4">
+                        <!-- Fallback for browsers that don't support video -->
+                        <div class="video-fallback">
+                            <img src="attached_assets/witch-globe_1754366241649.png" alt="Witch Globe" />
+                        </div>
+                    </video>
+                </div>
+                
+                <!-- Right side: Promotional content -->
+                <div class="hero-text">
+                    <h2 class="hero-title">Discover Your Cosmic Destiny</h2>
+                    <p class="hero-description">
+                        Unveil the mysteries of the universe with our futuristic witch cards. 
+                        Experience the power of advanced astrology combined with mystical insights 
+                        to reveal your future path among the stars.
+                    </p>
+                    <div class="hero-features">
+                        <div class="feature">
+                            <span class="feature-icon">🔮</span>
+                            <span>Personalized Readings</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">✨</span>
+                            <span>Cosmic Insights</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🌟</span>
+                            <span>Future Predictions</span>
+                        </div>
+                    </div>
+                    <a href="cards.html" class="cta-button">Choose Your Mystical Card</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Mystical Card Collection</h2>
+            <div class="product-grid">
+                <div class="product-card" onclick="window.location.href='cards.html'">
+                    <div class="product-image">
+                        <img src="attached_assets/witch-globe_1754366241649.png" alt="Mystical Cards Collection" />
+                        <div class="product-overlay">
+                            <span class="product-cta">Explore 8 Mystical Cards</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">8 Unique Mystical Readings</h3>
+                        <p class="product-description">
+                            Choose from Past Life, Marriage Prediction, Lucky Name, Twin Flame and more cosmic revelations
+                        </p>
+                        <div class="product-price">From ₹10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>WitchCard</h3>
+                    <p>Your gateway to cosmic wisdom</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="refund.html">Refund Policy</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="affiliate-section">
+                    <div class="earning-text">💸 Earn Money Online! 💸</div>
+                    <a href="https://witchcard.goaffpro.com/create-account" target="_blank" class="affiliate-button">
+                        Join Affiliate Program
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 WitchCard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

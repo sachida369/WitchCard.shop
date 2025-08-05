@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Mystic Card - WitchCard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sticky Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1 class="site-title">WitchCard</h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cards.html">Cards</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Cards Selection Section -->
+    <section class="cards-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Choose Your Mystic Revelation</h1>
+                <p class="section-subtitle">Select from our cosmic collection of mystical scratch cards</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Past Life Regression Card -->
+                <div class="card-option" data-card="pastlife">
+                    <div class="card-icon">🌌</div>
+                    <h3 class="card-title">Past Life Regression</h3>
+                    <p class="card-description">Discover who you were in your previous life, what karma you carry, and what lesson you're here to complete.</p>
+                    <div class="card-inputs">
+                        <span class="input-tag">Name</span>
+                        <span class="input-tag">DOB</span>
+                        <span class="input-tag">Time</span>
+                        <span class="input-tag">Place</span>
+                    </div>
+                    <div class="card-price">₹15</div>
+                    <button class="card-button" onclick="selectCard('pastlife')">Reveal Past Life</button>
+                </div>
+
+                <!-- Mangalik Checker -->
+                <div class="card-option" data-card="mangalik">
+                    <div class="card-icon">🔥</div>
+                    <h3 class="card-title">Are You Mangalik?</h3>
+                    <p class="card-description">Check if you're Mangalik and what it means for your marriage & remedies.</p>
+                    <div class="card-inputs">
+                        <span class="input-tag">DOB</span>
+                        <span class="input-tag">Time</span>
+                        <span class="input-tag">Place</span>
+                    </div>
+                    <div class="card-price">₹12</div>
+                    <button class="card-button" onclick="selectCard('mangalik')">Check Mangal Dosha</button>
+                </div>
+
+                <!-- Marriage Prediction -->
+                <div class="card-option" data-card="marriage">
+                    <div class="card-icon">💍</div>
+                    <h3 class="card-title">When Will You Get Married?</h3>
+                    <p class="card-description">Know your likely age, year & month of marriage with a mysterious twist!</p>
+                    <div class="card-inputs">
+                        <span class="input-tag">Name</span>
+                        <span class="input-tag">DOB</span>
+                        <span class="input-tag">Time</span>
+                        <span class="input-tag">Place</span>
+                    </div>
+                    <div class="card-price">₹18</div>
+                    <button class="card-button" onclick="selectCard('marriage')">Predict Marriage</button>
+                </div>
+
+                <!-- Lucky Name -->
+                <div class="card-option" data-card="luckyname">
+                    <div class="card-icon">✨</div>
+                    <h3 class="card-title">Your Lucky Name</h3>
+                    <p class="card-description">Discover the most auspicious name variant based on numerology and astrology.</p>
+                    <div class="card-inputs">
+                        <span class="input-tag">Name</span>
+                        <span class="input-tag">DOB</span>
+                        <span class="input-tag">Time</span>
+                        <span class="input-tag">Place</span>
+                    </div>
+                    <div class="card-price">₹10</div>
+                    <button class="card-button" onclick="selectCard('luckyname')">Find Lucky Name</button>
+                </div>
+
+                <!-- Blocking Planet -->
+                <div class="card-option" data-card="planet">
+                    <div class="card-icon">🚫</div>
+                    <h3 class="card-title">Which Planet Blocks You?</h3>
+                    <p class="card-description">Reveal which Graha is most malefic in your life and get quick remedies.</p>
+                    <div class="card-inputs">
+                        <span class="input-tag">DOB</span>
+                        <span class="input-tag">Time</span>
+                        <span class="input-tag">Place</span>
+                        <span class="input-tag">Issue</span>
+                    </div>
+                    <div class="card-price">₹20</div>
+                    <button class="card-button" onclick="selectCard('planet')">Reveal Blocking Planet</button>
+                </div>
+
+                <!-- Future Child -->
+                <div class="card-option" data-card="child">
+                    <div class="card-icon">🧒</div>
+                    <h3 class="card-title">Future Child Prediction</h3>
+                    <p class="card-description">Will your first child be a boy or girl? What traits will they have?</p>
+                    <div class="card-inputs">
+                        <span class="input-tag">Name</span>
+                        <span class="input-tag">DOB</span>
+                        <span class="input-tag">Time</span>
+                        <span class="input-tag">Place</span>
+                    </div>
+                    <div class="card-price">₹16</div>
+                    <button class="card-button" onclick="selectCard('child')">Predict Future Child</button>
+                </div>
+
+                <!-- Twin Flame -->
+                <div class="card-option" data-card="twinflame">
+                    <div class="card-icon">🔥</div>
+                    <h3 class="card-title">Your Twin Flame</h3>
+                    <p class="card-description">Who was your twin flame in a past life? Discover your karmic soulmate connection.</p>
+                    <div class="card-inputs">
+                        <span class="input-tag">Name</span>
+                        <span class="input-tag">DOB</span>
+                        <span class="input-tag">Time</span>
+                        <span class="input-tag">Place</span>
+                    </div>
+                    <div class="card-price">₹22</div>
+                    <button class="card-button" onclick="selectCard('twinflame')">Find Twin Flame</button>
+                </div>
+
+                <!-- Relationship Analysis -->
+                <div class="card-option" data-card="relationship">
+                    <div class="card-icon">❤️</div>
+                    <h3 class="card-title">Karmic or Forever Love?</h3>
+                    <p class="card-description">Is this relationship karmic or forever? Get cosmic compatibility analysis.</p>
+                    <div class="card-inputs">
+                        <span class="input-tag">Your Name</span>
+                        <span class="input-tag">Partner Name</span>
+                        <span class="input-tag">DOB Both</span>
+                    </div>
+                    <div class="card-price">₹25</div>
+                    <button class="card-button" onclick="selectCard('relationship')">Analyze Relationship</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>WitchCard</h3>
+                    <p>Your gateway to cosmic wisdom</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="refund.html">Refund Policy</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="affiliate-section">
+                    <div class="earning-text">💸 Earn Money Online! 💸</div>
+                    <a href="https://witchcard.goaffpro.com/create-account" target="_blank" class="affiliate-button">
+                        Join Affiliate Program
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 WitchCard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
