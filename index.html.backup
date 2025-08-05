@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WitchCard - Futuristic Astrology Cards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/scratch-card-graphics.css">
+</head>
+<body>
+    <!-- Sticky Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1 class="site-title">WitchCard</h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Get Reading</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Left side: Video -->
+                <div class="hero-video">
+                    <video autoplay muted loop playsinline>
+                        <source src="attached_assets/PixVerse_1754366227558.mp4" type="video/mp4">
+                        <!-- Fallback for browsers that don't support video -->
+                        <div class="video-fallback">
+                            <img src="attached_assets/generated_images/3D_Mystical_Witch_9bf7e47e.png" alt="3D Mystical Witch" class="witch-3d" />
+                        </div>
+                    </video>
+                </div>
+                
+                <!-- Right side: Promotional content -->
+                <div class="hero-text">
+                    <h2 class="hero-title">Discover Your Cosmic Destiny</h2>
+                    <p class="hero-description">
+                        Unveil the mysteries of the universe with our futuristic witch cards. 
+                        Experience the power of advanced astrology combined with mystical insights 
+                        to reveal your future path among the stars.
+                    </p>
+                    <div class="hero-features">
+                        <div class="feature">
+                            <span class="feature-icon">🔮</span>
+                            <span>Personalized Readings</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">✨</span>
+                            <span>Cosmic Insights</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🌟</span>
+                            <span>Future Predictions</span>
+                        </div>
+                    </div>
+                    <a href="#cards-section" class="cta-button">Choose Your Mystical Card</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Choose Your Mystic Revelation -->
+    <section id="cards-section" class="cards-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Choose Your Mystic Revelation</h1>
+                <p class="section-subtitle">Select from our cosmic collection of mystical scratch cards</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Past Life Regression Card -->
+                <div class="card-option" data-card="pastlife">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Past_Life_Mystical_Card_9d9ab67d.png" alt="Past Life Regression" />
+                        </div>
+                        <h3 class="card-title">Past Life Regression</h3>
+                        <p class="card-description">Discover who you were in your previous life, what karma you carry, and what lesson you're here to complete.</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">Name</span>
+                            <span class="input-tag">DOB</span>
+                            <span class="input-tag">Time</span>
+                            <span class="input-tag">Place</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('pastlife')">Reveal Past Life</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=pastlife'">Click Here</button>
+                    </div>
+                </div>
+
+                <!-- Mangalik Checker -->
+                <div class="card-option" data-card="mangalik">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Mangalik_Dosha_Card_b269f97c.png" alt="Mangalik Dosha Analysis" />
+                        </div>
+                        <h3 class="card-title">Are You Mangalik?</h3>
+                        <p class="card-description">Check if you're Mangalik and what it means for your marriage & remedies.</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">DOB</span>
+                            <span class="input-tag">Time</span>
+                            <span class="input-tag">Place</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('mangalik')" data-card="mangalik">Check Mangal Dosha</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=mangalik'">Click Here</button>
+                    </div>
+                </div>
+
+                <!-- Marriage Prediction -->
+                <div class="card-option" data-card="marriage">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Marriage_Prediction_Card_eac6eb1b.png" alt="Marriage Prediction" />
+                        </div>
+                        <h3 class="card-title">When Will You Get Married?</h3>
+                        <p class="card-description">Know your likely age, year & month of marriage with a mysterious twist!</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">Name</span>
+                            <span class="input-tag">DOB</span>
+                            <span class="input-tag">Time</span>
+                            <span class="input-tag">Place</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('marriage')" data-card="marriage">Predict Marriage</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=marriage'">Click Here</button>
+                    </div>
+                </div>
+
+                <!-- Lucky Name -->
+                <div class="card-option" data-card="luckyname">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Lucky_Name_Card_c03b949c.png" alt="Lucky Name Analysis" />
+                        </div>
+                        <h3 class="card-title">Your Lucky Name</h3>
+                        <p class="card-description">Discover the most auspicious name variant based on numerology and astrology.</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">Name</span>
+                            <span class="input-tag">DOB</span>
+                            <span class="input-tag">Time</span>
+                            <span class="input-tag">Place</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('luckyname')" data-card="luckyname">Find Lucky Name</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=luckyname'">Click Here</button>
+                    </div>
+                </div>
+
+                <!-- Blocking Planet -->
+                <div class="card-option" data-card="planet">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Blocking_Planet_Card_47710299.png" alt="Blocking Planet Analysis" />
+                        </div>
+                        <h3 class="card-title">Which Planet Blocks You?</h3>
+                        <p class="card-description">Reveal which Graha is most malefic in your life and get quick remedies.</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">DOB</span>
+                            <span class="input-tag">Time</span>
+                            <span class="input-tag">Place</span>
+                            <span class="input-tag">Life Area</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('planet')" data-card="planet">Find Blocking Planet</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=planet'">Click Here</button>
+                    </div>
+                </div>
+
+                <!-- Future Child -->
+                <div class="card-option" data-card="child">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Future_Child_Card_e4ce9e0f.png" alt="Future Child Prediction" />
+                        </div>
+                        <h3 class="card-title">Future Child Prediction</h3>
+                        <p class="card-description">Will your first child be a boy or girl? What traits will they have?</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">Name</span>
+                            <span class="input-tag">DOB</span>
+                            <span class="input-tag">Time</span>
+                            <span class="input-tag">Place</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('child')" data-card="child">Predict Future Child</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=child'">Click Here</button>
+                    </div>
+                </div>
+
+                <!-- Twin Flame -->
+                <div class="card-option" data-card="twinflame">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Twin_Flame_Card_7a559b97.png" alt="Twin Flame Connection" />
+                        </div>
+                        <h3 class="card-title">Your Twin Flame</h3>
+                        <p class="card-description">Who was your twin flame in a past life? Discover your karmic soulmate connection.</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">Name</span>
+                            <span class="input-tag">DOB</span>
+                            <span class="input-tag">Time</span>
+                            <span class="input-tag">Place</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('twinflame')" data-card="twinflame">Find Twin Flame</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=twinflame'">Click Here</button>
+                    </div>
+                </div>
+
+                <!-- Relationship Analysis -->
+                <div class="card-option" data-card="relationship">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Karmic_Relationship_Card_03452b0e.png" alt="Karmic Relationship Analysis" />
+                        </div>
+                        <h3 class="card-title">Karmic or Forever Love?</h3>
+                        <p class="card-description">Is this relationship karmic or forever? Get cosmic compatibility analysis.</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">Your Name</span>
+                            <span class="input-tag">Partner Name</span>
+                            <span class="input-tag">Your DOB</span>
+                            <span class="input-tag">Partner DOB</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('relationship')" data-card="relationship">Analyze Relationship</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=relationship'">Click Here</button>
+                    </div>
+                </div>
+
+                <!-- Future Life Partner -->
+                <div class="card-option" data-card="lifepartner">
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="attached_assets/generated_images/Future_Life_Partner_Card_80768890.png" alt="Future Life Partner Prediction" />
+                        </div>
+                        <h3 class="card-title">Your Future Life Partner</h3>
+                        <p class="card-description">Know the first letter of your future life partner's name and discover your destined soulmate connection.</p>
+                        <div class="card-inputs">
+                            <span class="input-tag">Name</span>
+                            <span class="input-tag">DOB</span>
+                            <span class="input-tag">Time</span>
+                            <span class="input-tag">Place</span>
+                        </div>
+                        <div class="card-price">₹10</div>
+                        <button class="card-button" onclick="selectCard('lifepartner')" data-card="lifepartner">Find Life Partner</button>
+                    </div>
+                    <div class="card-back">
+                        <div class="witch-crystal-container">
+                            <div class="witch-hands">
+                                <video class="witch-video" autoplay muted loop playsinline><source src="attached_assets/PixVerse_V4.5_Image_Text_360P_A_mystical_Korea_1754395837920.mp4" type="video/mp4"></video>
+                                
+                            </div>
+                            <div class="scratch-container">
+                                <div class="scratch-area-direct">
+                                    <div class="scratch-area">
+                                        <div class="silver-foil"></div>
+                                        <div class="scratch-text">Scratch Your Card<br>Just ₹10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upi-text">Pay Through UPI</div>
+                        <button class="neon-click-button" onclick="window.location.href='product.html?card=lifepartner'">Click Here</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Korean Astro Tabs Section -->
+    <section class="astro-tabs">
+        <div class="container">
+            <h2 class="astro-title">🔮 Explore Your Cosmic Journey</h2>
+            <div class="tabs-grid">
+                <a href="#cards-section" class="astro-tab">🌓 Know Your Kundali</a>
+                <a href="product.html?card=pastlife" class="astro-tab">🌌 Past Life Regression</a>
+                <a href="product.html?card=marriage" class="astro-tab">❤️ Love Compatibility</a>
+                <a href="product.html?card=luckyname" class="astro-tab">💼 Career Guidance</a>
+                <a href="product.html?card=planet" class="astro-tab">💰 Wealth & Finance</a>
+                <a href="product.html?card=child" class="astro-tab">🌿 Health & Wellness</a>
+                <a href="product.html?card=twinflame" class="astro-tab">🕰️ Future Predictions</a>
+                <a href="product.html?card=relationship" class="astro-tab">🧘 Spiritual Awakening</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarot Cards Section -->
+    <section class="tarot-cards">
+        <div class="container">
+            <h2 class="tarot-title">✨ Pick a Tarot for Your Future ✨</h2>
+            <div class="cards-row">
+                <div class="tarot-card" onclick="selectTarotCard('star')">🌟 The Star</div>
+                <div class="tarot-card" onclick="selectTarotCard('warrior')">⚔️ The Warrior</div>
+                <div class="tarot-card" onclick="selectTarotCard('moon')">🌙 The Moon</div>
+                <div class="tarot-card" onclick="selectTarotCard('sun')">☀️ The Sun</div>
+            </div>
+            <div class="cards-row">
+                <div class="tarot-card" onclick="selectTarotCard('emperor')">👑 The Emperor</div>
+                <div class="tarot-card" onclick="selectTarotCard('empress')">🌸 The Empress</div>
+                <div class="tarot-card" onclick="selectTarotCard('fortune')">🌀 The Wheel of Fortune</div>
+                <div class="tarot-card" onclick="selectTarotCard('tower')">🔥 The Tower</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>WitchCard</h3>
+                    <p>Your gateway to cosmic wisdom</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="refund.html">Refund Policy</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="affiliate-section">
+                    <div class="earning-text">💸 Earn Money Online! 💸</div>
+                    <a href="https://witchcard.goaffpro.com/create-account" target="_blank" class="affiliate-button">
+                        Join Affiliate Program
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 WitchCard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
