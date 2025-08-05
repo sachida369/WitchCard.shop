@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- SEO: Optimized title with primary keywords (60 chars) -->
     <title>Ancient Numerology & Mystical Astrology Cards | WitchCard</title>
     <!-- SEO: Enhanced meta description with compelling CTA (155 chars) -->
@@ -96,7 +96,6 @@
                         <source src="attached_assets/PixVerse_1754366227558.mp4" type="video/mp4">
                         <!-- Fallback for browsers that don't support video -->
                         <div class="video-fallback">
-                            <!-- SEO: Enhanced alt text with keywords -->
                         <img src="attached_assets/generated_images/3D_Mystical_Witch_9bf7e47e.png" alt="Ancient numerology witch with crystal ball performing Korean mystical astrology card readings" class="witch-3d" />
                         </div>
                     </video>
@@ -128,6 +127,12 @@
                     </div>
                     <!-- SEO: Enhanced CTA with title attribute -->
                     <a href="product.html" class="cta-button" title="Browse mystical astrology card readings">Choose Your Mystical Card</a>
+
+                    <!-- Example quick purchase CTA that uses the Razorpay client-side integration -->
+                    <!-- You can move/duplicate this button anywhere you want on product cards -->
+                    <button class="cta-button pay-now-btn" onclick="payNow(10,'Mystical Scratch Card')">
+                        Pay ₹10 & Reveal Card
+                    </button>
                 </div>
             </div>
         </div>
@@ -288,6 +293,72 @@
             </div>
         </div>
     </footer>
+
+    <!-- Razorpay Checkout script (required) -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Payment integration script using your provided key -->
+    <script>
+    // === RAZORPAY KEY (client-side usage) ===
+    // Injected as requested:
+    const RAZORPAY_KEY = 'rzp_live_Hd6RirzluzFacK';
+
+    /**
+     * payNow(amountINR, description)
+     * - amountINR: integer rupees (e.g., 10)
+     * - description: string description for the order
+     *
+     * NOTE: This client-only flow uses the key and opens checkout directly.
+     * For production:
+     *  1) Create an Order on your server via Razorpay Orders API (with your secret key).
+     *  2) Pass order_id to options.order instead of amount.
+     *  3) Verify payment signature on server after success.
+     */
+    function payNow(amountINR = 10, description = 'Mystical Scratch Card') {
+        if (!RAZORPAY_KEY) {
+            alert('Payment key missing. Contact admin.');
+            return;
+        }
+
+        // Razorpay expects amount in paise
+        const amountPaise = parseInt(amountINR, 10) * 100;
+
+        // Simple client-side options (no server-created order)
+        const options = {
+            key: RAZORPAY_KEY,
+            amount: amountPaise,
+            currency: 'INR',
+            name: 'WitchCard',
+            description: description,
+            // image: 'https://witchcard.shop/assets/logo.png', // optional
+            handler: function (response) {
+                // response.razorpay_payment_id available
+                // Redirect to scratch.html with payment id so you can load the scratchcard page
+                // In production, validate payment server-side before giving access.
+                const payId = response.razorpay_payment_id;
+                window.location.href = 'scratch.html?payment_id=' + encodeURIComponent(payId);
+            },
+            prefill: {
+                name: '', // you can programmatically fill these from user form
+                email: '',
+                contact: ''
+            },
+            theme: {
+                color: '#7C3AED' // optional
+            },
+            modal: {
+                ondismiss: function() {
+                    // optional: handle user dismiss
+                    console.log('Checkout closed by user');
+                }
+            }
+        };
+
+        // Open checkout
+        const rzp = new Razorpay(options);
+        rzp.open();
+    }
+    </script>
 
     <script src="script.js?v=2024080501"></script>
 </body>
