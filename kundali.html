@@ -822,15 +822,59 @@
                     await new Promise(resolve => setTimeout(resolve, 3000));
                     
                     // Calculate kundali with advanced algorithms
-                    this.kundaliData = this.calculateKundali(formData);
+                    async fetchKundaliFromAPI(formData) {
+    try {
+        const response = await fetch('kundali.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                dateOfBirth: formData.dob,
+                timeOfBirth: formData.time,
+                lat: formData.lat,
+                lng: formData.lng
+            })
+        });
+
+        const data = await response.json();
+        return data.data || null;
+    } catch (error) {
+        console.error('API Error:', error);
+        return null;
+    }
+}
                     
                     // Hide loading and show results
-                    document.getElementById('loadingSpinner').style.display = 'none';
-                    document.getElementById('resultSection').style.display = 'block';
-                    
-                    // Update button to show completion
-                    document.getElementById('generateKundali').textContent = 'Kundali Generated Successfully!';
-                    document.getElementById('generateKundali').style.background = 'linear-gradient(135deg, #32cd32 0%, #00ff7f 100%)';
+document.getElementById('loadingSpinner').style.display = 'none';
+document.getElementById('resultSection').style.display = 'block';
+
+// Update button to show completion
+document.getElementById('generateKundali').textContent = 'Kundali Generated Successfully!';
+document.getElementById('generateKundali').style.background =
+  'linear-gradient(135deg, #32cd32 0%, #00ff7f 100%)';
+} // <-- Yahan generateKundali() function close kar do
+
+// ✅ Ab naya method alag likho (class ke andar)
+async fetchKundaliFromAPI(formData) {
+    try {
+        const response = await fetch('kundali.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                dateOfBirth: formData.dob,
+                timeOfBirth: formData.time,
+                lat: formData.lat,
+                lng: formData.lng
+            })
+        });
+
+        const data = await response.json();
+        return data.data || null;
+    } catch (error) {
+        console.error('API Error:', error);
+        return null;
+    }
+}
+
                     
                     // Smooth scroll to results with offset for header
                     setTimeout(() => {
