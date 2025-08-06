@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://witchcard.shop/sitemap.xml
