@@ -9,10 +9,10 @@
 }
 
 /* Performance Optimization */
-* {
+/* Removed global GPU forcing to prevent mobile flicker */
+.witch-3d, .hero-video, .hamburger span {
     transform: translateZ(0);
     backface-visibility: hidden;
-    perspective: 1000px;
 }
 
 body {
@@ -2000,6 +2000,10 @@ body::before {
     }
     
     .nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
@@ -3845,5 +3849,37 @@ html {
     #actionButtons button {
         padding: 1rem 1.5rem;
         font-size: 0.9rem;
+    }
+}
+
+
+
+/* ===== FIXED RESPONSIVE NAVIGATION ===== */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        z-index: 2000;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, rgba(108,92,231,0.95), rgba(0,206,201,0.95));
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1.5rem;
+        transform: translateY(-120%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease-in-out;
+        z-index: 1500;
+    }
+
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
 }
