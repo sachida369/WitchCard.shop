@@ -3,7 +3,7 @@
 import Razorpay from 'razorpay';
 
 const razorpay = new Razorpay({
-  key_id: 'rzp_live_Hd6RirzluzFacK',
+  key_id: 'rzp_test_OMhwadNjZxkUle',
   key_secret: process.env.RAZORPAY_SECRET
 });
 
