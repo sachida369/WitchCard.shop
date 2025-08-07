@@ -810,31 +810,49 @@
             }
 
 async generateKundali() {
-    try {
-        document.getElementById('loadingSpinner').style.display = 'block';
-        document.getElementById('generateKundali').disabled = true;
+  try {
+    document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('generateKundali').disabled = true;
 
-        const formData = this.getFormData();
+    const formData = this.getFormData();
 
-        const response = await fetch('/api/kundli', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                fullName: formData.name,
-                dateOfBirth: formData.dob,
-                timeOfBirth: formData.time,
-                placeOfBirth: formData.place,
-                lat: formData.lat,
-                lng: formData.lng,
-                isTimeUnknown: formData.timeUnknown
-            })
+    // Step 1: Create Razorpay order from backend
+    const orderRes = await fetch('/api/kundli', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ createOrderOnly: true })
+    });
+
+    const orderData = await orderRes.json();
+    if (!orderRes.ok) throw new Error(orderData.error || 'Order creation failed');
+
+    // Step 2: Open Razorpay payment
+    const options = {
+      key: 'rzp_live_Hd6RirzluzFacK',
+      amount: 5000,
+      currency: 'INR',
+      order_id: orderData.order.id,
+      handler: async (response) => {
+        console.log('Payment successful:', response);
+
+        // Step 3: Call Prokerala API after payment success
+        const kundliRes = await fetch('/api/kundli', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName: formData.name,
+            dateOfBirth: formData.dob,
+            timeOfBirth: formData.time,
+            placeOfBirth: formData.place,
+            lat: formData.lat,
+            lng: formData.lng,
+            isTimeUnknown: formData.timeUnknown
+          })
         });
 
-        const result = await response.json();
+        const result = await kundliRes.json();
+        if (!kundliRes.ok) throw new Error(result.error || 'Kundali generation failed');
 
-        if (!response.ok) throw new Error(result.error || 'API Error');
-
-        // Use the result to display actual kundali data
         this.kundaliData = result;
 
         document.getElementById('loadingSpinner').style.display = 'none';
@@ -844,15 +862,25 @@ async generateKundali() {
         document.getElementById('generateKundali').style.background = 'linear-gradient(135deg, #32cd32 0%, #00ff7f 100%)';
 
         setTimeout(() => {
-            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
         }, 500);
+      },
+      prefill: {
+        name: formData.name
+      },
+      theme: {
+        color: '#5B21B6'
+      }
+    };
 
-    } catch (error) {
-        console.error('Error generating Kundali:', error);
-        this.showNotification('Failed to generate kundali: ' + error.message, 'error');
-        document.getElementById('generateKundali').textContent = 'Generate My Kundali - ₹50';
-        document.getElementById('generateKundali').disabled = false;
-    }
+    const rzp = new Razorpay(options);
+    rzp.open();
+  } catch (error) {
+    console.error('Error:', error);
+    this.showNotification('Something went wrong: ' + error.message, 'error');
+    document.getElementById('generateKundali').disabled = false;
+    document.getElementById('generateKundali').textContent = 'Generate My Kundali - ₹50';
+  }
 }
                     
                     // Hide loading and show results
