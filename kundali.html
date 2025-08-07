@@ -1,37 +1,31 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO: Option 1 - Primary keyword focus -->
-    <title>Know Your Kundali - Free Vedic Birth Chart & Astrology Reading</title>
-    <!-- SEO: Option 2 - Alternative: "Generate Your Kundali Online - Vedic Astrology Birth Chart" -->
-    <!-- SEO: Option 3 - Alternative: "Kundali Maker - Create Your Birth Chart & Horoscope Online" -->
-    
-    <!-- SEO: Meta description optimized for clicks (158 chars) -->
-    <meta name="description" content="Generate your authentic Vedic kundali birth chart online. Get personalised astrology insights, planetary positions & cosmic destiny for ₹100.">
-    
-    <!-- SEO: Keywords for semantic relevance -->
-    <meta name="keywords" content="kundali online, birth chart generator, vedic astrology, horoscope maker, janam kundali, astrology chart, planetary positions, vedic birth chart">
-    
-    <!-- Open Graph for social sharing -->
-    <meta property="og:title" content="Know Your Kundali - Vedic Birth Chart Generator">
-    <meta property="og:description" content="Generate authentic Vedic kundali with personalised astrology insights and cosmic destiny readings.">
-    <meta property="og:type" content="website">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Leaflet CSS for map functionality -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    
-    <!-- Main stylesheet -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Kundali-specific styles -->
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- SEO: Option 1 - Primary keyword focus -->
+<title>Know Your Kundali - Free Vedic Birth Chart &amp; Astrology Reading</title>
+<!-- SEO: Option 2 - Alternative: "Generate Your Kundali Online - Vedic Astrology Birth Chart" -->
+<!-- SEO: Option 3 - Alternative: "Kundali Maker - Create Your Birth Chart & Horoscope Online" -->
+<!-- SEO: Meta description optimized for clicks (158 chars) -->
+<meta content="Generate your authentic Vedic kundali birth chart online. Get personalised astrology insights, planetary positions &amp; cosmic destiny for ₹100." name="description"/>
+<!-- SEO: Keywords for semantic relevance -->
+<meta content="kundali online, birth chart generator, vedic astrology, horoscope maker, janam kundali, astrology chart, planetary positions, vedic birth chart" name="keywords"/>
+<!-- Open Graph for social sharing -->
+<meta content="Know Your Kundali - Vedic Birth Chart Generator" property="og:title"/>
+<meta content="Generate authentic Vedic kundali with personalised astrology insights and cosmic destiny readings." property="og:description"/>
+<meta content="website" property="og:type"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&amp;family=Orbitron:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Leaflet CSS for map functionality -->
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<!-- Main stylesheet -->
+<link href="style.css" rel="stylesheet"/>
+<!-- Kundali-specific styles -->
+<style>
         /* ===== KUNDALI PAGE SPECIFIC STYLES ===== */
         .kundali-page {
             background: 
@@ -432,151 +426,130 @@
     </style>
 </head>
 <body class="kundali-page">
-    <!-- Sticky Header -->
-    <header class="header">
-        <div class="container">
-            <div class="nav-brand">
-                <div class="site-title">WitchCard</div>
-            </div>
-            <nav class="nav">
-                <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="product.html">Get Reading</a></li>
-                    <li><a href="kundali.html" class="active">Know Your Kundali</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <main class="kundali-container">
-        <!-- Page Header -->
-        <section class="kundali-header">
-            <h1 class="kundali-title">Know Your Kundali</h1>
-            <p class="kundali-subtitle">Generate your authentic Vedic birth chart with personalised cosmic insights and planetary positions</p>
-            
-            <!-- SEO: Landscape Indian Panchang Calendar Image -->
-            <div style="margin: 2rem 0; text-align: centre;">
-                <img src="attached_assets/generated_images/Indian_pandit_drawing_panchang_81589e01.png" 
-                     alt="Traditional Indian pandit creating authentic Vedic kundali panchang calendar with Sanskrit numerals and astrological calculations" 
-                     style="width: 100%; max-width: 800px; border-radius: 15px; border: 2px solid rgba(0, 255, 127, 0.3); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);" />
-            </div>
-            
-            <div class="privacy-notice">
-                <p>🔒 We do not store your personal details — all computations are performed locally in your browser unless you explicitly submit them.</p>
-            </div>
-        </section>
-
-        <!-- Birth Details Form -->
-        <section class="kundali-form-section">
-            <h2 class="form-section-title">Birth Details</h2>
-            <form id="kundaliForm" class="form-grid">
-                <div class="input-group">
-                    <label for="fullName" class="input-label">Full Name *</label>
-                    <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="dateOfBirth" class="input-label">Date of Birth *</label>
-                    <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-input" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="timeOfBirth" class="input-label">Time of Birth</label>
-                    <input type="time" id="timeOfBirth" name="timeOfBirth" class="form-input">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="timeUnknown" name="timeUnknown">
-                        <label for="timeUnknown" style="colour: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">Not sure about exact time</label>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="placeOfBirth" class="input-label">Place of Birth *</label>
-                    <input type="text" id="placeOfBirth" name="placeOfBirth" class="form-input" placeholder="Enter city name or drop pin on map" required>
-                    <div id="map" class="map-container"></div>
-                    <p style="colour: rgba(255, 255, 255, 0.6); font-size: 0.8rem; margin-top: 0.5rem;">
+<!-- Sticky Header -->
+<header class="header">
+<div class="container">
+<div class="nav-brand">
+<div class="site-title">WitchCard</div>
+</div>
+<nav class="nav">
+<ul class="nav-menu">
+<li><a href="index.html">Home</a></li>
+<li><a href="product.html">Get Reading</a></li>
+<li><a class="active" href="kundali.html">Know Your Kundali</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</nav>
+</div>
+</header>
+<main class="kundali-container">
+<!-- Page Header -->
+<section class="kundali-header">
+<h1 class="kundali-title">Know Your Kundali</h1>
+<p class="kundali-subtitle">Generate your authentic Vedic birth chart with personalised cosmic insights and planetary positions</p>
+<!-- SEO: Landscape Indian Panchang Calendar Image -->
+<div style="margin: 2rem 0; text-align: centre;">
+<img alt="Traditional Indian pandit creating authentic Vedic kundali panchang calendar with Sanskrit numerals and astrological calculations" src="attached_assets/generated_images/Indian_pandit_drawing_panchang_81589e01.png" style="width: 100%; max-width: 800px; border-radius: 15px; border: 2px solid rgba(0, 255, 127, 0.3); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);"/>
+</div>
+<div class="privacy-notice">
+<p>🔒 We do not store your personal details — all computations are performed locally in your browser unless you explicitly submit them.</p>
+</div>
+</section>
+<!-- Birth Details Form -->
+<section class="kundali-form-section">
+<h2 class="form-section-title">Birth Details</h2>
+<form class="form-grid" id="kundaliForm">
+<div class="input-group">
+<label class="input-label" for="fullName">Full Name *</label>
+<input class="form-input" id="fullName" name="fullName" placeholder="Enter your full name" required="" type="text"/>
+</div>
+<div class="input-group">
+<label class="input-label" for="dateOfBirth">Date of Birth *</label>
+<input class="form-input" id="dateOfBirth" name="dateOfBirth" required="" type="date"/>
+</div>
+<div class="input-group">
+<label class="input-label" for="timeOfBirth">Time of Birth</label>
+<input class="form-input" id="timeOfBirth" name="timeOfBirth" type="time"/>
+<div class="checkbox-group">
+<input id="timeUnknown" name="timeUnknown" type="checkbox"/>
+<label for="timeUnknown" style="colour: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">Not sure about exact time</label>
+</div>
+</div>
+<div class="input-group">
+<label class="input-label" for="placeOfBirth">Place of Birth *</label>
+<input class="form-input" id="placeOfBirth" name="placeOfBirth" placeholder="Enter city name or drop pin on map" required="" type="text"/>
+<div class="map-container" id="map"></div>
+<p style="colour: rgba(255, 255, 255, 0.6); font-size: 0.8rem; margin-top: 0.5rem;">
                         Coordinates: <span id="coordinates" style="colour: #00ff7f;">Click on map to set location</span>
-                    </p>
-                </div>
-            </form>
-
-            <!-- Consent Checkbox -->
-            <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(0, 255, 127, 0.3);">
-                <div style="display: flex; align-items: centre; gap: 1rem;">
-                    <input type="checkbox" id="consentCheckbox" style="width: 20px; height: 20px; accent-colour: #00ff7f;" required>
-                    <label for="consentCheckbox" style="colour: #00ff7f; font-size: 0.95rem; line-height: 1.5;">
-                        I agree to the <a href="privacy.html" style="colour: #00cec9; text-decoration: underline;">Terms & Conditions</a> and <a href="privacy.html" style="colour: #00cec9; text-decoration: underline;">Privacy Policy</a> for generating my Vedic kundali birth chart (₹50)
+</p>
+</div>
+</form>
+<!-- Consent Checkbox -->
+<div style="margin: 2rem 0; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(0, 255, 127, 0.3);">
+<div style="display: flex; align-items: centre; gap: 1rem;">
+<input id="consentCheckbox" required="" style="width: 20px; height: 20px; accent-colour: #00ff7f;" type="checkbox"/>
+<label for="consentCheckbox" style="colour: #00ff7f; font-size: 0.95rem; line-height: 1.5;">
+                        I agree to the <a href="privacy.html" style="colour: #00cec9; text-decoration: underline;">Terms &amp; Conditions</a> and <a href="privacy.html" style="colour: #00cec9; text-decoration: underline;">Privacy Policy</a> for generating my Vedic kundali birth chart (₹50)
                     </label>
-                </div>
-            </div>
-
-            <button type="button" id="generateKundali" class="generate-button" disabled>
+</div>
+</div>
+<button class="generate-button" disabled="" id="generateKundali" type="button">
                 Generate My Kundali - ₹50
             </button>
-
-            <div id="loadingSpinner" class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Processing payment and calculating authentic Vedic planetary positions...</p>
-                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Using traditional Indian panchang methods for accurate birth chart analysis</p>
-            </div>
-        </section>
-
-        <!-- Results Section -->
-        <section id="resultSection" class="result-section">
-            <div class="result-card">
-                <div id="silverFoil" class="silver-foil-overlay">
-                    <button id="revealButton" class="reveal-button">
+<div class="loading-spinner" id="loadingSpinner">
+<div class="spinner"></div>
+<p>Processing payment and calculating authentic Vedic planetary positions...</p>
+<p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Using traditional Indian panchang methods for accurate birth chart analysis</p>
+</div>
+</section>
+<!-- Results Section -->
+<section class="result-section" id="resultSection">
+<div class="result-card">
+<div class="silver-foil-overlay" id="silverFoil">
+<button class="reveal-button" id="revealButton">
                         Reveal Your Kundali
                     </button>
-                </div>
-
-                <div id="kundaliResult" class="kundali-chart">
-                    <div>
-                        <h3 class="form-section-title" style="text-align: centre;">Your Vedic Birth Chart</h3>
-                        <svg id="chartWheel" class="chart-wheel" viewBox="0 0 400 400">
-                            <!-- Chart will be generated here -->
-                        </svg>
-                    </div>
-
-                    <div class="chart-summary">
-                        <h4 class="summary-title">Chart Summary</h4>
-                        <div id="summaryContent">
-                            <!-- Summary will be populated here -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button id="downloadButton" class="action-button download-button">
+</div>
+<div class="kundali-chart" id="kundaliResult">
+<div>
+<h3 class="form-section-title" style="text-align: centre;">Your Vedic Birth Chart</h3>
+<svg class="chart-wheel" id="chartWheel" viewbox="0 0 400 400">
+<!-- Chart will be generated here -->
+</svg>
+</div>
+<div class="chart-summary">
+<h4 class="summary-title">Chart Summary</h4>
+<div id="summaryContent">
+<!-- Summary will be populated here -->
+</div>
+</div>
+</div>
+<div class="action-buttons">
+<button class="action-button download-button" id="downloadButton">
                         Download Kundali PDF
                     </button>
-                    <button id="shareButton" class="action-button share-button">
+<button class="action-button share-button" id="shareButton">
                         Share on WhatsApp
                     </button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- External Libraries -->
-    <!-- Leaflet JS for map functionality -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <!-- jsPDF for PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
-    <!-- html2canvas for chart capture -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
-    <!-- Razorpay Checkout -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-    <script>
+</div>
+</div>
+</section>
+</main>
+<!-- External Libraries -->
+<!-- Leaflet JS for map functionality -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- jsPDF for PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- html2canvas for chart capture -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- Razorpay Checkout -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
         /*
          * KUNDALI GENERATOR - VEDIC ASTROLOGY BIRTH CHART
          * ===============================================
