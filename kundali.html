@@ -1286,5 +1286,247 @@
             }
         });
     </script>
+    <script>
+        
+class KundaliGenerator {
+    constructor() {
+        this.map = null;
+        this.selectedLat = null;
+        this.selectedLng = null;
+        this.kundaliData = null;
+
+        this.initializeMap();
+        this.bindEvents();
+    }
+
+    initializeMap() {
+        this.map = L.map('map').setView([28.6139, 77.2090], 5);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(this.map);
+
+        this.map.on('click', (e) => {
+            this.setLocation(e.latlng.lat, e.latlng.lng);
+        });
+    }
+
+    setLocation(lat, lng) {
+        this.selectedLat = lat;
+        this.selectedLng = lng;
+
+        this.map.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+                this.map.removeLayer(layer);
+            }
+        });
+
+        L.marker([lat, lng]).addTo(this.map)
+            .bindTooltip("Birth location – coordinates only", { permanent: false });
+
+        document.getElementById('coordinates').textContent = 
+            `${lat.toFixed(4)}°N, ${lng.toFixed(4)}°E`;
+    }
+
+    bindEvents() {
+        document.getElementById('generateKundali').addEventListener('click', () => {
+            this.processPaymentAndGenerate();
+        });
+
+        document.getElementById('revealButton').addEventListener('click', () => {
+            this.revealKundali();
+        });
+
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            this.downloadKundali();
+        });
+
+        document.getElementById('shareButton').addEventListener('click', () => {
+            this.shareKundali();
+        });
+
+        document.getElementById('consentCheckbox').addEventListener('change', (e) => {
+            document.getElementById('generateKundali').disabled = !e.target.checked;
+        });
+
+        document.getElementById('timeUnknown').addEventListener('change', (e) => {
+            const timeInput = document.getElementById('timeOfBirth');
+            timeInput.disabled = e.target.checked;
+            if (e.target.checked) {
+                timeInput.value = '';
+            }
+        });
+
+        document.getElementById('placeOfBirth').addEventListener('input', 
+            this.debounce((e) => this.searchPlace(e.target.value), 500)
+        );
+    }
+
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    async searchPlace(query) {
+        if (query.length < 3) return;
+
+        try {
+            const response = await fetch(
+                \`https://nominatim.openstreetmap.org/search?format=json&q=\${encodeURIComponent(query)}&limit=1\`
+            );
+            const data = await response.json();
+
+            if (data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lng = parseFloat(data[0].lon);
+                this.setLocation(lat, lng);
+                this.map.setView([lat, lng], 10);
+            }
+        } catch (error) {
+            console.log('Geocoding service unavailable, please use map pin');
+        }
+    }
+
+    validateForm() {
+        const name = document.getElementById('fullName').value.trim();
+        const dob = document.getElementById('dateOfBirth').value;
+        const place = document.getElementById('placeOfBirth').value.trim();
+        const consent = document.getElementById('consentCheckbox').checked;
+
+        if (!name || !dob || !place) {
+            alert('Please fill in all required fields');
+            return false;
+        }
+
+        if (!consent) {
+            alert('Please accept the Terms & Conditions to proceed');
+            return false;
+        }
+
+        if (!this.selectedLat || !this.selectedLng) {
+            alert('Please select birth location on the map');
+            return false;
+        }
+
+        return true;
+    }
+
+    async processPaymentAndGenerate() {
+        if (!this.validateForm()) return;
+
+        await this.processRazorpayPayment();
+    }
+
+    async processRazorpayPayment() {
+        const formData = this.getFormData();
+
+        try {
+            const orderRes = await fetch('https://witchcard.vercel.app/api/kundli', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ createOrderOnly: true })
+            });
+
+            const orderData = await orderRes.json();
+            if (!orderData.order) {
+                throw new Error(orderData.error || 'Order creation failed');
+            }
+            const order = orderData.order;
+
+            const options = {
+                key: "rzp_live_Hd6RirzluzFacK",
+                amount: order.amount,
+                currency: order.currency,
+                name: "WitchCard - Vedic Kundali",
+                description: "Authentic Vedic Birth Chart Generation",
+                image: "attached_assets/generated_images/Indian_pandit_drawing_panchang_81589e01.png",
+                order_id: order.id,
+                handler: async (response) => {
+                    document.getElementById('generateKundali').textContent = 'Payment Successful! Generating...';
+                    await this.fetchKundaliFromBackend(formData);
+                },
+                theme: {
+                    color: "#00ff7f"
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+
+        } catch (error) {
+            this.showNotification("Failed to initiate payment", "error");
+            console.error(error);
+        }
+    }
+
+    async fetchKundaliFromBackend(formData) {
+        try {
+            document.getElementById('loadingSpinner').style.display = 'block';
+
+            const response = await fetch('https://witchcard.vercel.app/api/kundli', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (data.error) throw new Error(data.error);
+
+            this.kundaliData = this.mapProkeralaResponse(data);
+
+            // Show result section
+            document.getElementById('resultSection').style.display = 'block';
+            document.getElementById('generateKundali').textContent = 'Kundali Generated Successfully!';
+            document.getElementById('generateKundali').disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+
+            this.showNotification('Your Vedic kundali has been generated successfully!', 'success');
+
+        } catch (err) {
+            this.showNotification('Failed to fetch kundali: ' + err.message, 'error');
+            console.error(err);
+        } finally {
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+    }
+
+    mapProkeralaResponse(data) {
+        const planets = data.planets.map(p => ({
+            name: p.name,
+            degree: p.position.degree,
+            sign: p.sign.name,
+            house: p.house
+        }));
+
+        return {
+            ascendant: {
+                degree: data.ascendant.degree,
+                sign: data.ascendant.sign.name
+            },
+            planets,
+            birthDetails: {
+                date: data.input.datetime.split(' ')[0],
+                time: data.input.datetime.split(' ')[1],
+                coordinates: `${data.input.coordinates.latitude}°N, ${data.input.coordinates.longitude}°E`
+            }
+        };
+    }
+
+    // Other methods like revealKundali(), downloadKundali(), shareKundali(), showNotification() 
+    // should already exist in your original class and remain unchanged.
+}
+
+    </script>
 </body>
 </html>
