@@ -1,5 +1,5 @@
 
-// kundali-script.js
+// kundali-script.js - Updated to securely call Prokerala via backend after Razorpay payment
 
 const API_URL = 'https://witchcard-shop.vercel.app/api/kundli';
 
@@ -10,58 +10,70 @@ class KundaliGenerator {
     }
 
     bindEvents() {
-        document.getElementById('generateKundali').addEventListener('click', () => {
-            this.processPayment();
-        });
+        const generateBtn = document.getElementById('generateKundali');
+        if (generateBtn) {
+            generateBtn.addEventListener('click', () => {
+                this.processPayment();
+            });
+        }
     }
 
     getFormData() {
-        const name = document.getElementById('fullName').value.trim();
-        const dob = document.getElementById('dateOfBirth').value;
-        const timeUnknown = document.getElementById('timeUnknown').checked;
-        const time = timeUnknown ? '12:00' : document.getElementById('timeOfBirth').value;
-        const place = document.getElementById('placeOfBirth').value.trim();
-        const lat = document.getElementById('coordinates').dataset.lat;
-        const lng = document.getElementById('coordinates').dataset.lng;
+        const name = document.getElementById('fullName')?.value.trim();
+        const dob = document.getElementById('dateOfBirth')?.value;
+        const timeUnknown = document.getElementById('timeUnknown')?.checked;
+        const time = timeUnknown ? '12:00' : document.getElementById('timeOfBirth')?.value;
+        const place = document.getElementById('placeOfBirth')?.value.trim();
+        const lat = document.getElementById('coordinates')?.dataset.lat;
+        const lng = document.getElementById('coordinates')?.dataset.lng;
 
         return { name, dob, time, place, lat, lng, timeUnknown };
     }
 
     async processPayment() {
         const formData = this.getFormData();
+        try {
+            const orderRes = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ createOrderOnly: true })
+            });
 
-        const options = {
-            key: 'rzp_live_Hd6RirzluzFacK',
-            amount: 5000,
-            currency: 'INR',
-            name: 'WitchCard Kundali',
-            description: 'Generate Vedic Birth Chart',
-            handler: async (response) => {
-                console.log('Payment Success:', response);
-                await this.generateKundali(formData);
-            },
-            prefill: {
-                name: formData.name
-            },
-            theme: {
-                color: '#6c5ce7'
-            }
-        };
+            const orderData = await orderRes.json();
+            if (!orderRes.ok) throw new Error(orderData.error || 'Order creation failed');
 
-        const rzp = new Razorpay(options);
-        rzp.open();
+            const options = {
+                key: 'rzp_live_Hd6RirzluzFacK',
+                amount: orderData.order.amount,
+                currency: 'INR',
+                name: 'WitchCard Kundali',
+                description: 'Generate Vedic Birth Chart',
+                order_id: orderData.order.id,
+                handler: async (response) => {
+                    console.log('Payment Success:', response);
+                    await this.generateKundali(formData);
+                },
+                prefill: {
+                    name: formData.name
+                },
+                theme: { color: '#6c5ce7' }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        } catch (err) {
+            alert('Payment initiation failed: ' + err.message);
+        }
     }
 
     async generateKundali(formData) {
         try {
             const loading = document.getElementById('loadingSpinner');
-            loading.style.display = 'block';
+            if (loading) loading.style.display = 'block';
 
             const res = await fetch(API_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     fullName: formData.name,
                     dateOfBirth: formData.dob,
@@ -74,20 +86,34 @@ class KundaliGenerator {
             });
 
             const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Failed');
+            if (!res.ok) throw new Error(data.error || 'Kundali generation failed');
 
-            this.kundaliData = data;
+            this.kundaliData = this.mapProkeralaResponse(data);
             this.showResults();
         } catch (err) {
-            alert('Error: ' + err.message);
+            alert('Error generating Kundali: ' + err.message);
         } finally {
-            document.getElementById('loadingSpinner').style.display = 'none';
+            const loading = document.getElementById('loadingSpinner');
+            if (loading) loading.style.display = 'none';
         }
     }
 
+    mapProkeralaResponse(data) {
+        return {
+            ascendant: data.ascendant,
+            planets: data.planets,
+            chart: data.chart,
+            houses: data.houses
+        };
+    }
+
     showResults() {
-        document.getElementById('resultSection').style.display = 'block';
-        document.getElementById('kundaliResult').innerText = JSON.stringify(this.kundaliData, null, 2);
+        const resultSection = document.getElementById('resultSection');
+        const kundaliResult = document.getElementById('kundaliResult');
+        if (resultSection && kundaliResult) {
+            resultSection.style.display = 'block';
+            kundaliResult.innerText = JSON.stringify(this.kundaliData, null, 2);
+        }
     }
 }
 
