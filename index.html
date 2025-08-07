@@ -1,361 +1,911 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="google-site-verification" content="nFjl2ST3-tEuUfZvxJ0eIQHSnZbEt8uik_S4PDISTcE" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- SEO: Optimized title with primary keywords (60 chars) -->
-    <title>Ancient Numerology & Mystical Astrology Cards | WitchCard</title>
-    <!-- SEO: Enhanced meta description with compelling CTA (155 chars) -->
-    <meta name="description" content="Unlock your cosmic destiny with ancient numerology and Korean mystical astrology cards. Get personalised Sanskrit panchang readings today.">
-    <!-- SEO: Updated keywords for semantic relevance -->
-    <meta name="keywords" content="numerology readings, mystical astrology cards, Sanskrit panchang, Korean witch cards, cosmic destiny, ancient numerology, vedic astrology, fortune telling, mystical scratch cards, personalised readings">
-    <meta name="author" content="WitchCard">
-    <meta property="og:title" content="Ancient Numerology & Korean Mystical Astrology | WitchCard">
-    <meta property="og:description" content="Experience ancient Sanskrit numerology combined with Korean futuristic mystical readings. Unlock cosmic secrets through numerological calculations.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Know Your Kundali - Free Vedic Birth Chart & Astrology Reading</title>
+    <meta name="description" content="Generate your authentic Vedic kundali birth chart online. Get personalised astrology insights, planetary positions & cosmic destiny for ₹100.">
+    <meta name="keywords" content="kundali online, birth chart generator, vedic astrology, horoscope maker, janam kundali, astrology chart, planetary positions, vedic birth chart">
+    
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="Know Your Kundali - Vedic Birth Chart Generator">
+    <meta property="og:description" content="Generate authentic Vedic kundali with personalised astrology insights and cosmic destiny readings.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://witchcard.shop">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ancient Numerology & Korean Mystical Astrology | WitchCard">
-    <meta name="twitter:description" content="Discover ancient Sanskrit numerology secrets with Korean futuristic witch cards and mystical panchang readings.">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2024080501">
-    <link rel="stylesheet" href="assets/scratch-card-graphics.css?v=2024080501">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     
-    <!-- SEO: JSON-LD Structured Data for better search visibility -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "WitchCard - Ancient Numerology & Mystical Astrology",
-        "description": "Ancient numerology and Korean mystical astrology card readings. Personalised cosmic destiny insights through Sanskrit panchang wisdom.",
-        "url": "https://witchcard.shop",
-        "serviceType": "Astrology and Numerology Readings",
-        "areaServed": "Worldwide",
-        "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Mystical Scratch Card Readings",
-            "itemListElement": [
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Past Life Regression Reading",
-                        "description": "Discover your previous incarnation through ancient numerology and karmic astrology"
-                    },
-                    "price": "10",
-                    "priceCurrency": "INR"
-                },
-                {
-                    "@type": "Offer", 
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Marriage Prediction Reading",
-                        "description": "Ancient astrology insights for love compatibility and marriage timing"
-                    },
-                    "price": "10",
-                    "priceCurrency": "INR"
-                }
-            ]
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-    </script>
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background: 
+                radial-gradient(ellipse at center, rgba(16, 16, 35, 0.9) 0%, rgba(8, 8, 20, 0.98) 100%),
+                linear-gradient(135deg, rgba(108, 92, 231, 0.05) 0%, rgba(255, 0, 150, 0.05) 50%, rgba(0, 206, 201, 0.05) 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(108, 92, 231, 0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255, 0, 150, 0.6), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(0, 206, 201, 0.7), transparent);
+            background-repeat: repeat;
+            background-size: 350px 200px;
+            animation: twinkle 8s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* ===== HEADER STYLES ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffffff, #6c5ce7, #00cec9, #ffffff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .privacy-notice {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 15px;
+            padding: 1rem;
+            margin: 2rem auto;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+        }
+
+        /* ===== CARD STYLES ===== */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #00cec9;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 206, 201, 0.5);
+            text-align: center;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: block;
+            color: #00ff7f;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            text-shadow: 0 0 8px rgba(0, 255, 127, 0.4);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 127, 0.4);
+            border-radius: 10px;
+            color: #00ff7f;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            font-weight: 500;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #00ff7f;
+            box-shadow: 0 0 20px rgba(0, 255, 127, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-input::placeholder {
+            color: rgba(0, 255, 127, 0.6);
+        }
+
+        .location-suggestions {
+            position: absolute;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            margin-top: 5px;
+        }
+
+        .suggestion-item {
+            padding: 0.8rem;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .selected-location {
+            background: rgba(0, 206, 201, 0.1);
+            border: 1px solid rgba(0, 206, 201, 0.3);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 1rem 0;
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6c5ce7 0%, #00cec9 100%);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.6);
+        }
+
+        .btn-payment {
+            background: linear-gradient(135deg, #00ff7f 0%, #32cd32 100%);
+            color: #000;
+            box-shadow: 0 8px 25px rgba(0, 255, 127, 0.4);
+        }
+
+        .btn-payment:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 255, 127, 0.6);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== LOADING STYLES ===== */
+        .loading-container {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 255, 127, 0.3);
+            border-top: 3px solid #00ff7f;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        /* ===== CHART STYLES ===== */
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-wheel {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            position: relative;
+            background: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(108, 92, 231, 0.1) 50%, rgba(0, 206, 201, 0.05) 100%),
+                conic-gradient(from 0deg, #6c5ce7, #00cec9, #00ff7f, #ff0096, #6c5ce7);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
+
+        .houses-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 2px;
+            padding: 1rem;
+            height: 100%;
+        }
+
+        .house {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .house-number {
+            color: #00cec9;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        .house-sign {
+            color: white;
+            font-size: 0.7rem;
+        }
+
+        .house-planets {
+            color: #00ff7f;
+            font-size: 0.6rem;
+        }
+
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6c5ce7 0%, #00cec9 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .summary-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1rem;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+
+        .summary-title {
+            color: #00cec9;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .summary-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .summary-value {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ===== TABS STYLES ===== */
+        .tabs-container {
+            margin: 2rem 0;
+        }
+
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .tab-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .tab-button.active {
+            background: #6c5ce7;
+            color: white;
+            border-color: #6c5ce7;
+        }
+
+        .tab-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-wheel {
+                width: 100%;
+                max-width: 350px;
+                height: 350px;
+            }
+            
+            .tabs-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-error {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            accent-color: #00ff7f;
+        }
+
+        .payment-card {
+            background: linear-gradient(135deg, rgba(255, 0, 150, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%);
+            border: 2px solid rgba(255, 0, 150, 0.3);
+        }
+
+        .pricing-card {
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            color: #00ff7f;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .features-list {
+            text-align: left;
+            margin: 1rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .feature-icon {
+            color: #00ff7f;
+            margin-right: 0.5rem;
+            width: 16px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 <body>
-    <!-- Sticky Header -->
-    <header class="header">
-        <div class="container">
-            <div class="nav-brand">
-                <!-- SEO: H1 moved to main heading, keeping brand name here -->
-                <div class="site-title">WitchCard</div>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="title">Know Your Kundali</h1>
+            <p class="subtitle">
+                Discover your cosmic destiny through authentic Vedic astrology. Generate your personalized birth chart with precise planetary positions and divine insights.
+            </p>
+            
+            <!-- Privacy Notice -->
+            <div class="privacy-notice">
+                <p>
+                    <i class="fas fa-shield-alt" style="color: #00ff7f; margin-right: 0.5rem;"></i>
+                    Your personal information is completely secure and used only for generating your Kundali
+                </p>
             </div>
-            <nav class="nav">
-                <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="product.html">Get Reading</a></li>
-                    <li><a href="kundali.html">Know Your Kundali</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
-        </div>
-    </header>
+        </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <!-- Left side: Video -->
-                <div class="hero-video">
-                    <video autoplay muted loop playsinline>
-                        <source src="attached_assets/PixVerse_1754366227558.mp4" type="video/mp4">
-                        <!-- Fallback for browsers that don't support video -->
-                        <div class="video-fallback">
-                        <img src="attached_assets/generated_images/3D_Mystical_Witch_9bf7e47e.png" alt="Ancient numerology witch with crystal ball performing Korean mystical astrology card readings" class="witch-3d" />
+        <!-- Form Section -->
+        <div id="formSection" class="glass-card">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i> Enter Your Birth Details
+            </h2>
+            
+            <form id="kundaliForm">
+                <!-- Personal Information Grid -->
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="fullName" class="input-label">
+                            <i class="fas fa-user"></i> Full Name
+                        </label>
+                        <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" required>
+                        <div class="text-error" id="fullNameError"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="gender" class="input-label">
+                            <i class="fas fa-venus-mars"></i> Gender
+                        </label>
+                        <select id="gender" name="gender" class="form-select" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="text-error" id="genderError"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="birthDate" class="input-label">
+                            <i class="fas fa-calendar-alt"></i> Date of Birth
+                        </label>
+                        <input type="date" id="birthDate" name="birthDate" class="form-input" required>
+                        <div class="text-error" id="birthDateError"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="birthTime" class="input-label">
+                            <i class="fas fa-clock"></i> Time of Birth
+                        </label>
+                        <input type="time" id="birthTime" name="birthTime" class="form-input" required>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="unknownTime" class="checkbox">
+                            <label for="unknownTime" style="color: rgba(255, 255, 255, 0.7); font-size: 0.8rem;">
+                                I don't know the exact time
+                            </label>
                         </div>
-                    </video>
+                        <div class="text-error" id="birthTimeError"></div>
+                    </div>
                 </div>
-                
-                <!-- Right side: Promotional content -->
-                <div class="hero-text">
-                    <!-- SEO: H1 for main page title with primary keywords -->
-                    <h1 class="hero-title">Ancient Numerology & Mystical Astrology Card Readings</h1>
-                    <!-- SEO: Enhanced description with LSI keywords -->
-                    <p class="hero-description">Unlock the secrets of ancient Indian numerology and the timeless wisdom of the 
-                                                Sanskrit Panchang. Experience personalised cosmic readings that reveal your destiny, 
-                                                karma, and life’s true path through the power of Vedic astrology and sacred numerical 
-                                                calculations. Rooted in centuries of Bharat’s spiritual tradition, these readings guide 
-                                                you towards harmony, prosperity, and self‑realisation.
-                    </p>
-                    <div class="hero-features">
-                        <div class="feature">
-                            <span class="feature-icon">🔮</span>
-                            <span>Personalised Readings</span>
+
+                <!-- Location Section -->
+                <div class="input-group">
+                    <label for="location" class="input-label">
+                        <i class="fas fa-map-marker-alt"></i> Birth Location
+                    </label>
+                    <div style="position: relative;">
+                        <input type="text" id="location" name="location" class="form-input" placeholder="Start typing your birth city..." autocomplete="off" required>
+                        <i class="fas fa-search" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: rgba(0, 255, 127, 0.6);"></i>
+                        
+                        <!-- Location Suggestions -->
+                        <div id="locationSuggestions" class="location-suggestions hidden"></div>
+                    </div>
+
+                    <!-- Selected Location Display -->
+                    <div id="selectedLocationDisplay" class="selected-location hidden">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <div>
+                                <div id="selectedLocationName" style="color: white; font-weight: bold; margin-bottom: 0.3rem;"></div>
+                                <div id="selectedLocationCoords" style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;"></div>
+                            </div>
+                            <button type="button" id="clearLocation" style="background: none; border: none; color: #ff6b6b; cursor: pointer; font-size: 1.2rem;">
+                                <i class="fas fa-times"></i>
+                            </button>
                         </div>
-                        <div class="feature">
-                            <span class="feature-icon">✨</span>
-                            <span>Cosmic Insights</span>
+                        
+                        <!-- Interactive Map -->
+                        <div class="map-container">
+                            <iframe id="locationMap" width="100%" height="100%" style="border: 0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
-                        <div class="feature">
-                            <span class="feature-icon">🌟</span>
-                            <span>Future Predictions</span>
+                        
+                        <div class="text-center" style="margin-top: 0.5rem;">
+                            <a id="googleMapsLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #00cec9; text-decoration: none; font-size: 0.9rem;">
+                                <i class="fas fa-external-link-alt"></i> View on Google Maps
+                            </a>
                         </div>
                     </div>
-                    <!-- SEO: Enhanced CTA with title attribute -->
-                    <a href="product.html" class="cta-button" title="Browse mystical astrology card readings">Choose Your Mystical Card</a>
+                    <div class="text-error" id="locationError"></div>
+                </div>
 
-             <!-- Example quick purchase CTA that uses the Razorpay client-side integration -->
-                    <!-- You can move/duplicate this button anywhere you want on product cards -->
-                    
+                <!-- Email Section -->
+                <div class="input-group">
+                    <label for="email" class="input-label">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+                    <div class="text-error" id="emailError"></div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="input-group">
+                    <div class="glass-card" style="padding: 1rem;">
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" class="checkbox" required>
+                            <label for="agreeTerms" style="color: rgba(255, 255, 255, 0.9); font-size: 0.9rem; line-height: 1.5;">
+                                I agree to the <a href="#" style="color: #00cec9;">Terms & Conditions</a> 
+                                and <a href="#" style="color: #00cec9;">Privacy Policy</a>. 
+                                I confirm that all provided information is accurate for generating my Kundali.
+                            </label>
+                        </div>
+                        <div class="text-error" id="agreeTermsError"></div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center" style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-star-and-crescent"></i>
+                        Generate My Kundali
                     </button>
                 </div>
+            </form>
+        </div>
+
+        <!-- Payment Section -->
+        <div id="paymentSection" class="glass-card payment-card hidden">
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <h2 class="section-title">
+                    <i class="fas fa-gem"></i> Unlock Your Cosmic Destiny
+                </h2>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem;">Complete your payment to generate your detailed Kundali report</p>
+            </div>
+            
+            <!-- Pricing Card -->
+            <div class="glass-card pricing-card">
+                <div class="price">₹100</div>
+                <div style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">One-time payment • Lifetime access</div>
+                
+                <!-- What's Included -->
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fas fa-check feature-icon"></i>
+                        Complete Birth Chart Analysis
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check feature-icon"></i>
+                        Planetary Positions & Houses
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check feature-icon"></i>
+                        Detailed PDF Report
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check feature-icon"></i>
+                        WhatsApp Sharing
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Button -->
+            <div class="text-center">
+                <button id="paymentBtn" class="btn btn-payment" style="width: 100%; max-width: 300px; padding: 1rem;">
+                    <i class="fas fa-shield-alt"></i>
+                    Pay ₹100 Securely
+                    <div style="font-size: 0.8rem; font-weight: normal;">Powered by Razorpay • 100% Secure</div>
+                </button>
+            </div>
+            
+            <!-- Security Badges -->
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.6); font-size: 0.8rem;">
+                <div><i class="fas fa-lock"></i> SSL Encrypted</div>
+                <div><i class="fas fa-shield-alt"></i> PCI Compliant</div>
+                <div><i class="fas fa-check-circle"></i> Secure Payment</div>
             </div>
         </div>
-    </section>       
 
-    <!-- Call to Action Section -->
-    <section id="cards-section" class="cta-section">
-        <div class="container">
-            <div class="section-header">
-                <!-- SEO: Changed to H2 to maintain hierarchy -->
-                <h2 class="section-title">Mystical Destiny Scratch Cards – Reveal Your Future</h2>
-                <p class="section-subtitle">Discover your cosmic destiny with our ancient mystical scratch cards</p>
-            <div class="cta-content">
-                <!-- SEO: Enhanced description with internal linking keywords -->
-                <p class="cta-description">Explore 9 powerful mystical scratch card readings including Past Life Regression, Marriage Prediction, Lucky Name Analysis, Twin Flame connections, and ancient numerology insights. Each reading combines Sanskrit panchang wisdom with Korean mystical traditions.</p>
-                <!-- SEO: Keyword-rich anchor text for internal linking -->
-                <a href="product.html" class="main-cta-button" title="Get personalised mystical astrology readings">Explore All Mystical Readings</a>
+        <!-- Loading Section -->
+        <div id="loadingSection" class="loading-container hidden">
+            <div class="glass-card" style="max-width: 500px; margin: 0 auto;">
+                <div class="spinner"></div>
+                <h3 style="color: #00ff7f; font-size: 1.3rem; margin-bottom: 1rem;">Generating Your Kundali</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">Calculating celestial positions and cosmic influences...</p>
+                <div id="loadingStep" style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; min-height: 20px;"></div>
             </div>
         </div>
-    </section>
 
-    <!-- Korean Astro Tabs Section -->
-    <section class="astro-tabs">
-        <div class="container">
-            <!-- SEO: H3 with keyword content -->
-            <h3 class="astro-title">🔮 Ancient Mystical Astrology Readings & Cosmic Journey</h3>
-            <div class="tabs-grid">
-                <a href="kundali.html" class="astro-tab">🌓 Know Your Kundali</a>
-                <a href="product.html?card=pastlife" class="astro-tab">🌌 Past Life Regression</a>
-                <a href="product.html?card=marriage" class="astro-tab">❤️ Love Compatibility</a>
-                <a href="product.html?card=planet" class="astro-tab">💰 Wealth & Finance</a>
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden">
+            <!-- Result Header -->
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <h2 style="font-family: 'Orbitron', monospace; font-size: 2.5rem; background: linear-gradient(45deg, #ffffff, #6c5ce7, #00cec9, #ffffff); background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 6s ease-in-out infinite; margin-bottom: 1rem;">
+                    <i class="fas fa-star-and-crescent"></i> Your Cosmic Blueprint
+                </h2>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem;">Your personalized Vedic birth chart has been successfully generated</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Ancient Numerology Section -->
-    <section class="numerology-section">
-        <div class="container">
-            <div class="numerology-content">
-                <div class="numerology-text">
-                    <h2 class="numerology-title">
-                        <!-- SEO: H4 for section hierarchy -->
-                        <h4 class="scary-question">Do You Believe in the Power of Ancient Numerology?</h4>
-                        <span class="sanskrit-subtitle">प्राचीन संख्या विज्ञान की शक्ति में विश्वास है?</span>
-                    </h2>
+            
+            <!-- Main Chart Display -->
+            <div class="chart-container">
+                <!-- Kundali Chart -->
+                <div>
+                    <div class="glass-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-dharmachakra"></i> Birth Chart (Rashi Chakra)
+                        </h3>
+                        
+                        <!-- Kundali Wheel -->
+                        <div class="chart-wheel">
+                            <div class="houses-grid" id="housesGrid">
+                                <!-- Houses will be populated by JavaScript -->
+                            </div>
+                            <div class="center-circle">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Summary Panel -->
+                <div class="summary-panel">
+                    <!-- Personal Details -->
+                    <div class="summary-card">
+                        <h3 class="summary-title">
+                            <i class="fas fa-user-astronaut"></i> Birth Details
+                        </h3>
+                        <div id="personalDetails">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
                     
-                    <div class="numerology-description">
-                        <!-- SEO: Enhanced content with LSI keywords and internal linking -->
-                        <p class="mystical-intro">Ancient numerology is the sacred science of understanding hidden meanings behind numbers that govern your cosmic destiny. 
-                        Dating back over 4,000 years to ancient Babylon and perfected through Sanskrit Vedic panchang traditions, numerology reveals 
-                        the mystical blueprint encoded in your birth date and name. Our <a href="product.html" title="Mystical astrology card readings">Korean-inspired mystical scratch cards</a> combine this ancient wisdom with modern cosmic insights for personalised destiny readings.</p>
-                        
-                        <div class="numerology-features">
-                            <div class="feature-item">
-                                <span class="feature-number">9</span>
-                                <div class="feature-text">
-                                    <h4>Life Path Numbers</h4>
-                                    <p>Each number from 1-9 carries unique vibrations that influence your life journey, personality traits, and karmic lessons.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="feature-item">
-                                <span class="feature-number">27</span>
-                                <div class="feature-text">
-                                    <h4>Nakshatra Combinations</h4>
-                                    <p>Ancient Sanskrit panchang reveals 27 lunar mansions that determine your cosmic influence and spiritual destiny.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="feature-item">
-                                <span class="feature-number">108</span>
-                                <div class="feature-text">
-                                    <h4>Sacred Calculations</h4>
-                                    <p>The mystical number 108 appears in ancient texts, representing the mathematical perfection of cosmic harmony.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="scary-revelation">
-                            <h3 class="revelation-title">🔮 The Terrifying Truth About Numbers</h3>
-                            <p>Your numbers can predict not just your future, but reveal hidden patterns that control your relationships, 
-                            career failures, and even the timing of major life events. Some numbers carry curses that block prosperity, 
-                            while others unlock supernatural protection. Are you ready to face what your numbers reveal?</p>
+                    <!-- Key Planetary Positions -->
+                    <div class="summary-card">
+                        <h3 class="summary-title">
+                            <i class="fas fa-globe"></i> Key Planets
+                        </h3>
+                        <div id="planetaryPositions">
+                            <!-- Will be populated by JavaScript -->
                         </div>
                     </div>
+                    
+                    <!-- Astrological Summary -->
+                    <div class="summary-card">
+                        <h3 class="summary-title">
+                            <i class="fas fa-magic"></i> Summary
+                        </h3>
+                        <div id="astrologicalSummary">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Analysis Tabs -->
+            <div class="glass-card tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-button active" data-tab="overview">
+                        <i class="fas fa-chart-pie"></i> Overview
+                    </button>
+                    <button class="tab-button" data-tab="planets">
+                        <i class="fas fa-globe"></i> Planetary Analysis
+                    </button>
+                    <button class="tab-button" data-tab="houses">
+                        <i class="fas fa-home"></i> House Analysis
+                    </button>
+                    <button class="tab-button" data-tab="remedies">
+                        <i class="fas fa-gem"></i> Remedies
+                    </button>
                 </div>
                 
-                <div class="numerology-image">
-                    <!-- SEO: Enhanced alt text with focus keywords -->
-                    <img src="attached_assets/generated_images/Futuristic_Korean_numerology_mystical_scene_8883188b.png" 
-                         alt="Ancient numerology Sanskrit panchang chart with Korean mystical calculations for cosmic destiny readings" 
-                         class="mystical-numerology-graphic" />
-                    <div class="image-overlay">
-                        <div class="floating-numbers">
-                            <span class="number-1">1</span>
-                            <span class="number-2">9</span>
-                            <span class="number-3">7</span>
-                            <span class="number-4">3</span>
-                            <span class="number-5">5</span>
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <div id="overview" class="tab-pane active">
+                        <h3 style="color: #00cec9; font-size: 1.3rem; margin-bottom: 1rem;">Life Overview</h3>
+                        <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.8;">
+                            <p>Your birth chart reveals a strong personality with leadership qualities. The planetary positions indicate natural confidence and a desire to excel in your chosen field.</p>
+                            <p>The combination of celestial influences suggests you are action-oriented and possess strong initiative, with potential for achieving great success through dedication and perseverance.</p>
+                        </div>
+                    </div>
+                    
+                    <div id="planets" class="tab-pane">
+                        <h3 style="color: #00cec9; font-size: 1.3rem; margin-bottom: 1rem;">Planetary Influences</h3>
+                        <div id="planetaryAnalysis" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div id="houses" class="tab-pane">
+                        <h3 style="color: #00cec9; font-size: 1.3rem; margin-bottom: 1rem;">House Significance</h3>
+                        <div id="houseAnalysis">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div id="remedies" class="tab-pane">
+                        <h3 style="color: #00cec9; font-size: 1.3rem; margin-bottom: 1rem;">Cosmic Remedies</h3>
+                        <div id="remediesContent" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                            <!-- Will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Tarot Cards Section -->
-    <section class="tarot-cards">
-        <div class="container">
-            <h2 class="tarot-title">✨ Pick a Tarot for Your Future ✨</h2>
-            <div class="cards-row">
-                <div class="tarot-card" onclick="selectTarotCard('star')">🌟 The Star</div>
-                <div class="tarot-card" onclick="selectTarotCard('warrior')">⚔️ The Warrior</div>
-                <div class="tarot-card" onclick="selectTarotCard('moon')">🌙 The Moon</div>
-                <div class="tarot-card" onclick="selectTarotCard('sun')">☀️ The Sun</div>
-            </div>
-            <div class="cards-row">
-                <div class="tarot-card" onclick="selectTarotCard('emperor')">👑 The Emperor</div>
-                <div class="tarot-card" onclick="selectTarotCard('empress')">🌸 The Empress</div>
-                <div class="tarot-card" onclick="selectTarotCard('fortune')">🌀 The Wheel of Fortune</div>
-                <div class="tarot-card" onclick="selectTarotCard('tower')">🔥 The Tower</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Futuristic Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>WitchCard</h3>
-                    <p>Your gateway to cosmic wisdom and mystical revelations through futuristic astrology</p>
-                </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button id="downloadPdfBtn" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download PDF Report
+                </button>
                 
-                <div class="footer-navigation">
-                    <div class="footer-nav-title">Navigation</div>
-                    <div class="footer-links">
-                        <a href="privacy.html">Privacy Policy</a>
-                        <a href="refund.html">Refund Policy</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                </div>
-
-                <div class="affiliate-section">
-                    <div class="earning-text">💸 Earn Money Online! 💸</div>
-                    <a href="https://witchcard.goaffpro.com/create-account" target="_blank" class="affiliate-button">
-                        Join Affiliate Program
-                    </a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 WitchCard. All rights reserved.</p>
+                <button id="shareWhatsAppBtn" class="btn" style="background: #25D366; color: white;">
+                    <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                </button>
+                
+                <button id="newKundaliBtn" class="btn" style="background: linear-gradient(135deg, #ff0096 0%, #6c5ce7 100%); color: white;">
+                    <i class="fas fa-plus"></i> Create New Kundali
+                </button>
             </div>
         </div>
-    </footer>
 
-    <!-- Razorpay Checkout script (required) -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <!-- Error Section -->
+        <div id="errorSection" class="glass-card hidden" style="text-align: center; border: 1px solid rgba(255, 107, 107, 0.3);">
+            <i class="fas fa-exclamation-triangle" style="color: #ff6b6b; font-size: 3rem; margin-bottom: 1rem;"></i>
+            <h3 style="color: #ff6b6b; font-size: 1.3rem; margin-bottom: 1rem;">Something Went Wrong</h3>
+            <p id="errorMessage" style="color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;"></p>
+            <button id="retryBtn" class="btn btn-primary">
+                <i class="fas fa-redo"></i> Try Again
+            </button>
+        </div>
+    </div>
 
-    <!-- Payment integration script using your provided key -->
-    <script>
-    // === RAZORPAY KEY (client-side usage) ===
-    // Injected as requested:
-    const RAZORPAY_KEY = 'rzp_live_Hd6RirzluzFacK';
-
-    /**
-     * payNow(amountINR, description)
-     * - amountINR: integer rupees (e.g., 10)
-     * - description: string description for the order
-     *
-     * NOTE: This client-only flow uses the key and opens checkout directly.
-     * For production:
-     *  1) Create an Order on your server via Razorpay Orders API (with your secret key).
-     *  2) Pass order_id to options.order instead of amount.
-     *  3) Verify payment signature on server after success.
-     */
-    function payNow(amountINR = 10, description = 'Mystical Scratch Card') {
-        if (!RAZORPAY_KEY) {
-            alert('Payment key missing. Contact admin.');
-            return;
-        }
-
-        // Razorpay expects amount in paise
-        const amountPaise = parseInt(amountINR, 10) * 100;
-
-        // Simple client-side options (no server-created order)
-        const options = {
-            key: RAZORPAY_KEY,
-            amount: amountPaise,
-            currency: 'INR',
-            name: 'WitchCard',
-            description: description,
-            // image: 'https://witchcard.shop/assets/logo.png', // optional
-            handler: function (response) {
-                // response.razorpay_payment_id available
-                // Redirect to scratch.html with payment id so you can load the scratchcard page
-                // In production, validate payment server-side before giving access.
-                const payId = response.razorpay_payment_id;
-                window.location.href = 'scratch.html?payment_id=' + encodeURIComponent(payId);
-            },
-            prefill: {
-                name: '', // you can programmatically fill these from user form
-                email: '',
-                contact: ''
-            },
-            theme: {
-                color: '#7C3AED' // optional
-            },
-            modal: {
-                ondismiss: function() {
-                    // optional: handle user dismiss
-                    console.log('Checkout closed by user');
-                }
-            }
-        };
-
-        // Open checkout
-        const rzp = new Razorpay(options);
-        rzp.open();
-    }
-    </script>
-
-    <script src="script.js?v=2024080501"></script>
+    <script src="kundali.js"></script>
 </body>
 </html>
