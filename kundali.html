@@ -516,7 +516,7 @@
             </div>
 
             <button type="button" id="generateKundali" class="generate-button" disabled>
-                Generate My Kundali - ₹50
+                Generate My Kundali - ₹199
             </button>
 
             <div id="loadingSpinner" class="loading-spinner">
@@ -754,20 +754,14 @@
                     return;
                 }
                 
-                // Create order first
+                // Step 1: Create order via Netlify function
                 let order;
                 try {
-                    console.log('Creating order for payment...');
-                    const orderResponse = await fetch('/api/create-order', {
+                    console.log('Creating order via Netlify serverless function...');
+                    const orderResponse = await fetch('/.netlify/functions/kundli', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            amount: 5000, // ₹50 in paise
-                            currency: 'INR',
-                            receipt: `kundali_${Date.now()}`
-                        })
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'create-order', amount: 199 })
                     });
                     
                     if (!orderResponse.ok) {
@@ -775,33 +769,75 @@
                     }
                     
                     const orderData = await orderResponse.json();
-                    console.log('Order response:', orderData);
+                    console.log('Netlify order response:', orderData);
                     
                     if (!orderData.success) {
                         throw new Error(orderData.error || 'Failed to create order');
                     }
                     order = orderData.order;
                 } catch (error) {
-                    console.error('Order creation error:', error);
+                    console.error('Netlify order creation error:', error);
                     alert(`Failed to initiate payment: ${error.message}`);
                     return;
                 }
                 
                 const options = {
-                    "key": "rzp_test_OMhwadNjZxkUle", // Test Razorpay key from your CSV
+                    "key": "rzp_live_ZTZl8KJQSoEtd0", // Live Razorpay key
                     "amount": order.amount, // Use order amount
-                    "currency": order.currency,
-                    "name": "WitchCard - Vedic Kundali",
-                    "description": "Authentic Vedic Birth Chart Generation",
+                    "currency": "INR",
+                    "name": "WitchCard Kundali",
+                    "description": "Authentic Vedic Kundali Report",
                     "image": "https://2zi.kirk.replit.dev/attached_assets/generated_images/Indian_pandit_drawing_panchang_81589e01.png",
                     "order_id": order.id, // Order created by backend
-                    "handler": (response) => {
+                    "handler": async (response) => {
                         try {
-                            console.log('Payment successful:', response);
+                            console.log('Payment successful, verifying via Netlify...');
                             
-                            // Payment successful, show success message
-                            document.getElementById('generateKundali').textContent = 'Payment Successful! Generating...';
+                            // Step 3: Verify payment via Netlify function
+                            let verifyRes = await fetch('/.netlify/functions/kundli', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    action: 'verify-payment',
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_signature: response.razorpay_signature
+                                })
+                            });
+                            let verifyData = await verifyRes.json();
+                            
+                            if (!verifyData.success) {
+                                throw new Error('Payment verification failed');
+                            }
+                            
+                            // Step 4: Generate authentic kundali via Netlify function
+                            console.log('Payment verified! Generating authentic kundali...');
+                            let kundaliRes = await fetch('/.netlify/functions/kundli', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    action: 'generate-kundali',
+                                    name: formData.name,
+                                    dob: formData.dob,
+                                    time: formData.time,
+                                    lat: formData.lat || 28.7041,
+                                    lng: formData.lng || 77.1025,
+                                    place: formData.place
+                                })
+                            });
+                            let kundaliData = await kundaliRes.json();
+                            
+                            if (!kundaliData.success) {
+                                throw new Error('Failed to generate authentic kundali');
+                            }
+                            
+                            // Success! Set authentic kundali data
+                            this.kundaliData = kundaliData.data;
+                            this.revealKundali();
+                            
+                            document.getElementById('generateKundali').textContent = 'Authentic Kundali Generated!';
                             document.getElementById('generateKundali').style.background = 'linear-gradient(135deg, #00ff7f 0%, #32cd32 100%)';
+                            this.showNotification('Payment successful! Authentic ProKerala kundali ready.', 'success');
                             
                             // Generate kundali after successful payment
                             setTimeout(() => {
@@ -918,10 +954,8 @@
                             throw new Error('API request failed');
                         }
                     } catch (apiError) {
-                        console.warn('API call failed, using client-side calculation:', apiError);
-                        // Fallback to client-side calculation with longer simulation time
-                        await new Promise(resolve => setTimeout(resolve, 3000));
-                        this.kundaliData = this.calculateKundali(formData);
+                        console.error('ProKerala API failed:', apiError);
+                        throw new Error('Cannot generate authentic kundali. ProKerala API is required.');
                     }
                     
                     // Hide loading and show results
@@ -969,108 +1003,109 @@
                 };
             }
 
-            <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Know Your Kundali - WitchCard</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
-<body class="kundali-page">
-<header class="header">
-  <div class="container">
-    <div class="nav-brand"><div class="site-title">WitchCard</div></div>
-  </div>
-</header>
-<main class="kundali-container">
-  <section class="kundali-header">
-    <h1>Know Your Kundali</h1>
-    <p>Generate your authentic Vedic birth chart using real planetary positions</p>
-  </section>
+            async calculateKundali(data) {
+                /*
+                 * AUTHENTIC PROKERALA API INTEGRATION
+                 * ==================================
+                 * 
+                 * Uses ProKerala Vedic Astrology API for authentic calculations
+                 * - Accurate planetary positions using Swiss Ephemeris
+                 * - Authentic Vedic sidereal calculations
+                 * - Professional astrological data processing
+                 */
 
-  <section class="kundali-form-section">
-    <form id="kundaliForm">
-      <label>Full Name*: <input type="text" id="fullName" required></label>
-      <label>Date of Birth*: <input type="date" id="dateOfBirth" required></label>
-      <label>Time of Birth: <input type="time" id="timeOfBirth"></label>
-      <label>Place of Birth*: <input type="text" id="placeOfBirth" required></label>
-      <input type="checkbox" id="consentCheckbox" required> I agree to Terms & Privacy
-      <button type="button" id="generateKundali">Generate My Kundali - ₹50</button>
-    </form>
-  </section>
+                try {
+                    console.log('Calling ProKerala API for authentic kundali data...');
+                    
+                    // Call server API to get real ProKerala kundali data
+                    const response = await fetch('/api/kundli', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: data.name,
+                            dob: data.dob,
+                            tob: data.time,
+                            place: data.place,
+                            gender: data.gender || 'male'
+                        })
+                    });
 
-  <section id="resultSection" style="display:none;">
-    <h2>Your Kundali Result</h2>
-    <div id="kundaliResult"></div>
-    <button id="downloadButton">Download PDF</button>
-    <button id="shareButton">Share on WhatsApp</button>
-  </section>
-</main>
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Failed to generate authentic kundali');
+                    }
 
-<script>
-async function startKundaliProcess(){
-  const formData = {
-    name: document.getElementById("fullName").value.trim(),
-    dob: document.getElementById("dateOfBirth").value,
-    tob: document.getElementById("timeOfBirth").value || "12:00",
-    place: document.getElementById("placeOfBirth").value.trim()
-  };
-  if(!formData.name || !formData.dob || !formData.place){
-    alert("Please fill all required fields");
-    return;
-  }
+                    const kundaliData = await response.json();
+                    console.log('Received authentic ProKerala data:', kundaliData);
 
-  // Step 1: Create order
-  let orderRes = await fetch("/.netlify/functions/kundli", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ action: "create-order", amount: 50 })
-  });
-  let orderData = await orderRes.json();
-  if (!orderData.success) return alert("Order creation failed");
+                    // Transform ProKerala API response to our format
+                    const chartData = kundaliData.chart_data || {};
+                    const planets = kundaliData.planetary_positions || {};
+                    const houses = kundaliData.houses || [];
 
-  // Step 2: Open Razorpay
-  var options = {
-    key: "YOUR_RAZORPAY_KEY_ID",
-    amount: orderData.order.amount,
-    currency: "INR",
-    name: "WitchCard Kundali",
-    description: "Kundali Report",
-    order_id: orderData.order.id,
-    handler: async function (response) {
-      // Step 3: Verify payment
-      let verifyRes = await fetch("/.netlify/functions/kundli", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "verify-payment",
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_signature: response.razorpay_signature
-        })
-      });
-      let verifyData = await verifyRes.json();
-      if (!verifyData.success) return alert("Payment verification failed");
+                    // Use ONLY authentic ProKerala data - NO fallbacks
+                    if (!planets || Object.keys(planets).length === 0) {
+                        throw new Error('ProKerala API returned no planetary data');
+                    }
+                    
+                    const transformedPlanets = Object.keys(planets).map(planetName => ({
+                        name: planetName,
+                        degree: planets[planetName].degree,
+                        sign: planets[planetName].sign,
+                        house: planets[planetName].house
+                    }));
 
-      // Step 4: Call Prokerala Kundli API via Netlify function
-      let kundaliRes = await fetch("/.netlify/functions/prokerala-kundli", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      });
-      let kundaliData = await kundaliRes.json();
-      document.getElementById("resultSection").style.display = "block";
-      document.getElementById("kundaliResult").textContent = JSON.stringify(kundaliData, null, 2);
-    }
-  };
-  var rzp1 = new Razorpay(options);
-  rzp1.open();
-}
+                    // Ensure we have authentic ascendant data
+                    if (!chartData.ascendant) {
+                        throw new Error('ProKerala API returned no ascendant data');
+                    }
+                    
+                    return {
+                        ascendant: {
+                            degree: chartData.ascendant.degree,
+                            sign: chartData.ascendant.sign
+                        },
+                        planets: transformedPlanets,
+                        houses: houses,
+                        birthDetails: kundaliData.birth_details,
+                        source: 'ProKerala Vedic Astrology API',
+                        timestamp: kundaliData.timestamp
+                    };
 
+                } catch (error) {
+                    console.error('ProKerala API error:', error);
+                    throw new Error('Unable to generate authentic kundali. Please check your details and try again.');
+                }
+            }
+
+            // REMOVED: No more dummy/fallback functions
+            // Only authentic ProKerala API data will be used
+
+            dateToJulianDay(date) {
+                // Convert date to Julian Day Number (simplified)
+                return Math.floor(date.getTime() / 86400000) + 2440588;
+            }
+
+            calculateLST(julianDay, longitude) {
+                // Local Sidereal Time calculation (simplified)
+                const gst = (18.697374558 + 24.06570982441908 * (julianDay - 2451545.0)) % 24;
+                return (gst + longitude / 15) % 24;
+            }
+
+            calculateHouses(ascendant) {
+                // Calculate 12 houses starting from ascendant
+                const houses = [];
+                for (let i = 0; i < 12; i++) {
+                    houses.push({
+                        number: i + 1,
+                        degree: (ascendant + i * 30) % 360,
+                        sign: Math.floor(((ascendant + i * 30) % 360) / 30)
+                    });
+                }
+                return houses;
+            }
 
             revealKundali() {
                 // Hide silver foil overlay with animation
