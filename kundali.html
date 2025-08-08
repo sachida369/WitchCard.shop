@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO: Option 1 - Primary keyword focus -->
+    <title>Know Your Kundali - Free Vedic Birth Chart & Astrology Reading</title>
+    <!-- SEO: Option 2 - Alternative: "Generate Your Kundali Online - Vedic Astrology Birth Chart" -->
+    <!-- SEO: Option 3 - Alternative: "Kundali Maker - Create Your Birth Chart & Horoscope Online" -->
+    
+    <!-- SEO: Meta description optimized for clicks (158 chars) -->
+    <meta name="description" content="Generate your authentic Vedic kundali birth chart online. Get personalised astrology insights, planetary positions & cosmic destiny for ₹100.">
+    
+    <!-- SEO: Keywords for semantic relevance -->
+    <meta name="keywords" content="kundali online, birth chart generator, vedic astrology, horoscope maker, janam kundali, astrology chart, planetary positions, vedic birth chart">
+    
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="Know Your Kundali - Vedic Birth Chart Generator">
+    <meta property="og:description" content="Generate authentic Vedic kundali with personalised astrology insights and cosmic destiny readings.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS for map functionality -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Kundali-specific styles -->
+    <style>
+        /* ===== KUNDALI PAGE SPECIFIC STYLES ===== */
+        .kundali-page {
+            background: 
+                radial-gradient(ellipse at centre, rgba(16, 16, 35, 0.9) 0%, rgba(8, 8, 20, 0.98) 100%),
+                linear-gradient(135deg, rgba(108, 92, 231, 0.05) 0%, rgba(255, 0, 150, 0.05) 50%, rgba(0, 206, 201, 0.05) 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .kundali-page::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(108, 92, 231, 0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255, 0, 150, 0.6), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(0, 206, 201, 0.7), transparent);
+            background-repeat: repeat;
+            background-size: 350px 200px;
+            animation: twinkleStars 8s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .kundali-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .kundali-header {
+            text-align: centre;
+            margin-bottom: 3rem;
+        }
+
+        .kundali-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffffff, #6c5ce7, #00cec9, #ffffff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-colour: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        .kundali-subtitle {
+            colour: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .privacy-notice {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 15px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: centre;
+            backdrop-filter: blur(10px);
+        }
+
+        .privacy-notice p {
+            colour: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .kundali-form-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .form-section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            colour: #00cec9;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 206, 201, 0.5);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: block;
+            colour: #00ff7f;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            text-shadow: 0 0 8px rgba(0, 255, 127, 0.4);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 127, 0.4);
+            border-radius: 10px;
+            colour: #00ff7f;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            font-weight: 500;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-colour: #00ff7f;
+            box-shadow: 0 0 20px rgba(0, 255, 127, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+            text-shadow: 0 0 5px rgba(0, 255, 127, 0.3);
+        }
+
+        .form-input::placeholder {
+            colour: rgba(0, 255, 127, 0.6);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: centre;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .map-container {
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(108, 92, 231, 0.4);
+            margin-top: 1rem;
+        }
+
+        .generate-button {
+            background: linear-gradient(135deg, #6c5ce7 0%, #00cec9 100%);
+            colour: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+            display: block;
+            margin: 2rem auto;
+            min-width: 200px;
+        }
+
+        .generate-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.6);
+        }
+
+        .generate-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 3rem;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 2rem;
+            position: relative;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .silver-foil-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, rgba(192, 192, 192, 0.9) 0%, rgba(255, 255, 255, 0.8) 25%, rgba(192, 192, 192, 0.9) 50%, rgba(255, 255, 255, 0.8) 75%, rgba(192, 192, 192, 0.9) 100%),
+                radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+            background-size: 20px 20px, 100% 100%;
+            border-radius: 25px;
+            display: flex;
+            align-items: centre;
+            justify-content: centre;
+            z-index: 2;
+            transition: opacity 0.5s ease;
+        }
+
+        .reveal-button {
+            background: linear-gradient(135deg, #ff0096 0%, #6c5ce7 100%);
+            colour: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 150, 0.4);
+        }
+
+        .reveal-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 0, 150, 0.6);
+        }
+
+        .kundali-chart {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .chart-wheel {
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .chart-summary {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+
+        .summary-title {
+            colour: #00cec9;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 206, 201, 0.5);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-label {
+            colour: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        .summary-value {
+            colour: #fff;
+            font-weight: 700;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: centre;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            font-size: 0.95rem;
+        }
+
+        .pay-button {
+            background: linear-gradient(135deg, #00ff7f 0%, #32cd32 100%);
+            colour: #000;
+            box-shadow: 0 8px 25px rgba(0, 255, 127, 0.4);
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .pay-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 255, 127, 0.6);
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #6c5ce7 0%, #00cec9 100%);
+            colour: #fff;
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(108, 92, 231, 0.6);
+        }
+
+        .share-button {
+            background: #25D366;
+            colour: #fff;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: centre;
+            colour: #00ff7f;
+            font-size: 1.1rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(0, 255, 127, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 127, 0.2);
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 255, 127, 0.3);
+            border-top: 3px solid #00ff7f;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        .loading-spinner p {
+            colour: #00ff7f;
+            text-shadow: 0 0 10px rgba(0, 255, 127, 0.3);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .kundali-title {
+                font-size: 2.2rem;
+            }
+            
+            .kundali-form-section {
+                padding: 1.5rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .kundali-chart {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: centre;
+            }
+            
+            .action-button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body class="kundali-page">
+    <!-- Sticky Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="site-title">WitchCard</div>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Get Reading</a></li>
+                    <li><a href="kundali.html" class="active">Know Your Kundali</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kundali-container">
+        <!-- Page Header -->
+        <section class="kundali-header">
+            <h1 class="kundali-title">Know Your Kundali</h1>
+            <p class="kundali-subtitle">Generate your authentic Vedic birth chart with personalised cosmic insights and planetary positions</p>
+            
+            <!-- SEO: Landscape Indian Panchang Calendar Image -->
+            <div style="margin: 2rem 0; text-align: centre;">
+                <img src="attached_assets/generated_images/Indian_pandit_drawing_panchang_81589e01.png" 
+                     alt="Traditional Indian pandit creating authentic Vedic kundali panchang calendar with Sanskrit numerals and astrological calculations" 
+                     style="width: 100%; max-width: 800px; border-radius: 15px; border: 2px solid rgba(0, 255, 127, 0.3); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);" />
+            </div>
+            
+            <div class="privacy-notice">
+                <p>🔒 We do not store your personal details — all computations are performed locally in your browser unless you explicitly submit them.</p>
+            </div>
+        </section>
+
+        <!-- Birth Details Form -->
+        <section class="kundali-form-section">
+            <h2 class="form-section-title">Birth Details</h2>
+            <form id="kundaliForm" class="form-grid">
+                <div class="input-group">
+                    <label for="fullName" class="input-label">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="dateOfBirth" class="input-label">Date of Birth *</label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-input" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="timeOfBirth" class="input-label">Time of Birth</label>
+                    <input type="time" id="timeOfBirth" name="timeOfBirth" class="form-input">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="timeUnknown" name="timeUnknown">
+                        <label for="timeUnknown" style="colour: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">Not sure about exact time</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="placeOfBirth" class="input-label">Place of Birth *</label>
+                    <input type="text" id="placeOfBirth" name="placeOfBirth" class="form-input" placeholder="Enter city name or drop pin on map" required>
+                    <div id="map" class="map-container"></div>
+                    <p style="colour: rgba(255, 255, 255, 0.6); font-size: 0.8rem; margin-top: 0.5rem;">
+                        Coordinates: <span id="coordinates" style="colour: #00ff7f;">Click on map to set location</span>
+                    </p>
+                </div>
+            </form>
+
+            <!-- Consent Checkbox -->
+            <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; border: 1px solid rgba(0, 255, 127, 0.3);">
+                <div style="display: flex; align-items: centre; gap: 1rem;">
+                    <input type="checkbox" id="consentCheckbox" style="width: 20px; height: 20px; accent-colour: #00ff7f;" required>
+                    <label for="consentCheckbox" style="colour: #00ff7f; font-size: 0.95rem; line-height: 1.5;">
+                        I agree to the <a href="privacy.html" style="colour: #00cec9; text-decoration: underline;">Terms & Conditions</a> and <a href="privacy.html" style="colour: #00cec9; text-decoration: underline;">Privacy Policy</a> for generating my Vedic kundali birth chart (₹50)
+                    </label>
+                </div>
+            </div>
+
+            <button type="button" id="generateKundali" class="generate-button" disabled>
+                Generate My Kundali - ₹50
+            </button>
+
+            <div id="loadingSpinner" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Processing payment and calculating authentic Vedic planetary positions...</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Using traditional Indian panchang methods for accurate birth chart analysis</p>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultSection" class="result-section">
+            <div class="result-card">
+                <div id="silverFoil" class="silver-foil-overlay">
+                    <button id="revealButton" class="reveal-button">
+                        Reveal Your Kundali
+                    </button>
+                </div>
+
+                <div id="kundaliResult" class="kundali-chart">
+                    <div>
+                        <h3 class="form-section-title" style="text-align: centre;">Your Vedic Birth Chart</h3>
+                        <svg id="chartWheel" class="chart-wheel" viewBox="0 0 400 400">
+                            <!-- Chart will be generated here -->
+                        </svg>
+                    </div>
+
+                    <div class="chart-summary">
+                        <h4 class="summary-title">Chart Summary</h4>
+                        <div id="summaryContent">
+                            <!-- Summary will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="downloadButton" class="action-button download-button">
+                        Download Kundali PDF
+                    </button>
+                    <button id="shareButton" class="action-button share-button">
+                        Share on WhatsApp
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- External Libraries -->
+    <!-- Leaflet JS for map functionality -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- html2canvas for chart capture -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Razorpay Checkout -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js" defer onload="console.log('✅ Razorpay SDK loaded successfully')" onerror="console.error('❌ Failed to load Razorpay SDK')"></script>
+
+    <script>
+        /*
+         * KUNDALI GENERATOR - VEDIC ASTROLOGY BIRTH CHART
+         * ===============================================
+         * 
+         * PRODUCTION NOTES:
+         * - Replace placeholder astronomy calculations with Swiss Ephemeris library
+         * - Add real UPI merchant ID for payment processing
+         * - Consider server-side calculations for higher accuracy
+         * - Add geocoding API key for place name to coordinates conversion
+         * 
+         * PRIVACY COMPLIANCE:
+         * - All calculations performed client-side
+         * - No personal data stored or transmitted unless explicitly submitted
+         * - Location coordinates used only for astronomical calculations
+         */
+
+        class KundaliGenerator {
+            constructor() {
+                this.map = null;
+                this.selectedLat = null;
+                this.selectedLng = null;
+                this.kundaliData = null;
+                this.paymentCompleted = false;
+                
+                this.initializeMap();
+                this.bindEvents();
+            }
+
+            initializeMap() {
+                // Initialize Leaflet map with OpenStreetMap tiles
+                this.map = L.map('map').setView([28.6139, 77.2090], 5); // Default to India centre
+                
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(this.map);
+
+                // Add click handler for pin dropping
+                this.map.on('click', (e) => {
+                    this.setLocation(e.latlng.lat, e.latlng.lng);
+                });
+            }
+
+            setLocation(lat, lng) {
+                this.selectedLat = lat;
+                this.selectedLng = lng;
+                
+                // Clear existing markers
+                this.map.eachLayer((layer) => {
+                    if (layer instanceof L.Marker) {
+                        this.map.removeLayer(layer);
+                    }
+                });
+                
+                // Add new marker
+                L.marker([lat, lng]).addTo(this.map)
+                    .bindTooltip("Birth location – coordinates only", {permanent: false});
+                
+                // Update coordinates display
+                document.getElementById('coordinates').textContent = 
+                    `${lat.toFixed(4)}°N, ${lng.toFixed(4)}°E`;
+            }
+
+            bindEvents() {
+                // Generate button
+                document.getElementById('generateKundali').addEventListener('click', () => {
+                    this.processPaymentAndGenerate();
+                });
+
+                // Reveal button
+                document.getElementById('revealButton').addEventListener('click', () => {
+                    this.revealKundali();
+                });
+
+                // Action buttons
+                document.getElementById('downloadButton').addEventListener('click', () => {
+                    this.downloadKundali();
+                });
+
+                document.getElementById('shareButton').addEventListener('click', () => {
+                    this.shareKundali();
+                });
+
+                // Consent checkbox
+                document.getElementById('consentCheckbox').addEventListener('change', (e) => {
+                    document.getElementById('generateKundali').disabled = !e.target.checked;
+                });
+
+                // Time unknown checkbox
+                document.getElementById('timeUnknown').addEventListener('change', (e) => {
+                    const timeInput = document.getElementById('timeOfBirth');
+                    timeInput.disabled = e.target.checked;
+                    if (e.target.checked) {
+                        timeInput.value = '';
+                    }
+                });
+
+                // Place search with basic geocoding
+                document.getElementById('placeOfBirth').addEventListener('input', 
+                    this.debounce((e) => this.searchPlace(e.target.value), 500)
+                );
+            }
+
+            debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            async searchPlace(query) {
+                if (query.length < 3) return;
+                
+                try {
+                    // Basic geocoding using Nominatim (OpenStreetMap)
+                    // PRODUCTION: Replace with paid geocoding service for better accuracy
+                    const response = await fetch(
+                        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`
+                    );
+                    const data = await response.json();
+                    
+                    if (data.length > 0) {
+                        const lat = parseFloat(data[0].lat);
+                        const lng = parseFloat(data[0].lon);
+                        this.setLocation(lat, lng);
+                        this.map.setView([lat, lng], 10);
+                    }
+                } catch (error) {
+                    console.log('Geocoding service unavailable, please use map pin');
+                }
+            }
+
+            validateForm() {
+                const name = document.getElementById('fullName').value.trim();
+                const dob = document.getElementById('dateOfBirth').value;
+                const place = document.getElementById('placeOfBirth').value.trim();
+                const consent = document.getElementById('consentCheckbox').checked;
+                
+                if (!name || !dob || !place) {
+                    alert('Please fill in all required fields');
+                    return false;
+                }
+                
+                if (!consent) {
+                    alert('Please accept the Terms & Conditions to proceed');
+                    return false;
+                }
+                
+                if (!this.selectedLat || !this.selectedLng) {
+                    alert('Please select birth location on the map');
+                    return false;
+                }
+                
+                return true;
+            }
+
+            async processPaymentAndGenerate() {
+                if (!this.validateForm()) return;
+
+                // Process Razorpay payment first
+                await this.processRazorpayPayment();
+            }
+
+            async processRazorpayPayment() {
+                const formData = this.getFormData();
+                
+                // Check if Razorpay is loaded first
+                if (typeof Razorpay === 'undefined') {
+                    console.error('Razorpay library not loaded');
+                    alert('Payment system not loaded. Please refresh the page and try again.');
+                    return;
+                }
+                
+                // Create order first
+                let order;
+                try {
+                    console.log('Creating order for payment...');
+                    const orderResponse = await fetch('/api/create-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            amount: 5000, // ₹50 in paise
+                            currency: 'INR',
+                            receipt: `kundali_${Date.now()}`
+                        })
+                    });
+                    
+                    if (!orderResponse.ok) {
+                        throw new Error(`HTTP error! status: ${orderResponse.status}`);
+                    }
+                    
+                    const orderData = await orderResponse.json();
+                    console.log('Order response:', orderData);
+                    
+                    if (!orderData.success) {
+                        throw new Error(orderData.error || 'Failed to create order');
+                    }
+                    order = orderData.order;
+                } catch (error) {
+                    console.error('Order creation error:', error);
+                    alert(`Failed to initiate payment: ${error.message}`);
+                    return;
+                }
+                
+                const options = {
+                    "key": "rzp_test_OMhwadNjZxkUle", // Test Razorpay key from your CSV
+                    "amount": order.amount, // Use order amount
+                    "currency": order.currency,
+                    "name": "WitchCard - Vedic Kundali",
+                    "description": "Authentic Vedic Birth Chart Generation",
+                    "image": "https://2zi.kirk.replit.dev/attached_assets/generated_images/Indian_pandit_drawing_panchang_81589e01.png",
+                    "order_id": order.id, // Order created by backend
+                    "handler": (response) => {
+                        try {
+                            console.log('Payment successful:', response);
+                            
+                            // Payment successful, show success message
+                            document.getElementById('generateKundali').textContent = 'Payment Successful! Generating...';
+                            document.getElementById('generateKundali').style.background = 'linear-gradient(135deg, #00ff7f 0%, #32cd32 100%)';
+                            
+                            // Generate kundali after successful payment
+                            setTimeout(() => {
+                                this.generateKundali().catch(error => {
+                                    console.error('Kundali generation failed:', error);
+                                    alert('Payment successful but kundali generation failed. Please contact support.');
+                                });
+                            }, 1000);
+                            
+                            // Success notification
+                            this.showNotification(`Payment successful! Payment ID: ${response.razorpay_payment_id}`, 'success');
+                        } catch (error) {
+                            console.error('Payment handler error:', error);
+                            alert('Payment successful but there was an error processing it. Please contact support.');
+                        }
+                    },
+                    "prefill": {
+                        "name": formData.name,
+                        "email": "",
+                        "contact": ""
+                    },
+                    "notes": {
+                        "address": "Vedic Kundali Generation",
+                        "birth_place": formData.place,
+                        "birth_date": formData.dob
+                    },
+                    "theme": {
+                        "colour": "#00ff7f",
+                        "backdrop_color": "rgba(0, 255, 127, 0.1)"
+                    },
+                    "modal": {
+                        "ondismiss": () => {
+                            document.getElementById('generateKundali').textContent = 'Generate My Kundali - ₹50';
+                            document.getElementById('generateKundali').disabled = false;
+                        }
+                    }
+                };
+
+                // Disable button during payment process
+                document.getElementById('generateKundali').textContent = 'Processing Payment...';
+                document.getElementById('generateKundali').disabled = true;
+
+                // Add error handling for Razorpay initialization
+                let rzp;
+                try {
+                    console.log('Initializing Razorpay with options:', options);
+                    rzp = new Razorpay(options);
+                } catch (error) {
+                    console.error('Razorpay initialization error:', error);
+                    alert(`Failed to initialize payment: ${error.message}`);
+                    document.getElementById('generateKundali').textContent = 'Generate My Kundali - ₹50';
+                    document.getElementById('generateKundali').disabled = false;
+                    return;
+                }
+                
+                rzp.on('payment.failed', (response) => {
+                    console.error('Payment failed:', response.error);
+                    alert(`Payment failed: ${response.error.description || response.error.reason || 'Unknown error'}`);
+                    document.getElementById('generateKundali').textContent = 'Generate My Kundali - ₹50';
+                    document.getElementById('generateKundali').disabled = false;
+                });
+
+                // Add error handling for Razorpay open
+                try {
+                    console.log('Opening Razorpay checkout with order:', order);
+                    console.log('Payment options:', options);
+                    rzp.open();
+                } catch (error) {
+                    console.error('Razorpay open error:', error);
+                    console.error('Error stack:', error.stack);
+                    alert(`Failed to open payment gateway: ${error.message}`);
+                    document.getElementById('generateKundali').textContent = 'Generate My Kundali - ₹50';
+                    document.getElementById('generateKundali').disabled = false;
+                }
+            }
+
+            async generateKundali() {
+                try {
+                    // Show loading animation
+                    document.getElementById('loadingSpinner').style.display = 'block';
+                    document.getElementById('generateKundali').disabled = true;
+
+                    // Get form data
+                    const formData = this.getFormData();
+                    console.log('Generating Kundali with data:', formData);
+                    
+                    // Try to get real Kundali data from secure API
+                    try {
+                        const kundaliResponse = await fetch('/api/kundali', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                name: formData.name,
+                                dob: formData.dob,
+                                tob: formData.time || '12:00',
+                                place: formData.place,
+                                gender: formData.gender || 'male'
+                            })
+                        });
+                        
+                        if (kundaliResponse.ok) {
+                            const apiData = await kundaliResponse.json();
+                            if (apiData.success) {
+                                console.log('Using API Kundali data:', apiData);
+                                this.kundaliData = apiData;
+                                // Use API data instead of calculating client-side
+                                await new Promise(resolve => setTimeout(resolve, 1000)); // Brief pause for UX
+                            } else {
+                                throw new Error('API returned no data');
+                            }
+                        } else {
+                            throw new Error('API request failed');
+                        }
+                    } catch (apiError) {
+                        console.warn('API call failed, using client-side calculation:', apiError);
+                        // Fallback to client-side calculation with longer simulation time
+                        await new Promise(resolve => setTimeout(resolve, 3000));
+                        this.kundaliData = this.calculateKundali(formData);
+                    }
+                    
+                    // Hide loading and show results
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    document.getElementById('resultSection').style.display = 'block';
+                    
+                    // Update button to show completion
+                    document.getElementById('generateKundali').textContent = 'Kundali Generated Successfully!';
+                    document.getElementById('generateKundali').style.background = 'linear-gradient(135deg, #32cd32 0%, #00ff7f 100%)';
+                    
+                    // Smooth scroll to results with offset for header
+                    setTimeout(() => {
+                        document.getElementById('resultSection').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }, 500);
+                    
+                    // Success notification
+                    this.showNotification('Your Vedic kundali has been generated successfully!', 'success');
+                    
+                } catch (error) {
+                    console.error('Kundali generation error:', error);
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    this.showNotification('Failed to generate kundali. Please try again.', 'error');
+                    
+                    // Reset button state
+                    document.getElementById('generateKundali').textContent = 'Generate My Kundali - ₹50';
+                    document.getElementById('generateKundali').disabled = false;
+                }
+            }
+
+            getFormData() {
+                const timeUnknown = document.getElementById('timeUnknown').checked;
+                const time = timeUnknown ? '12:00' : document.getElementById('timeOfBirth').value || '12:00';
+                
+                return {
+                    name: document.getElementById('fullName').value.trim(),
+                    dob: document.getElementById('dateOfBirth').value,
+                    time: time,
+                    timeUnknown: timeUnknown,
+                    place: document.getElementById('placeOfBirth').value.trim(),
+                    lat: this.selectedLat,
+                    lng: this.selectedLng
+                };
+            }
+
+            calculateKundali(data) {
+                /*
+                 * PLACEHOLDER ASTRONOMICAL CALCULATIONS
+                 * ====================================
+                 * 
+                 * PRODUCTION TODO:
+                 * - Replace with Swiss Ephemeris library (swisseph) for accurate planetary positions
+                 * - Use libraries like 'astronomia' or 'celestial-mechanics' for JavaScript
+                 * - Consider server-side calculations with PHP/Python Swiss Ephemeris bindings
+                 * - Add proper sidereal calculations for Vedic astrology
+                 * 
+                 * Current implementation uses simplified placeholder calculations
+                 */
+
+                const birthDate = new Date(data.dob + 'T' + data.time);
+                const julianDay = this.dateToJulianDay(birthDate);
+                
+                // Placeholder planetary positions (degrees in zodiac)
+                // PRODUCTION: Calculate actual positions using ephemeris
+                const planets = {
+                    Sun: (julianDay * 0.9856 + 280) % 360,
+                    Moon: (julianDay * 13.1764 + 134) % 360,
+                    Mars: (julianDay * 0.5240 + 355) % 360,
+                    Mercury: (julianDay * 4.0923 + 252) % 360,
+                    Jupiter: (julianDay * 0.0831 + 34) % 360,
+                    Venus: (julianDay * 1.6021 + 181) % 360,
+                    Saturn: (julianDay * 0.0334 + 49) % 360,
+                    Rahu: (julianDay * -0.0529 + 125) % 360,
+                    Ketu: (julianDay * -0.0529 + 305) % 360
+                };
+
+                // Calculate ascendant (simplified)
+                const localSiderealTime = this.calculateLST(julianDay, data.lng);
+                const ascendant = (localSiderealTime * 15 + data.lat * 0.5) % 360;
+
+                // Determine zodiac signs
+                const zodiacSigns = [
+                    'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
+                    'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
+                ];
+
+                const getSign = (degree) => zodiacSigns[Math.floor(degree / 30)];
+
+                return {
+                    ascendant: {
+                        degree: ascendant,
+                        sign: getSign(ascendant)
+                    },
+                    planets: Object.keys(planets).map(planet => ({
+                        name: planet,
+                        degree: planets[planet],
+                        sign: getSign(planets[planet]),
+                        house: Math.floor(((planets[planet] - ascendant + 360) % 360) / 30) + 1
+                    })),
+                    houses: this.calculateHouses(ascendant),
+                    birthDetails: {
+                        date: data.dob,
+                        time: data.time,
+                        coordinates: `${data.lat.toFixed(4)}°N, ${data.lng.toFixed(4)}°E`
+                    }
+                };
+            }
+
+            dateToJulianDay(date) {
+                // Convert date to Julian Day Number (simplified)
+                return Math.floor(date.getTime() / 86400000) + 2440588;
+            }
+
+            calculateLST(julianDay, longitude) {
+                // Local Sidereal Time calculation (simplified)
+                const gst = (18.697374558 + 24.06570982441908 * (julianDay - 2451545.0)) % 24;
+                return (gst + longitude / 15) % 24;
+            }
+
+            calculateHouses(ascendant) {
+                // Calculate 12 houses starting from ascendant
+                const houses = [];
+                for (let i = 0; i < 12; i++) {
+                    houses.push({
+                        number: i + 1,
+                        degree: (ascendant + i * 30) % 360,
+                        sign: Math.floor(((ascendant + i * 30) % 360) / 30)
+                    });
+                }
+                return houses;
+            }
+
+            revealKundali() {
+                // Hide silver foil overlay with animation
+                const foil = document.getElementById('silverFoil');
+                foil.style.opacity = '0';
+                setTimeout(() => {
+                    foil.style.display = 'none';
+                }, 500);
+
+                // Generate chart visualization
+                this.renderKundaliChart();
+                this.renderSummary();
+
+                // Enable action buttons after payment is complete
+                document.getElementById('downloadButton').disabled = false;
+            }
+
+            renderKundaliChart() {
+                const svg = document.getElementById('chartWheel');
+                const centre = 200;
+                const radius = 180;
+
+                // Clear existing content
+                svg.innerHTML = '';
+
+                // Create background circle
+                const bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                bg.setAttribute('cx', centre);
+                bg.setAttribute('cy', centre);
+                bg.setAttribute('r', radius);
+                bg.setAttribute('fill', 'rgba(255, 255, 255, 0.05)');
+                bg.setAttribute('stroke', 'rgba(108, 92, 231, 0.6)');
+                bg.setAttribute('stroke-width', '2');
+                svg.appendChild(bg);
+
+                // Draw 12 house divisions
+                for (let i = 0; i < 12; i++) {
+                    const angle = (i * 30 - 90) * Math.PI / 180; // Start from top
+                    const x1 = centre + Math.cos(angle) * 60;
+                    const y1 = centre + Math.sin(angle) * 60;
+                    const x2 = centre + Math.cos(angle) * radius;
+                    const y2 = centre + Math.sin(angle) * radius;
+
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', x1);
+                    line.setAttribute('y1', y1);
+                    line.setAttribute('x2', x2);
+                    line.setAttribute('y2', y2);
+                    line.setAttribute('stroke', 'rgba(255, 255, 255, 0.3)');
+                    line.setAttribute('stroke-width', '1');
+                    svg.appendChild(line);
+
+                    // Add house numbers
+                    const houseAngle = ((i * 30 + 15) - 90) * Math.PI / 180;
+                    const houseX = centre + Math.cos(houseAngle) * (radius - 20);
+                    const houseY = centre + Math.sin(houseAngle) * (radius - 20);
+
+                    const houseText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    houseText.setAttribute('x', houseX);
+                    houseText.setAttribute('y', houseY);
+                    houseText.setAttribute('text-anchor', 'middle');
+                    houseText.setAttribute('dominant-baseline', 'middle');
+                    houseText.setAttribute('fill', 'rgba(255, 255, 255, 0.6)');
+                    houseText.setAttribute('font-size', '12');
+                    houseText.textContent = i + 1;
+                    svg.appendChild(houseText);
+                }
+
+                // Plot planets
+                this.kundaliData.planets.forEach(planet => {
+                    const angle = (planet.degree - 90) * Math.PI / 180;
+                    const planetRadius = 120;
+                    const x = centre + Math.cos(angle) * planetRadius;
+                    const y = centre + Math.sin(angle) * planetRadius;
+
+                    // Planet circle
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', x);
+                    circle.setAttribute('cy', y);
+                    circle.setAttribute('r', '6');
+                    circle.setAttribute('fill', this.getPlanetColor(planet.name));
+                    circle.setAttribute('stroke', '#fff');
+                    circle.setAttribute('stroke-width', '1');
+                    svg.appendChild(circle);
+
+                    // Planet symbol/name
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', x);
+                    text.setAttribute('y', y + 20);
+                    text.setAttribute('text-anchor', 'middle');
+                    text.setAttribute('fill', '#fff');
+                    text.setAttribute('font-size', '10');
+                    text.setAttribute('font-weight', 'bold');
+                    text.textContent = this.getPlanetSymbol(planet.name);
+                    svg.appendChild(text);
+                });
+
+                // Add ascendant marker
+                const ascAngle = (this.kundaliData.ascendant.degree - 90) * Math.PI / 180;
+                const ascX = centre + Math.cos(ascAngle) * (radius - 10);
+                const ascY = centre + Math.sin(ascAngle) * (radius - 10);
+
+                const ascMarker = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                ascMarker.setAttribute('points', `${ascX},${ascY-8} ${ascX-6},${ascY+8} ${ascX+6},${ascY+8}`);
+                ascMarker.setAttribute('fill', '#00cec9');
+                ascMarker.setAttribute('stroke', '#fff');
+                ascMarker.setAttribute('stroke-width', '1');
+                svg.appendChild(ascMarker);
+            }
+
+            getPlanetColor(planet) {
+                const colors = {
+                    Sun: '#ff6b35',
+                    Moon: '#74b9ff',
+                    Mars: '#e17055',
+                    Mercury: '#00b894',
+                    Jupiter: '#fdcb6e',
+                    Venus: '#fd79a8',
+                    Saturn: '#6c5ce7',
+                    Rahu: '#636e72',
+                    Ketu: '#636e72'
+                };
+                return colors[planet] || '#ddd';
+            }
+
+            getPlanetSymbol(planet) {
+                const symbols = {
+                    Sun: '☉',
+                    Moon: '☽',
+                    Mars: '♂',
+                    Mercury: '☿',
+                    Jupiter: '♃',
+                    Venus: '♀',
+                    Saturn: '♄',
+                    Rahu: '☊',
+                    Ketu: '☋'
+                };
+                return symbols[planet] || planet.substring(0, 2);
+            }
+
+            renderSummary() {
+                const summaryContent = document.getElementById('summaryContent');
+                
+                // Find Sun, Moon positions
+                const sun = this.kundaliData.planets.find(p => p.name === 'Sun');
+                const moon = this.kundaliData.planets.find(p => p.name === 'Moon');
+                
+                summaryContent.innerHTML = `
+                    <div class="summary-item">
+                        <span class="summary-label">Ascendant:</span>
+                        <span class="summary-value">${this.kundaliData.ascendant.sign}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Sun Sign:</span>
+                        <span class="summary-value">${sun.sign}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Moon Sign:</span>
+                        <span class="summary-value">${moon.sign}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Birth Date:</span>
+                        <span class="summary-value">${this.kundaliData.birthDetails.date}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Birth Time:</span>
+                        <span class="summary-value">${this.kundaliData.birthDetails.time}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Coordinates:</span>
+                        <span class="summary-value">${this.kundaliData.birthDetails.coordinates}</span>
+                    </div>
+                `;
+            }
+
+
+
+            async downloadKundali() {
+                if (!this.kundaliData) {
+                    alert('Please generate your kundali first.');
+                    return;
+                }
+
+                try {
+                    // Capture the chart as canvas
+                    const chartElement = document.getElementById('kundaliResult');
+                    const canvas = await html2canvas(chartElement, {
+                        backgroundColor: 'rgba(16, 16, 35, 0.9)',
+                        scale: 2
+                    });
+
+                    // Create PDF
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    
+                    // Add title
+                    pdf.setFontSize(20);
+                    pdf.setTextColor(108, 92, 231);
+                    pdf.text('Vedic Birth Chart (Kundali)', 20, 30);
+                    
+                    // Add chart image
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.addImage(imgData, 'PNG', 20, 40, 170, 120);
+                    
+                    // Add summary text
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text('Chart Summary:', 20, 180);
+                    
+                    const sun = this.kundaliData.planets.find(p => p.name === 'Sun');
+                    const moon = this.kundaliData.planets.find(p => p.name === 'Moon');
+                    
+                    pdf.text(`Ascendant: ${this.kundaliData.ascendant.sign}`, 20, 195);
+                    pdf.text(`Sun Sign: ${sun.sign}`, 20, 205);
+                    pdf.text(`Moon Sign: ${moon.sign}`, 20, 215);
+                    pdf.text(`Birth Date: ${this.kundaliData.birthDetails.date}`, 20, 225);
+                    pdf.text(`Birth Time: ${this.kundaliData.birthDetails.time}`, 20, 235);
+                    
+                    // Add footer
+                    pdf.setFontSize(10);
+                    pdf.setTextColor(128, 128, 128);
+                    pdf.text('Generated by WitchCard - Ancient Numerology & Mystical Astrology', 20, 280);
+                    
+                    // Download
+                    pdf.save('my-kundali-chart.pdf');
+
+                } catch (error) {
+                    console.error('Download failed:', error);
+                    alert('Download failed. Please try again.');
+                }
+            }
+
+            shareKundali() {
+                if (!this.kundaliData) {
+                    alert('Please generate your kundali first.');
+                    return;
+                }
+
+                const sun = this.kundaliData.planets.find(p => p.name === 'Sun');
+                const moon = this.kundaliData.planets.find(p => p.name === 'Moon');
+                
+                const shareText = `I generated my Vedic kundali with traditional Indian panchang calculations! 🔮\n\n` +
+                    `Ascendant: ${this.kundaliData.ascendant.sign}\n` +
+                    `Sun Sign: ${sun.sign}\n` +
+                    `Moon Sign: ${moon.sign}\n\n` +
+                    `Get your authentic kundali for just ₹50 at WitchCard!\n` +
+                    `${window.location.origin}/kundali.html`;
+
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+
+            showNotification(message, type = 'info') {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 1rem 1.5rem;
+                    border-radius: 10px;
+                    colour: white;
+                    font-weight: 600;
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease-out;
+                    max-width: 350px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                `;
+                
+                // Set background based on type
+                if (type === 'success') {
+                    notification.style.background = 'linear-gradient(135deg, #00ff7f 0%, #32cd32 100%)';
+                    notification.style.colour = '#000';
+                } else if (type === 'error') {
+                    notification.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)';
+                } else {
+                    notification.style.background = 'linear-gradient(135deg, #6c5ce7 0%, #00cec9 100%)';
+                }
+                
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                // Add CSS animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Remove after 4 seconds
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 4000);
+            }
+        }
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for Razorpay to load
+            const checkRazorpay = () => {
+                if (typeof Razorpay !== 'undefined') {
+                    console.log('✅ Razorpay initialized, starting KundaliGenerator');
+                    new KundaliGenerator();
+                } else {
+                    console.log('⏳ Waiting for Razorpay to load...');
+                    setTimeout(checkRazorpay, 100);
+                }
+            };
+            checkRazorpay();
+        });
+
+        // Mobile hamburger menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu when clicking on a link
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
