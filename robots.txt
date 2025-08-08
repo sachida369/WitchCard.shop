@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://witchcard.shop/sitemap.xml
+
+# Optimize crawling
+Crawl-delay: 1
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block unnecessary pages
+Disallow: /server.js
+Disallow: /package.json
+Disallow: /node_modules/
+Disallow: /.env
+Disallow: /api/
+Disallow: /attached_assets/Pasted*
+
+# Allow important assets
+Allow: /assets/
+Allow: /attached_assets/generated_images/
+Allow: /style.css
+Allow: /script.js
