@@ -782,15 +782,18 @@
                 }
                 
                 const options = {
-                    "key": "rzp_live_ZTZl8KJQSoEtd0", // Live Razorpay key
-                    "amount": order.amount, // Use order amount
-                    "currency": "INR",
-                    "name": "WitchCard Kundali",
-                    "description": "Authentic Vedic Kundali Report",
-                    "image": "https://2zi.kirk.replit.dev/attached_assets/generated_images/Indian_pandit_drawing_panchang_81589e01.png",
-                    "order_id": order.id, // Order created by backend
-                    "handler": async (response) => {
-                        try {
+                    key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Live Razorpay key from Netlify env
+                    amount: order.amount, // Use order amount
+                    currency: "INR",
+                    name: "WitchCard Kundali",
+                    description: "Authentic Vedic Kundali Report",
+                    image: "https://2zi.kirk.replit.dev/attached_assets/generated_images/Indian_pandit_drawing_panchang_81589e01.png",
+                    order_id: order.id,
+                    handler: async (response) => {
+                   // your payment handler logic
+                   }
+                };
+
                             console.log('Payment successful, verifying via Netlify...');
                             
                             // Step 3: Verify payment via Netlify function
