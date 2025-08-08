@@ -1,0 +1,36 @@
+You are a senior responsive frontend developer.  
+Scan the existing HTML, CSS, and JS of my website (product listing + product details page) and:
+
+1. **Alignment Fixes**
+   - Ensure all product cards are perfectly aligned in a responsive grid for desktop, tablet, and mobile.
+   - Maintain consistent padding, margins, and spacing between elements.
+   - Fix any stretched, cropped, or overflowing images.
+   - Align action buttons and product titles consistently so they line up even with different product name lengths.
+   - Center content vertically within product cards when needed.
+   - Make sure text doesn’t overflow or wrap awkwardly on small screens.
+   - Ensure grid or flex layout reflows gracefully from desktop → tablet → mobile without breaking alignment.
+
+2. **Action Button Visibility**
+   - For each product card, make the action button fully visible at all screen sizes (no clipping or overlapping with other elements).
+   - If buttons are hidden behind hover effects or overflowing containers, fix z-index and positioning.
+   - Add a **clear CTA label** (“Click Here” or “View Details”) inside the button for all products.
+   - Ensure these buttons are keyboard accessible and have hover + focus styles.
+
+3. **Responsiveness**
+   - Use media queries or CSS grid/flexbox adjustments to keep layouts clean and functional on devices as small as 320px wide and as large as 4K monitors.
+   - Keep images responsive (max-width: 100%, height auto) and maintain aspect ratio.
+   - On mobile, stack product content neatly with buttons below images.
+
+4. **UI/UX Improvements**
+   - Make buttons consistent in size, font, and color across the site.
+   - Maintain touch-friendly button height (at least 44px) on mobile.
+   - Add subtle hover/tap animation to buttons for better feedback.
+   - Ensure all clickable elements have proper cursor styles and aria-labels for accessibility.
+
+5. **Output**
+   - Return clean, commented HTML and CSS code with the fixed responsive layout.
+   - Clearly mark the edited sections so I can merge them into my existing project.
+   - No removal of existing functionality — only fix alignment, spacing, and button display issues.
+   - Keep the design theme consistent with the current site (fonts, colors, shadows, etc.).
+
+Now scan the provided code and apply all fixes above so that my products display perfectly aligned on both desktop and mobile, and each product action button clearly says “Click Here” and is fully clickable.
