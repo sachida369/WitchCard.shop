@@ -1,145 +1,217 @@
-import Razorpay from "razorpay";
-import crypto from "crypto";
+const Razorpay = require('razorpay');
+const crypto = require('crypto');
 
-// Netlify functions must export `handler`
-export async function handler(event, context) {
-  // Enable CORS for frontend calls
+// Initialize Razorpay with your live keys
+const razorpay = new Razorpay({
+  key_id: 'rzp_live_ZTZl8KJQSoEtd0',
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+});
+
+exports.handler = async (event, context) => {
+  // Set CORS headers
   const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization"
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
   };
 
-  if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 200, headers, body: "" };
+  // Handle preflight requests
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers, body: '' };
+  }
+
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: 'Method not allowed' })
+    };
   }
 
   try {
-    const body = JSON.parse(event.body || "{}");
-    const { action, ...data } = body;
+    const { action, ...data } = JSON.parse(event.body);
 
     switch (action) {
-      case "create-order":
-        return await createRazorpayOrder(data, headers);
-
-      case "verify-payment":
-        return await verifyPayment(data, headers);
-
-      case "generate-kundali":
-        return await generateKundali(data, headers);
-
+      case 'create-order':
+        return await createOrder(data);
+      
+      case 'verify-payment':
+        return await verifyPayment(data);
+      
+      case 'generate-kundali':
+        return await generateKundali(data);
+      
       default:
         return {
           statusCode: 400,
           headers,
-          body: JSON.stringify({ error: "Invalid action" })
+          body: JSON.stringify({ error: 'Invalid action' })
         };
     }
-  } catch (err) {
-    console.error("Server Error:", err);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: err.message })
-    };
-  }
-}
-
-// ✅ Create Razorpay Order
-async function createRazorpayOrder({ amount, currency = "INR", receipt }, headers) {
-  try {
-    const razorpay = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_SECRET
-    });
-
-    const order = await razorpay.orders.create({
-      amount: amount * 100,
-      currency,
-      receipt: receipt || `receipt_${Date.now()}`
-    });
-
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ success: true, order })
-    };
   } catch (error) {
+    console.error('Function error:', error);
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: "Order creation failed", message: error.message })
+      body: JSON.stringify({ error: 'Internal server error' })
     };
   }
-}
 
-// ✅ Verify Razorpay Payment
-async function verifyPayment({ razorpay_payment_id, razorpay_order_id, razorpay_signature }, headers) {
-  try {
-    const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_SECRET)
-      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
-      .digest("hex");
+  async function createOrder(data) {
+    try {
+      const { amount } = data;
+      
+      const order = await razorpay.orders.create({
+        amount: amount * 100, // Convert to paise
+        currency: 'INR',
+        receipt: `receipt_${Date.now()}`,
+        payment_capture: 1
+      });
 
-    if (expectedSignature !== razorpay_signature) {
-      return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: "Invalid signature" }) };
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          order: order
+        })
+      };
+    } catch (error) {
+      console.error('Order creation error:', error);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({
+          success: false,
+          error: 'Failed to create order'
+        })
+      };
     }
-
-    return { statusCode: 200, headers, body: JSON.stringify({ success: true, message: "Payment verified" }) };
-  } catch (error) {
-    return { statusCode: 500, headers, body: JSON.stringify({ error: "Payment verification failed", message: error.message }) };
   }
-}
 
-// ✅ Generate Kundali from Prokerala API
-async function generateKundali({ name, dob, time, lat, lng, place }, headers) {
-  try {
-    // 1. Get Prokerala API token
-    const tokenResponse = await fetch("https://api.prokerala.com/token", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        grant_type: "client_credentials",
-        client_id: process.env.PROKERALA_CLIENT_ID,
-        client_secret: process.env.PROKERALA_SECRET
-      })
-    });
+  async function verifyPayment(data) {
+    try {
+      const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = data;
+      
+      // Verify signature
+      const body = razorpay_order_id + "|" + razorpay_payment_id;
+      const expectedSignature = crypto
+        .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+        .update(body.toString())
+        .digest("hex");
 
-    const tokenData = await tokenResponse.json();
-    if (!tokenData.access_token) throw new Error("Failed to get Prokerala API token");
+      if (expectedSignature !== razorpay_signature) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            success: false,
+            error: 'Payment verification failed'
+          })
+        };
+      }
 
-    // 2. Call Kundli API
-    const kundaliResponse = await fetch("https://api.prokerala.com/v2/astrology/kundli", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${tokenData.access_token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        ayanamsa: 1,
-        datetime: `${dob}T${time}:00`,
-        coordinates: `${lat},${lng}`,
-        language: "en"
-      })
-    });
-
-    const kundaliData = await kundaliResponse.json();
-    if (!kundaliResponse.ok) throw new Error(kundaliData.message || "Kundali API call failed");
-
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        data: kundaliData,
-        user: { name, dob, time, place }
-      })
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: "Kundali generation failed", message: error.message })
-    };
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          message: 'Payment verified successfully'
+        })
+      };
+    } catch (error) {
+      console.error('Payment verification error:', error);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({
+          success: false,
+          error: 'Verification failed'
+        })
+      };
+    }
   }
-}
+
+  async function generateKundali(data) {
+    try {
+      const { name, dob, time, lat, lng, place } = data;
+      
+      // Get ProKerala OAuth token
+      const tokenResponse = await fetch('https://api.prokerala.com/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          'grant_type': 'client_credentials',
+          'client_id': process.env.PROKERALA_CLIENT_ID,
+          'client_secret': process.env.PROKERALA_CLIENT_SECRET
+        })
+      });
+
+      if (!tokenResponse.ok) {
+        throw new Error('Failed to get ProKerala token');
+      }
+
+      const tokenData = await tokenResponse.json();
+      const accessToken = tokenData.access_token;
+
+      // Prepare birth date and coordinates
+      const birthDate = new Date(`${dob}T${time}:00`);
+      const coordinates = `${lat},${lng}`;
+      
+      const apiParams = new URLSearchParams({
+        'ayanamsa': '1',
+        'coordinates': coordinates,
+        'datetime': birthDate.toISOString()
+      });
+
+      // Call ProKerala Kundali API
+      const kundaliResponse = await fetch(`https://api.prokerala.com/v2/astrology/kundli/advanced?${apiParams}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'User-Agent': 'WitchCard/1.0'
+        }
+      });
+
+      if (!kundaliResponse.ok) {
+        throw new Error('ProKerala API request failed');
+      }
+
+      const kundaliResult = await kundaliResponse.json();
+
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          data: {
+            name: name,
+            birth_details: {
+              date: dob,
+              time: time,
+              place: place,
+              coordinates: coordinates
+            },
+            chart_data: kundaliResult.data || {},
+            planetary_positions: kundaliResult.data?.planets || {},
+            houses: kundaliResult.data?.houses || {},
+            timestamp: new Date().toISOString(),
+            source: 'ProKerala Vedic Astrology API'
+          }
+        })
+      };
+    } catch (error) {
+      console.error('Kundali generation error:', error);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({
+          success: false,
+          error: 'Failed to generate kundali'
+        })
+      };
+    }
+  }
+};
