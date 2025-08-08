@@ -969,92 +969,108 @@
                 };
             }
 
-            calculateKundali(data) {
-                /*
-                 * PLACEHOLDER ASTRONOMICAL CALCULATIONS
-                 * ====================================
-                 * 
-                 * PRODUCTION TODO:
-                 * - Replace with Swiss Ephemeris library (swisseph) for accurate planetary positions
-                 * - Use libraries like 'astronomia' or 'celestial-mechanics' for JavaScript
-                 * - Consider server-side calculations with PHP/Python Swiss Ephemeris bindings
-                 * - Add proper sidereal calculations for Vedic astrology
-                 * 
-                 * Current implementation uses simplified placeholder calculations
-                 */
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Know Your Kundali - WitchCard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="kundali-page">
+<header class="header">
+  <div class="container">
+    <div class="nav-brand"><div class="site-title">WitchCard</div></div>
+  </div>
+</header>
+<main class="kundali-container">
+  <section class="kundali-header">
+    <h1>Know Your Kundali</h1>
+    <p>Generate your authentic Vedic birth chart using real planetary positions</p>
+  </section>
 
-                const birthDate = new Date(data.dob + 'T' + data.time);
-                const julianDay = this.dateToJulianDay(birthDate);
-                
-                // Placeholder planetary positions (degrees in zodiac)
-                // PRODUCTION: Calculate actual positions using ephemeris
-                const planets = {
-                    Sun: (julianDay * 0.9856 + 280) % 360,
-                    Moon: (julianDay * 13.1764 + 134) % 360,
-                    Mars: (julianDay * 0.5240 + 355) % 360,
-                    Mercury: (julianDay * 4.0923 + 252) % 360,
-                    Jupiter: (julianDay * 0.0831 + 34) % 360,
-                    Venus: (julianDay * 1.6021 + 181) % 360,
-                    Saturn: (julianDay * 0.0334 + 49) % 360,
-                    Rahu: (julianDay * -0.0529 + 125) % 360,
-                    Ketu: (julianDay * -0.0529 + 305) % 360
-                };
+  <section class="kundali-form-section">
+    <form id="kundaliForm">
+      <label>Full Name*: <input type="text" id="fullName" required></label>
+      <label>Date of Birth*: <input type="date" id="dateOfBirth" required></label>
+      <label>Time of Birth: <input type="time" id="timeOfBirth"></label>
+      <label>Place of Birth*: <input type="text" id="placeOfBirth" required></label>
+      <input type="checkbox" id="consentCheckbox" required> I agree to Terms & Privacy
+      <button type="button" id="generateKundali">Generate My Kundali - ₹50</button>
+    </form>
+  </section>
 
-                // Calculate ascendant (simplified)
-                const localSiderealTime = this.calculateLST(julianDay, data.lng);
-                const ascendant = (localSiderealTime * 15 + data.lat * 0.5) % 360;
+  <section id="resultSection" style="display:none;">
+    <h2>Your Kundali Result</h2>
+    <div id="kundaliResult"></div>
+    <button id="downloadButton">Download PDF</button>
+    <button id="shareButton">Share on WhatsApp</button>
+  </section>
+</main>
 
-                // Determine zodiac signs
-                const zodiacSigns = [
-                    'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
-                    'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
-                ];
+<script>
+async function startKundaliProcess(){
+  const formData = {
+    name: document.getElementById("fullName").value.trim(),
+    dob: document.getElementById("dateOfBirth").value,
+    tob: document.getElementById("timeOfBirth").value || "12:00",
+    place: document.getElementById("placeOfBirth").value.trim()
+  };
+  if(!formData.name || !formData.dob || !formData.place){
+    alert("Please fill all required fields");
+    return;
+  }
 
-                const getSign = (degree) => zodiacSigns[Math.floor(degree / 30)];
+  // Step 1: Create order
+  let orderRes = await fetch("/.netlify/functions/kundli", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "create-order", amount: 50 })
+  });
+  let orderData = await orderRes.json();
+  if (!orderData.success) return alert("Order creation failed");
 
-                return {
-                    ascendant: {
-                        degree: ascendant,
-                        sign: getSign(ascendant)
-                    },
-                    planets: Object.keys(planets).map(planet => ({
-                        name: planet,
-                        degree: planets[planet],
-                        sign: getSign(planets[planet]),
-                        house: Math.floor(((planets[planet] - ascendant + 360) % 360) / 30) + 1
-                    })),
-                    houses: this.calculateHouses(ascendant),
-                    birthDetails: {
-                        date: data.dob,
-                        time: data.time,
-                        coordinates: `${data.lat.toFixed(4)}°N, ${data.lng.toFixed(4)}°E`
-                    }
-                };
-            }
+  // Step 2: Open Razorpay
+  var options = {
+    key: "YOUR_RAZORPAY_KEY_ID",
+    amount: orderData.order.amount,
+    currency: "INR",
+    name: "WitchCard Kundali",
+    description: "Kundali Report",
+    order_id: orderData.order.id,
+    handler: async function (response) {
+      // Step 3: Verify payment
+      let verifyRes = await fetch("/.netlify/functions/kundli", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "verify-payment",
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_signature: response.razorpay_signature
+        })
+      });
+      let verifyData = await verifyRes.json();
+      if (!verifyData.success) return alert("Payment verification failed");
 
-            dateToJulianDay(date) {
-                // Convert date to Julian Day Number (simplified)
-                return Math.floor(date.getTime() / 86400000) + 2440588;
-            }
+      // Step 4: Call Prokerala Kundli API via Netlify function
+      let kundaliRes = await fetch("/.netlify/functions/prokerala-kundli", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      let kundaliData = await kundaliRes.json();
+      document.getElementById("resultSection").style.display = "block";
+      document.getElementById("kundaliResult").textContent = JSON.stringify(kundaliData, null, 2);
+    }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.open();
+}
 
-            calculateLST(julianDay, longitude) {
-                // Local Sidereal Time calculation (simplified)
-                const gst = (18.697374558 + 24.06570982441908 * (julianDay - 2451545.0)) % 24;
-                return (gst + longitude / 15) % 24;
-            }
-
-            calculateHouses(ascendant) {
-                // Calculate 12 houses starting from ascendant
-                const houses = [];
-                for (let i = 0; i < 12; i++) {
-                    houses.push({
-                        number: i + 1,
-                        degree: (ascendant + i * 30) % 360,
-                        sign: Math.floor(((ascendant + i * 30) % 360) / 30)
-                    });
-                }
-                return houses;
-            }
 
             revealKundali() {
                 // Hide silver foil overlay with animation
